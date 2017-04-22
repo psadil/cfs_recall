@@ -1,0 +1,37 @@
+---
+title: "analyze_robots"
+author: "pss"
+date: "April 7, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(magrittr)
+library(Hmisc)
+
+```
+
+
+```{r loadData, echo=FALSE}
+dir_data <- "data"
+files <- list.files(pattern="*.csv", recursive=TRUE, path="data")
+d <- lapply(file.path("data",files) , read_csv) %>% 
+  bind_rows() %>%
+  mutate(subject=rep(0:5, each=150)) %>%
+  mutate(subject=factor(subject)) %>%
+  mutate(correctDirection=plyr::mapvalues(correctDirection
+                                          , from=1:2
+                                          , to=c("RightArrow","LeftArrow"))) %>%
+  mutate(correct=correctDirection==response) %>%
+  mutate(correctDirection=factor(correctDirection)) %>%
+  mutate(response=factor(response)) %>%
+  mutate(type = if_else(bothEyes==1, "Both",
+                        if_else(rightEye==1, "Right","Left"))) %>%
+  mutate(type=factor(type))
+
+```
+
+

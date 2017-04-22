@@ -1,0 +1,3 @@
+Sex, Female
+Ethnicity, Hispanic or Latino
+Race, American Indian/Alaska Native
