@@ -1,10 +1,10 @@
 function data = runOccularDominance( constants, window, responseHandler, mondrians )
 
-
 expParams = setupExpParams(input.debugLevel);
+tInfo = setupTInfo(expParams, input.debugLevel);
 
-data = setupDataTable(expParams, input, demographics);
-keys = setupKeys;
+data = setupDataTable(expParams, input, 'staircase');
+keys = setupKeys(occularDominance);
 arrows = makeArrowTexes(window);
 
 

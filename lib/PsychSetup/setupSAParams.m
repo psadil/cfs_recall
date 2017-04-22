@@ -15,5 +15,6 @@ sa.params.delta = 1.5; % initial amount by which to change maximum transparency
 
 sa.values.nShifts = NaN(expParams.nTrials,1);
 sa.values.Yn = NaN(expParams.nTrials,1);
+sa.values.trial = 1;
 
 end

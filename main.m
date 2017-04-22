@@ -18,9 +18,7 @@ if exit_stat==1
     windowCleanup(constants);
     return
 end
-demographics = getDemographics(constants);
-
-%% assess occular dominance
+getAndSaveDemographics(constants);
 
 try
     PsychDefaultSetup(2);
@@ -31,30 +29,27 @@ try
     ListenChar(-1);
     HideCursor;
     
-    data = runOccularDominance(constants, window, responseHandler, mondrians);
-    
+    %% assess occular dominance
+    data = runOccularDominance(input, constants, window, responseHandler, mondrians);
+    domEye = checkOccularDominanceData(data);
     % save data
     writetable(data, [constants.fName, '.csv']);
     
     %% calibrate appropriate contrast for this participant
-    data = runStaircase(constants);
-    
+    [data, sa] = runStaircase(input, constants, window, responseHandler, mondrians, domEye);
     % save data
     writetable(data, [constants.fName, '.csv']);
     
     %% run main experiment
-    data = runCFSRecall(constants);
-    
+    data = runCFSRecall(input, constants, window, responseHandler, mondrians, domEye, sa);    
     % save data
     writetable(data, [constants.fName, '.csv']);
     
 catch
     psychrethrow(psychlasterror);
     windowCleanup(constants)
-    
 end
 
 
 end
-
 
