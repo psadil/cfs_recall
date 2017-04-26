@@ -1,13 +1,10 @@
-function [roboRT, meanRT] = setupRobotResponses(transparency, sa, expParams, jitter, tType )
+function [roboRT, meanRT] = setupRobotResponses(transparency, sa, tType )
 %setupRobotResponses Summary of this function goes here
 % NOTE: best resolution of roboResps will be in mondrianHertz.
 
 
 
 switch tType
-    case 'NULL'
-        roboRT = 0;
-        meanRT = NaN;
     case 'CFS'
         meanRT = getMeanRT(transparency, sa.params.R, sa.params.K, sa.params.beta);
         wblParams = weibullParams(meanRT, 1);
@@ -17,6 +14,9 @@ switch tType
         %
         %                 % incorporate knowledge of jitter in roboRT
         %                 roboRT = roboRT_raw + jitter;
+    otherwise
+        roboRT = 0;
+        meanRT = NaN;
 end
 
 end

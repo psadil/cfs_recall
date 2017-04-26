@@ -75,7 +75,7 @@ end
             rob.keyRelease(java.awt.event.KeyEvent.VK_SPACE);
             n = 1;
         elseif n <= length(answer)
-            WaitSecs(delay/10);
+            WaitSecs(1/10);
             eval([ 'rob.keyPress(java.awt.event.KeyEvent.VK_', upper(answer(n)), ');' ]);
             eval([ 'rob.keyRelease(java.awt.event.KeyEvent.VK_', upper(answer(n)), ');' ]);
             n = n + 1;

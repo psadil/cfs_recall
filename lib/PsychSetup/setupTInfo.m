@@ -6,11 +6,13 @@ nTicks = expParams.nTicks + 1;
 
 tInfo = table;
 tInfo.trial = repelem(1:expParams.nTrials, nTicks)';
-tInfo.tick = repmat(1:nTicks, [1,expParams.nTrials])';
+tInfo.tick = repmat(1:nTicks, [expParams.nStudyReps, expParams.nTrials])';
 switch debugLevel
     otherwise
-        tInfo.vbl = NaN(expParams.nTrials*nTicks,1);
-        tInfo.missed = NaN(expParams.nTrials*nTicks,1);
+        tInfo.vbl = NaN(expParams.nTrials*nTicks,expParams.nStudyReps);
+        tInfo.missed = NaN(expParams.nTrials*nTicks,expParams.nStudyReps);
 end
+
+
 
 end

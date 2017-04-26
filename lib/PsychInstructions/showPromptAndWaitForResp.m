@@ -1,22 +1,5 @@
 function [] = showPromptAndWaitForResp(window, prompt, keys,constants,responseHandler, varargin)
 
-if nargin > 2
-    vbl = varargin{1};
-else
-    vbl = Screen('Flip', window.pointer);
-end
-
-drawFixation(window);
-vbl = Screen('Flip', window.pointer, vbl + window.ifi/2 );
-WaitSecs(dur);
-drawFixation(window);
-Screen('Flip', window.pointer, vbl + window.ifi/2);
-
-end
-
-%%
-function [] = showPromptAndWaitForResp(window, prompt, keys,constants,responseHandler, varargin)
-
 if nargin > 5
     vbl = varargin{1};
 else
@@ -34,5 +17,5 @@ Screen('DrawingFinished',window.pointer);
 Screen('Flip', window.pointer, vbl + window.ifi/2 );
 waitForEnter(keys,constants,responseHandler);
 
-
 end
+

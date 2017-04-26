@@ -22,11 +22,11 @@ end
 subjectValidator = makeSubjectDataChecker(constants.savePath, input.debugLevel);
 
 %% -------- GUI input option ----------------------------------------------------
-expose = {'subject', 'dominantEye'}; % list of arguments to be exposed to the gui
+expose = {'subject'}; % list of arguments to be exposed to the gui
 if any(ismember(defaults, expose))
     % call gui for input
-    guiInput = getSubjectInfo('subject', struct('title', 'Subject Number', 'type', 'textinput', 'validationFcn', subjectValidator), ...
-        'dominantEye', struct('title' ,'Dominant Eye', 'type', 'dropdown', 'values', {{'Right','Left'}}));
+    guiInput = getSubjectInfo('subject',...
+        struct('title', 'Subject Number', 'type', 'textinput', 'validationFcn', subjectValidator));
     if isempty(guiInput)
         exit_stat = 1;
         return

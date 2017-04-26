@@ -1,59 +1,68 @@
-function data = runStaircase( input, constants, window, responseHandler, mondrians, domEye )
+function [data, tInfo, expParams, input, sa] =...
+    runStaircase( input, constants, window, responseHandler, mondrians, domEye )
 
-
+expt = 'staircase';
 %%
-expParams = setupExpParams(input.debugLevel, 'staircase');
+expParams = setupExpParams(120, input.debugLevel, expt);
 tInfo = setupTInfo(expParams, input.debugLevel);
-sa = setupSAParams(input.debugLevel);
+sa = setupSAParams(expParams, expt, struct);
 
-data = setupDataTable(expParams, input, domEye, 'staircase');
-keys = setupKeys('staircase');
+data = setupDataTable(expParams, input, expt, domEye);
+keys = setupKeys(expt);
 
 %% main experimental loop
-giveInstruction(window, keys, responseHandler, constants, 'staircase');
-
+giveInstruction(window, keys, responseHandler, constants, expt, expParams);
+rep = 1;
 for trial = 1:expParams.nTrials
     
-    [data.transparency(trial), sa.values.trial] =...
-        wrapper_SA(data, trial, sa, sa.values.trial, expParams);
-    [data.RoboRT(trial), data.meanRoboRT(trial)] = ...
-        setupRobotResponses(data.transparency(trial),...
-        sa, expParams, data.jitter(trial), data.tType{trial});
+    [data.transparency{trial,rep}, sa] =...
+        wrapper_SA(data, trial, sa, expParams);
+    [data.RoboRT{trial,rep}, data.meanRoboRT{trial,rep}] = ...
+        setupRobotResponses(data.transparency{trial,rep},...
+        sa, data.tType{trial});
     
     % make texture for this trial (function is setup to hopefully handle
     % creation of many textures if graphics card could handle that
-    stims = makeTexs(data.item(trial), window);
+    stims = makeTexs(data.item(trial), window, 'staircase');
     
     % function that presents stim and collects response
-    [data.response(trial), data.rt(trial),...
-        data.tStart(trial), data.tEnd(trial),...
+    [data.response(trial,rep), data.rt{trial,rep},...
+        data.tStart{trial,rep}, data.tEnd{trial,rep},...
         tInfo.vbl(tInfo.trial==trial), tInfo.missed(tInfo.trial==trial),...
-        data.exitFlag(trial)] = ...
+        data.exitFlag(trial,rep)] = ...
         elicitBCFS(window, responseHandler,...
         stims.tex, data.eyes{trial},...
-        keys, mondrians, expParams, constants, data.RoboRT(trial),...
-        data.transparency(trial), data.jitter(trial));
+        (keys.enter+keys.escape+keys.space), mondrians, expParams,...
+        constants, data.RoboRT{trial,rep},...
+        data.transparency{trial,rep}, data.jitter{trial,rep}, '\ENTER', expt, domEye);
     Screen('Close', stims.tex);
     % handle exitFlag, based on responses given
-    switch data.exitFlag{trial}
+    switch data.exitFlag{trial,rep}
         case 'ESCAPE'
-            break;
+            return;
         case 'CAUGHT'
             showPromptAndWaitForResp(window, 'Please only hit ENTER when an image is present!',...
                 keys, constants, responseHandler);
         case 'SPACE'
-            if strcmp(data.tType{trial},'NULL')
+            if strcmp(data.tType(trial),'CATCH')
                 showPromptAndWaitForResp(window, 'Correct! No object was going to appear.',...
                     keys, constants, responseHandler);
-            elseif strcmp(data.tType{trial},'CFS')
+            elseif strcmp(data.tType(trial),'CFS')
+                sa.results.exitFlag(sa.values.trial-1) = data.exitFlag(trial,rep);
                 showPromptAndWaitForResp(window, 'Incorrect! An object was appearing.',...
                     keys, constants, responseHandler);
             end
         case 'OK'
-            if strcmp(data.response{trial},'Return')
-                [data.pas(trial),~,~] = getPAS(window, keys.pas, '2', constants, responseHandler);
-                showPromptAndWaitForResp(window, 'Correct! An object was appearing.',...
-                    keys, constants, responseHandler);
+            if strcmp(data.response(trial,rep),'Return')
+                [data.pas(trial,rep),~,~] = elicitPAS(window, keys.pas, '2', constants, responseHandler);
+                if strcmp(data.tType{trial},'CFS')
+                    sa.results.rt(sa.values.trial-1) = data.rt{trial,rep};
+                    showPromptAndWaitForResp(window, 'Correct! An object was appearing.',...
+                        keys, constants, responseHandler);
+                else
+                    showPromptAndWaitForResp(window, 'Incorrect! No object was going to appear.',...
+                        keys, constants, responseHandler);
+                end
             end
     end
     
@@ -69,8 +78,5 @@ for trial = 1:expParams.nTrials
     iti(window, expParams.iti);
 end
 
-
-% end of the experiment
-structureCleanup(constants, tInfo, expParams, input, sa);
 
 end

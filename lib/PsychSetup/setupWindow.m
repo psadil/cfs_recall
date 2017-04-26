@@ -3,7 +3,7 @@ function window = setupWindow(constants)
 window.screenNumber = max(Screen('Screens')); % Choose a monitor to display on
 window.res = Screen('Resolution',window.screenNumber,[],[],120); % get screen resolution, set refresh rate
 
-checkRefreshRate(window.hertz, 120, constants);
+checkRefreshRate(120, 120, constants);
 
 try
     %     Screen('Preference', 'ConserveVRAM', 4096);
@@ -19,8 +19,8 @@ try
     [window.pointer, window.winRect] = PsychImaging('OpenWindow',...
         window.screenNumber, window.bgColor, [], [], [], 1);
     Screen('BlendFunction', window.pointer, 'GL_SRC_ALPHA', 'GL_ONE_MINUS_SRC_ALPHA');
-    Priority(MaxPriority(window.pointer));
-%     Priority(1);
+    topPriorityLevel = MaxPriority(window.pointer);
+    Priority(topPriorityLevel);
     
     
     % define some landmark locations to be used throughout

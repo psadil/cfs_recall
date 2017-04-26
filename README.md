@@ -1,2 +1,3 @@
-# cfs_staircase
-test of staircase algorithm for calibrating transparency and/or contrast to a participant during cfs
+# cfs_recall
+
+Bringing together occular dominance, staircasing, and main recall experiment

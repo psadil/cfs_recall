@@ -3,6 +3,8 @@ function [  ] = kludgeStart( varargin )
 
 
 screenNumber=max(Screen('Screens'));
+window.res = Screen('Resolution',screenNumber,[],[],120); % get screen resolution, set refresh rate
+
 window = Screen('OpenWindow',screenNumber);
 
 % test refresh rate

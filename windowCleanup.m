@@ -5,7 +5,7 @@ function windowCleanup(constants)
 rmpath(constants.lib_dir, constants.root_dir);
 
 % return refresh rate
-window.res = Screen('Resolution',max(Screen('Screens')),[],[],60); 
+% window.res = Screen('Resolution',max(Screen('Screens')),[],[],60); 
 ListenChar(0);
 % Screen('ColorRange', p.window, 255);
 Priority(0);
