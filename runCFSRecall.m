@@ -49,9 +49,9 @@ for list = 1:expParams.nLists
                         keys, constants, responseHandler);
                     keys_response = keys.escape;
                 case {'CFS', 'NOT STUDIED'}
-                    showPromptAndWaitForResp(window, 'Press Enter if you see an object, or SPACE if you think none will appear',...
+                    showPromptAndWaitForResp(window, 'Press ''j'' if you see an object, or ''f'' if you think none will appear',...
                         keys, constants, responseHandler);
-                    keys_response = (keys.enter+keys.escape+keys.space);
+                    keys_response = keys.bcfs+keys.escape;
             end
             
             % function that presents stim and collects response
@@ -63,7 +63,7 @@ for list = 1:expParams.nLists
                 stims.tex, data.eyes{trial},...
                 keys_response, mondrians, expParams,...
                 constants, data.RoboRT{trial}(rep),...
-                data.transparency{trial}(rep), data.jitter{trial}(rep), '\ENTER', expt, domEye);
+                data.transparency{trial}(rep), data.jitter{trial}(rep), data.roboBCFS{trial}(rep), expt, domEye);
             Screen('Close', stims.tex);
             
             % handle exitFlag, based on responses given
@@ -71,9 +71,9 @@ for list = 1:expParams.nLists
                 case 'ESCAPE'
                     return;
                 case 'CAUGHT'
-                    showPromptAndWaitForResp(window, 'Please only hit ENTER when an image is present!',...
+                    showPromptAndWaitForResp(window, 'Please only hit J when an image is present!',...
                         keys, constants, responseHandler);
-                case 'SPACE'
+                case 'f'
                     switch data.tType{trial}
                         case {'CATCH', 'NOT STUDIED'}
                             showPromptAndWaitForResp(window, 'Correct! No object was going to appear.',...
@@ -83,8 +83,8 @@ for list = 1:expParams.nLists
                             showPromptAndWaitForResp(window, 'Incorrect! An object was appearing.',...
                                 keys, constants, responseHandler);
                     end
-                case 'OK'
-                    if strcmp(data.response{trial,rep},'Return')
+                case 'j'
+                    if strcmp(data.response{trial,rep},'j')
                         [data.pas(trial,rep),~,~] = elicitPAS(window, keys.pas, '2', constants, responseHandler);
                         if strcmp(data.tType{trial},'CFS')
                             sa.results.rt(sa.values.trial-1) = data.rt{trial}(rep);
@@ -123,21 +123,30 @@ for list = 1:expParams.nLists
         [data.response_cue(trial), data.rt_cue(trial),...
             data.tStart_cue(trial), data.tEnd_cue(trial),...
             data.exitFlag_cue(trial)] = elicitCueName(window, ...
-            responseHandler, stims.tex, keys, constants, '\ENTER');
+            responseHandler, stims.tex,...
+            (keys.enter+keys.escape+keys.name+keys.bkspace+keys.space),...
+            constants, '\ENTER');
         Screen('Close', stims.tex);
         
+        switch data.tType{trial}
+            case {'CFS', 'NOT STUDIED'}
+                showPromptAndWaitForResp(window, 'Press ''p'' for match, or ''q'' for mismatch',...
+                    keys, constants, responseHandler);
+                keys_response = keys.bcfs+keys.escape;
+        end
         iti(window, expParams.iti);
-        
+
         if strcmp(data.swap_test(trial), 'match')
             stims = makeTexs(data.item_test(trial), window, 'NOISE',data.pair_test(trial));
         else
             stims = makeTexs(data.pair_test(trial), window, 'NOISE',data.item_test(trial));
         end
+        
         [data.response_noise(trial), data.rt_noise(trial),...
             data.tStart_noise(trial), data.tEnd_noise(trial),...
             ~, ~,...
             data.exitFlag_noise(trial)] = elicitNoise(window, ...
-            responseHandler, stims.tex, keys, expParams,...
+            responseHandler, stims.tex, keys_response, expParams,...
             constants, data.RoboRT_noise{trial}, 1, data.jitter_noise(trial), data.mm_answer{trial}, noisetex);
         Screen('Close', stims.tex);
         % handle exitFlag, based on responses given
@@ -145,18 +154,18 @@ for list = 1:expParams.nLists
             case 'ESCAPE'
                 return;
             case 'CAUGHT'
-                showPromptAndWaitForResp(window, 'Please only hit ENTER when an image is present!',...
+                showPromptAndWaitForResp(window, 'Please only respond when an image is present!',...
                     keys, constants, responseHandler);
             case 'OK'
                 switch data.response_noise{trial}
-                    case 'q'
+                    case 'p'
                         switch data.swap_test{trial}
                             case 'match'
                                 prompt = 'Correct! The objects matched';
                             otherwise
                                 prompt = 'Incorrect! The objects were mismatched';
                         end
-                    case 'p'
+                    case 'q'
                         switch data.swap_test{trial}
                             case 'mismatch'
                                 prompt = 'Correct! The objects were mismatched';

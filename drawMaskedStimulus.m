@@ -23,7 +23,7 @@ for eye = 1:2
         2, window.white, window.center, 2);
     
     % prompt participant to respond
-    DrawFormattedText(window.pointer, prompt, 'center');
+    DrawFormattedText(window.pointer, prompt, 'center', window.winRect(4)*.8);
 end
 Screen('DrawingFinished',window.pointer);
 

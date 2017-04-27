@@ -8,7 +8,7 @@ exitFlag = {'OK'};
 
 slack = .5;
 % advance = 0;
-KbQueueCreate(constants.device, keys.enter+keys.escape+keys.name+keys.bkspace+keys.space);
+KbQueueCreate(constants.device, keys);
 drawFixation(window);
 vbl= Screen('Flip', window.pointer);
 firstFlip = 1;

@@ -25,6 +25,14 @@ for trial = 1:expParams.nTrials
     % creation of many textures if graphics card could handle that
     stims = makeTexs(data.item(trial), window, 'staircase');
     
+    switch data.tType{trial}
+        case {'CFS', 'NOT STUDIED'}
+            showPromptAndWaitForResp(window, 'Press ''j'' if you see an object, or ''f'' if you think none will appear',...
+                keys, constants, responseHandler);
+            keys_response = keys.bcfs+keys.escape;
+    end
+    
+    
     % function that presents stim and collects response
     [data.response(trial,rep), data.rt{trial,rep},...
         data.tStart{trial,rep}, data.tEnd{trial,rep},...
@@ -32,18 +40,18 @@ for trial = 1:expParams.nTrials
         data.exitFlag(trial,rep)] = ...
         elicitBCFS(window, responseHandler,...
         stims.tex, data.eyes{trial},...
-        (keys.enter+keys.escape+keys.space), mondrians, expParams,...
+        keys_response, mondrians, expParams,...
         constants, data.RoboRT{trial,rep},...
-        data.transparency{trial,rep}, data.jitter{trial,rep}, '\ENTER', expt, domEye);
+        data.transparency{trial,rep}, data.jitter{trial,rep}, data.roboBCFS{trial}, expt, domEye);
     Screen('Close', stims.tex);
     % handle exitFlag, based on responses given
     switch data.exitFlag{trial,rep}
         case 'ESCAPE'
             return;
         case 'CAUGHT'
-            showPromptAndWaitForResp(window, 'Please only hit ENTER when an image is present!',...
+            showPromptAndWaitForResp(window, 'Please only hit ''f'' when an image is present!',...
                 keys, constants, responseHandler);
-        case 'SPACE'
+        case 'f'
             if strcmp(data.tType(trial),'CATCH')
                 showPromptAndWaitForResp(window, 'Correct! No object was going to appear.',...
                     keys, constants, responseHandler);
@@ -52,8 +60,8 @@ for trial = 1:expParams.nTrials
                 showPromptAndWaitForResp(window, 'Incorrect! An object was appearing.',...
                     keys, constants, responseHandler);
             end
-        case 'OK'
-            if strcmp(data.response(trial,rep),'Return')
+        case 'j'
+            if strcmp(data.response(trial,rep),'j')
                 [data.pas(trial,rep),~,~] = elicitPAS(window, keys.pas, '2', constants, responseHandler);
                 if strcmp(data.tType{trial},'CFS')
                     sa.results.rt(sa.values.trial-1) = data.rt{trial,rep};

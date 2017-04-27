@@ -398,6 +398,7 @@ msg = '';
 % virtual key codes for escape keys
 spKeys = [{'\\'      KeyEvent.VK_BACK_SLASH
 		'\BACKSPACE'   KeyEvent.VK_BACK_SPACE
+        '\SPACE'       KeyEvent.VK_SPACE
 		'\TAB'         KeyEvent.VK_TAB
 		'\ENTER'       KeyEvent.VK_ENTER
 		'\SHIFT'       KeyEvent.VK_SHIFT

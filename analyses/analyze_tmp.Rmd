@@ -10,7 +10,6 @@ knitr::opts_chunk$set(echo = FALSE)
 
 library(tidyverse)
 library(magrittr)
-library(R.matlab)
 library(stringdist)
 library(Hmisc)
 
@@ -21,7 +20,7 @@ targets <- read_csv('objectNames_2afc.csv')
 
 out <- list()
 for (i in 1:dim(targets[1])){
-  out[i] = list(c(targets[i,]$name1,targets[i,]$name2,targets[i,]$name3,targets[i,]$name4,targets[i,]$name5,targets[i,]$name6,targets[i,]$name7,targets[i,]$name8,targets[i,]$name9,targets[i,]$name10))
+  out[i] = list(c(targets[i,]$name1, targets[i,]$name2, targets[i,]$name3, targets[i,]$name4, targets[i,]$name5, targets[i,]$name6, targets[i,]$name7, targets[i,]$name8, targets[i,]$name9, targets[i,]$name10))
 }
 
 
@@ -53,15 +52,16 @@ Subject...
 
 
 
-files <- Sys.glob(file.path("analyses","data","subject*","CFSRecall","*.csv"))
+files <- Sys.glob(file.path("data","subject*","CFSRecall","*.csv"))
 files <- files[2:length(files)]
 
 d <- lapply(files, read_csv, col_types=cols(pas_1=col_character(),pas_2=col_character())) %>% 
   bind_rows() %>%
-  select(subject,list,tType,item_test,pair_test,tType_test,swap_test,mm_answer,response_cue,response_noise,rt_noise) %>%
+  select(subject, pas_2, list, trial_test, tType, item_test, pair_test, tType_test, swap_test, mm_answer, response_cue, response_noise, rt_noise) %>%
   filter(subject!=3) %>%
   rename(condition = tType) %>%
   mutate(targets = out[item_test]) %>%
+  mutate(pas_2 = pas_2[trial_test]) %>%
   # mutate(targets = sapply(X=targets, FUN=function(x) unname(unlist(x)))) %>%
   mutate(firstTarget=sapply(X=targets, FUN=function(x) extract2(x,1))) %>%
   mutate(dl = Map(function(x,y) stringdist(x, y, method="dl"), targets, response_cue)) %>%
@@ -76,6 +76,21 @@ d <- lapply(files, read_csv, col_types=cols(pas_1=col_character(),pas_2=col_char
 
 ```
 
+```{r pas2}
+
+d %>%
+  filter(condition=="CFS, Image") %>%
+  ggplot(aes(x=condition, y=pas_2)) +
+  stat_summary(fun.data="mean_cl_boot") +
+  scale_y_continuous(limits = c(0,1), name = "pas_2") +
+  ggsave('name_accuracy_group.png') +
+  facet_grid(subject~.) +
+  ggsave('name_accuracy_sub.png')
+
+
+```
+
+
 ```{r naming}
 
 '%!in%' <- function(x,y)!('%in%'(x,y))
@@ -84,7 +99,10 @@ d %>%
   filter(subject %!in% c(2,3,4,5)) %>%
   ggplot(aes(x=condition, y=cue_correct)) +
   stat_summary(fun.data="mean_cl_boot") +
-  facet_grid(subject~.)
+  scale_y_continuous(limits = c(0,1), name = "Naming Accuracy") +
+  ggsave('name_accuracy_group.png') +
+  facet_grid(subject~.) +
+  ggsave('name_accuracy_sub.png')
 
 
 ```
@@ -95,7 +113,10 @@ d %>%
   # filter(subject %!in% c(2,3,4,5)) %>%
   ggplot(aes(x=condition, y=mmm_correct)) +
   stat_summary(fun.data="mean_cl_boot") +
-  facet_grid(subject~.)
+  scale_y_continuous(limits = c(0,1), name = "Match/Mismatch Accuracy") +
+  ggsave('mmm_accuracy_group.png') +
+  facet_grid(subject~.) +
+  ggsave('mmm_accuracy_sub.png')
 
 ```
 
@@ -104,10 +125,12 @@ d %>%
 d %>%
   # filter(subject %!in% c(2,3,4,5)) %>%
   ggplot(aes(x=condition, y=rt_noise, fill=condition)) +
-  scale_y_continuous(limits = c(0,12)) +
+  scale_y_continuous(limits = c(0,12), name = "Match/Mismatch RT") +
   scale_fill_manual(values=colmap, name= "Condition") +
   geom_violin() +
-  facet_grid(subject~.)
+  ggsave('mmm_rt_group.png') +
+  facet_grid(subject~.) +
+  ggsave('mmm_rt_sub.png')
 
 ```
 

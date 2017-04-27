@@ -25,7 +25,7 @@ alpha.noise = 1;
 
 alpha_stim = selectTexAlpha(alpha.tex, 1);
 
-KbQueueCreate(constants.device, keys.escape+keys.noise);
+KbQueueCreate(constants.device, keys);
 drawFixation(window);
 noise_contrast = selectContrast(alpha.noise, 1);
 [vbl(1), ~, ~, missed(1)] = Screen('Flip', window.pointer); % Display cue and prompt

@@ -13,8 +13,9 @@ data.tStart = repmat({repelem(NaN,expParams.nStudyReps)}, [expParams.nTrials,1])
 data.tEnd = repmat({repelem(NaN,expParams.nStudyReps)}, [expParams.nTrials,1]);
 data.exitFlag = repmat(repelem({'EMPTY'},expParams.nStudyReps), [expParams.nTrials,1]);
 
-% jitter = randi([0,expParams.mondrianHertz^-1 * 120],[expParams.nTrials,expParams.nStudyReps]);
-data.jitter = mat2cell(randi([0,expParams.mondrianHertz^-1 * 120],[expParams.nTrials,expParams.nStudyReps]),repelem(1,expParams.nTrials));
+% jitter is in ticks, which translates to the hertz of mondrians
+data.jitter = mat2cell(randi([0,expParams.mondrianHertz^-1 * 120],...
+    [expParams.nTrials,expParams.nStudyReps]),repelem(1,expParams.nTrials));
 
 data.response = ...
     repmat(repelem({[]},expParams.nStudyReps), [expParams.nTrials,1]);
@@ -39,8 +40,6 @@ switch expt
         data.eyePresent(data.tType==2 | data.tType==4) = {'left'};
         data.eyePresent(data.tType==1 | data.tType==3) = {'right'};
         
-        % jitter is in ticks, which translates to the hertz of mondrians
-%         data.jitter = {0};
         data.RoboRT = repmat({repelem(3,expParams.nStudyReps)}, [expParams.nTrials,1]);
         
     case 'staircase'
@@ -59,7 +58,8 @@ switch expt
         end
         
         % jitter is in ticks, which translates to the hertz of mondrians
-        data.jitter(strcmp(data.tType,'NOT STUDIED')) = {[0]};
+        data.jitter(strcmp(data.tType,'NOT STUDIED')) = {0};
+        
         
         data.transparency =...
             repmat({repelem(NaN,expParams.nStudyReps)}, [expParams.nTrials,1]);
@@ -69,6 +69,11 @@ switch expt
             repmat({repelem(NaN,expParams.nStudyReps)}, [expParams.nTrials,1]);
         data.meanRoboRT =...
             repmat({repelem(NaN,expParams.nStudyReps)}, [expParams.nTrials,1]);
+        
+        data.roboBCFS = ...
+            repmat(repelem({[]},expParams.nStudyReps), [expParams.nTrials,1]);
+        data.roboBCFS(strcmp(data.tType,'CFS')) = {'j'};
+        data.roboBCFS(strcmp(data.tType,'CATCH')) = {'f'};
         
     case 'CFSRecall'
         domEye = varargin{1};
@@ -127,9 +132,15 @@ switch expt
             data.swap_test(data.list==list) = data.swap(data.trial_test(data.list==list));
             data.name_test(data.list==list) = data.name(data.trial_test(data.list==list));
         end
+        data.roboBCFS = ...
+            repmat(repelem({[]},expParams.nStudyReps), [expParams.nTrials,1]);
+        data.roboBCFS(strcmp(data.tType,'CFS')) = {'j','j'};
+        data.roboBCFS(strcmp(data.tType,'NOT STUDIED')) = {'f','f'};
+        data.roboBCFS(strcmp(data.tType,'BINOCULAR')) = {'z','z'};
+        
         data.mm_answer = repelem({[]},expParams.nTrials)';
-        data.mm_answer(strcmp(data.swap_test,'match')) = {'q'};
-        data.mm_answer(strcmp(data.swap_test,'mismatch')) = {'p'};
+        data.mm_answer(strcmp(data.swap_test,'match')) = {'p'};
+        data.mm_answer(strcmp(data.swap_test,'mismatch')) = {'q'};
         
         data.eyes = repelem({[0,0]},expParams.nTrials)';
         data.eyes(strcmp(data.tType,{'BINOCULAR'})) = {[1,1]};

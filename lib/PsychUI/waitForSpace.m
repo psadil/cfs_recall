@@ -1,11 +1,11 @@
-function [] = waitForEnter(keys,constants,responseHandler)
+function [] = waitForSpace(keys,constants,responseHandler)
 
-KbQueueCreate(constants.device, keys.enter);
+KbQueueCreate(constants.device, keys.space);
 KbQueueStart(constants.device);
 
 while 1
     
-    [keys_pressed, ~] = responseHandler(constants.device, '\ENTER');
+    [keys_pressed, ~] = responseHandler(constants.device, '\SPACE');
     
     if ~isempty(keys_pressed)
         break;

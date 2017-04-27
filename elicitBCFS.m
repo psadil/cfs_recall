@@ -27,7 +27,7 @@ alpha.mondrian = [repelem(1,jitter), expParams.alpha.mondrian];
 
 roboRT = roboRT_preJitter + (jitter*(1/expParams.mondrianHertz));
 
-prompt = [];
+prompt = '[Press ''j'' if you see an object, or ''f'' if you think none will appear]';
 slack = .5;
 goRobo = 0;
 
@@ -74,10 +74,10 @@ KbQueueFlush(constants.device);
 KbQueueRelease(constants.device);
 tEnd = vbl(find(isnan(vbl)==0,1,'last'));
 
-if rt < jitter*(1/expParams.mondrianHertz) && ~strcmp(response,'space')
+if rt < jitter*(1/expParams.mondrianHertz) && ~strcmp(response,'NO RESPONSE')
     exitFlag = {'CAUGHT'};
-elseif strcmp(response,'space')
-    exitFlag = {'SPACE'};
+elseif strcmp(response,'f')
+    exitFlag = {'f'};
 end
 
 end
