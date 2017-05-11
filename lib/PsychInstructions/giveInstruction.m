@@ -65,7 +65,7 @@ switch expt
         
         stims = makeTexs(212, window, 'INSTRUCTION_CUE',215);
         
-        elicitCueName(window, responseHandler, stims.tex, keys, constants, '\ENTER');
+        elicitCueName(window, responseHandler, stims.tex, keys.enter+keys.escape+keys.name+keys.bkspace+keys.space, constants, '\ENTER');
         Screen('Close', stims.tex);
         
         showPromptAndWaitForResp(window, ['In that case, the correct answer would have been ''lightswitch''\n',...
@@ -82,7 +82,7 @@ switch expt
         res = repelem(noiseRect(3) - noiseRect(1),2);
         noisetex = CreateProceduralNoise(window.pointer, res(1), res(2), 'Perlin', [0.5 0.5 0.5 1]);
         stims = makeTexs(212, window, 'INSTRUCTION_NOISE',215);
-        elicitNoise(window, responseHandler, stims.tex, keys, expParams,...
+        elicitNoise(window, responseHandler, stims.tex, keys.mmm+keys.escape, expParams,...
             constants, 0, 1, 0, 'p', noisetex);
         Screen('Close', stims.tex);
         Screen('Close', noisetex);

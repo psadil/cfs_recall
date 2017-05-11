@@ -23,8 +23,8 @@ switch expt
         keys.enter(KbName({'return'})) = 1;
         keys.pas = codes;
         keys.pas(KbName({'0','1','2','3','0)','1!','2@','3#'})) = 1;
-        keys.noise = codes;
-        keys.noise(KbName({'q','p'})) = 1;
+        keys.mmm = codes;
+        keys.mmm(KbName({'q','p'})) = 1;
         keys.name = codes;
         keys.name(KbName({'a','b','c','d','e','f','g','h','i','j','k','l','m', ...
             'n','o','p','q','r','s','t','u','v','w','x','y','z'})) = 1;

@@ -4,7 +4,7 @@ function [data, tInfo, expParams, input, sa] =...
 expt = 'CFSRecall';
 
 expParams = setupExpParams(120, input.debugLevel, expt);
-tInfo = setupTInfo(expParams, input.debugLevel);
+tInfo = setupTInfo(expParams, input.debugLevel, expt);
 sa = setupSAParams(expParams, expt, sa);
 
 data = setupDataTable(expParams, input, expt, domEye);
@@ -48,53 +48,33 @@ for list = 1:expParams.nLists
                     showPromptAndWaitForResp(window, 'Please study the details of the following object',...
                         keys, constants, responseHandler);
                     keys_response = keys.escape;
+                    nTicks = expParams.nTicks_bino;
                 case {'CFS', 'NOT STUDIED'}
                     showPromptAndWaitForResp(window, 'Press ''j'' if you see an object, or ''f'' if you think none will appear',...
                         keys, constants, responseHandler);
-                    keys_response = keys.bcfs+keys.escape;
+                    keys_response = keys.bCFS+keys.escape;
+                    nTicks = expParams.nTicks;
             end
             
             % function that presents stim and collects response
             [data.response(trial,rep), data.rt{trial}(rep),...
                 data.tStart{trial}(rep), data.tEnd{trial}(rep),...
-                tInfo.vbl(tInfo.trial==trial), tInfo.missed(tInfo.trial==trial),...
+                ~, ~,...
                 data.exitFlag(trial,rep)] = ...
                 elicitBCFS(window, responseHandler,...
                 stims.tex, data.eyes{trial},...
                 keys_response, mondrians, expParams,...
                 constants, data.RoboRT{trial}(rep),...
-                data.transparency{trial}(rep), data.jitter{trial}(rep), data.roboBCFS{trial}(rep), expt, domEye);
+                data.transparency{trial}(rep), data.jitter{trial}(rep), data.roboBCFS{trial,rep}, ...
+                expt, domEye, nTicks);
             Screen('Close', stims.tex);
             
+            
             % handle exitFlag, based on responses given
-            switch data.exitFlag{trial,rep}
-                case 'ESCAPE'
-                    return;
-                case 'CAUGHT'
-                    showPromptAndWaitForResp(window, 'Please only hit J when an image is present!',...
-                        keys, constants, responseHandler);
-                case 'f'
-                    switch data.tType{trial}
-                        case {'CATCH', 'NOT STUDIED'}
-                            showPromptAndWaitForResp(window, 'Correct! No object was going to appear.',...
-                                keys, constants, responseHandler);
-                        case 'CFS'
-                            sa.results.exitFlag(sa.values.trial-1) = data.exitFlag(trial,rep);
-                            showPromptAndWaitForResp(window, 'Incorrect! An object was appearing.',...
-                                keys, constants, responseHandler);
-                    end
-                case 'j'
-                    if strcmp(data.response{trial,rep},'j')
-                        [data.pas(trial,rep),~,~] = elicitPAS(window, keys.pas, '2', constants, responseHandler);
-                        if strcmp(data.tType{trial},'CFS')
-                            sa.results.rt(sa.values.trial-1) = data.rt{trial}(rep);
-                            showPromptAndWaitForResp(window, 'Correct! An object was appearing.',...
-                                keys, constants, responseHandler);
-                        else
-                            showPromptAndWaitForResp(window, 'Incorrect! No object was going to appear.',...
-                                keys, constants, responseHandler);
-                        end
-                    end
+            [data.pas(trial,rep), sa, esc] = wrapper_bCFS_exitFlag(data.exitFlag{trial,rep}, data.tType{trial}, data.rt{trial}(rep),...
+                data.response{trial,rep}, sa, window, keys, constants, responseHandler);
+            if esc
+                return;
             end
             
             % inter-trial-interval
@@ -119,28 +99,24 @@ for list = 1:expParams.nLists
         trial = item + (expParams.nTrialsPerList*(list-1));
         
         stims = makeTexs(data.item_test(trial), window, 'NAME',data.pair_test(trial));
-        
+        keys_response = keys.enter+keys.escape+keys.name+keys.bkspace+keys.space;
         [data.response_cue(trial), data.rt_cue(trial),...
             data.tStart_cue(trial), data.tEnd_cue(trial),...
             data.exitFlag_cue(trial)] = elicitCueName(window, ...
             responseHandler, stims.tex,...
-            (keys.enter+keys.escape+keys.name+keys.bkspace+keys.space),...
-            constants, '\ENTER');
+            keys_response, constants, '\ENTER');
         Screen('Close', stims.tex);
         
-        switch data.tType{trial}
-            case {'CFS', 'NOT STUDIED'}
-                showPromptAndWaitForResp(window, 'Press ''p'' for match, or ''q'' for mismatch',...
-                    keys, constants, responseHandler);
-                keys_response = keys.bcfs+keys.escape;
-        end
-        iti(window, expParams.iti);
-
+        showPromptAndWaitForResp(window, 'Press ''p'' for match, or ''q'' for mismatch',...
+            keys, constants, responseHandler);
+        
         if strcmp(data.swap_test(trial), 'match')
             stims = makeTexs(data.item_test(trial), window, 'NOISE',data.pair_test(trial));
         else
             stims = makeTexs(data.pair_test(trial), window, 'NOISE',data.item_test(trial));
         end
+        keys_response = keys.mmm+keys.escape;
+        iti(window, expParams.iti);
         
         [data.response_noise(trial), data.rt_noise(trial),...
             data.tStart_noise(trial), data.tEnd_noise(trial),...

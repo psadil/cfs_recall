@@ -88,7 +88,7 @@ for eye = 1:2
         2, window.white, window.center, 2);
      
     % prompt participant to respond
-    DrawFormattedText(window.pointer, 'Match (q) or Mismatch (p)?', ...
+    DrawFormattedText(window.pointer, 'Match (p) or Mismatch (q)?', ...
         'center', window.winRect(4)*.8);
     
 end

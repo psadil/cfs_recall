@@ -29,20 +29,22 @@ switch expt
         expParams.nStudyReps = 1;
         
     case 'CFSRecall'
-        expParams.nStudyReps = 2;
         expParams.noiseHertz = refreshRate/10;
         expParams.alpha.mondrian = 1;
         
         switch debugLevel
             case 0
-                expParams.maxCFS = 4;
+                expParams.maxCFS = 30;
+                expParams.maxCFS_bino = 4;
+                expParams.nTicks_bino = ceil(expParams.maxCFS_bino * expParams.mondrianHertz);
+                
                 expParams.maxCFS_noise = 10;
-                expParams.nTrials = 96; %208 objects in total
+                expParams.nTrials = 96-12; 
                 expParams.nLists = expParams.nTrials/12;
                 expParams.nStudyReps = 2;
             case 1
-                expParams.maxCFS = 4;
-                expParams.maxCFS_noise = 10;
+                expParams.maxCFS = 30;
+                expParams.maxCFS_noise = 5;
                 expParams.nTrials = 6;
                 expParams.nLists = 2;
                 expParams.nStudyReps = 2;

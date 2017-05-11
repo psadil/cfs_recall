@@ -58,7 +58,7 @@ switch expt
         end
         
         % jitter is in ticks, which translates to the hertz of mondrians
-        data.jitter(strcmp(data.tType,'NOT STUDIED')) = {0};
+        data.jitter(strcmp(data.tType,'CATCH')) = {1};
         
         
         data.transparency =...
@@ -134,9 +134,9 @@ switch expt
         end
         data.roboBCFS = ...
             repmat(repelem({[]},expParams.nStudyReps), [expParams.nTrials,1]);
-        data.roboBCFS(strcmp(data.tType,'CFS')) = {'j','j'};
-        data.roboBCFS(strcmp(data.tType,'NOT STUDIED')) = {'f','f'};
-        data.roboBCFS(strcmp(data.tType,'BINOCULAR')) = {'z','z'};
+        data.roboBCFS(strcmp(data.tType,'CFS'),:) = repmat({'j'},[expParams.nTrials/3,expParams.nStudyReps]);
+        data.roboBCFS(strcmp(data.tType,'NOT STUDIED'),:) = repmat({'f'},[expParams.nTrials/3,expParams.nStudyReps]);
+        data.roboBCFS(strcmp(data.tType,'BINOCULAR'),:) = repmat({'z'},[expParams.nTrials/3,expParams.nStudyReps]);
         
         data.mm_answer = repelem({[]},expParams.nTrials)';
         data.mm_answer(strcmp(data.swap_test,'match')) = {'p'};

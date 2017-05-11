@@ -1,8 +1,13 @@
-function tInfo = setupTInfo( expParams, debugLevel )
+function tInfo = setupTInfo( expParams, debugLevel, expt )
 %setupDebug setup values specific to debug levels
 
 % first tick is always initial empty flip
-nTicks = expParams.nTicks + 1;
+switch expt
+    case 'CFSRecall'
+        nTicks = expParams.nTicks_bino + 1;
+    otherwise
+        nTicks = expParams.nTicks + 1;
+end
 
 tInfo = table;
 tInfo.trial = repelem(1:expParams.nTrials, nTicks)';

@@ -3,7 +3,7 @@ expt = 'occularDominance';
 
 
 expParams = setupExpParams(120, input.debugLevel, expt);
-tInfo = setupTInfo(expParams, input.debugLevel);
+tInfo = setupTInfo(expParams, input.debugLevel, expt);
 
 data = setupDataTable(expParams, input, expt);
 keys = setupKeys(expt);
@@ -31,15 +31,15 @@ for trial = 1:expParams.nTrials
         (keys.escape+keys.arrows), mondrians, expParams,...
         constants, data.RoboRT{trial,rep},...
         expParams.maxAlpha, data.jitter{trial,rep}, data.correctDirection{trial},...
-        expt, maskEye);
+        expt, maskEye, expParams.nTicks);
     
     
     switch data.exitFlag{trial,rep}
         case 'ESCAPE'
             return;
-        case 'CAUGHT'
-            showPromptAndWaitForResp(window, 'Please only respond when an image is present!',...
-                keys, constants, responseHandler);
+%         case 'CAUGHT'
+%             showPromptAndWaitForResp(window, 'Please only respond when an image is present!',...
+%                 keys, constants, responseHandler);
         otherwise
             switch data.response{trial,rep}
                 case 'RightArrow'

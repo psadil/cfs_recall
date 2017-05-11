@@ -1,4 +1,4 @@
-function Xn1 = SA( X, trial, latency, sa, expParams)
+function [sa, Xn1] = SA( X, trial, latency, sa, expParams)
 %SA Stochastic Adaptation algorithm for updating value
 
 sa.values.Yn(trial) = Yn(latency, sa.params.tau);

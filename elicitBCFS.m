@@ -1,15 +1,15 @@
 function [ response, rt, tStart, tEnd, vbl, missed, exitFlag ] =...
     elicitBCFS( window, responseHandler, tex, eyes,...
     keys, mondrians, expParams, constants,...
-    roboRT_preJitter, maxAlpha, jitter, answer, expt, maskEye )
+    roboRT_preJitter, maxAlpha, jitter, answer, expt, maskEye, nTicks )
 %collectResponses Show arrow until participant makes response, and collect
 %that response
 response = {'NO RESPONSE'};
 rt = NaN;
 exitFlag = {'OK'};
 tStart = NaN;
-vbl = NaN(expParams.nTicks+1,1);
-missed = NaN(expParams.nTicks+1,1);
+vbl = NaN(nTicks+1,1);
+missed = NaN(nTicks+1,1);
 
 switch expt
     case 'occularDominance'
@@ -27,7 +27,7 @@ alpha.mondrian = [repelem(1,jitter), expParams.alpha.mondrian];
 
 roboRT = roboRT_preJitter + (jitter*(1/expParams.mondrianHertz));
 
-prompt = '[Press ''j'' if you see an object, or ''f'' if you think none will appear]';
+prompt = [];
 slack = .5;
 goRobo = 0;
 
@@ -37,7 +37,7 @@ alpha_stim = selectTexAlpha(alpha.tex, 1);
 drawFixation(window);
 % Screen('PreloadTextures',window.pointer,tex);
 [vbl(1), ~, ~, missed(1)] = Screen('Flip', window.pointer); % Display cue and prompt
-for tick = 0:(expParams.nTicks-1)
+for tick = 0:(nTicks-1)
     
     % for each tick, pick out one of the mondrians to draw
     drawMaskedStimulus(window, prompt, eyes,...
@@ -48,8 +48,8 @@ for tick = 0:(expParams.nTicks-1)
     % flip only in sync with mondrian presentation rate
     [vbl(tick+2), ~, ~, missed(tick+2)] =...
         Screen('Flip', window.pointer, vbl(tick+1) + (expParams.mondrianHertz-slack)*window.ifi );
-    if tick == 0
-        tStart = vbl(2);
+    if tick == jitter+1
+        tStart = vbl(tick+2);
         KbQueueStart(constants.device);
     end
     if (vbl(tick+2) - tStart) > roboRT
@@ -74,10 +74,10 @@ KbQueueFlush(constants.device);
 KbQueueRelease(constants.device);
 tEnd = vbl(find(isnan(vbl)==0,1,'last'));
 
-if rt < jitter*(1/expParams.mondrianHertz) && ~strcmp(response,'NO RESPONSE')
-    exitFlag = {'CAUGHT'};
-elseif strcmp(response,'f')
-    exitFlag = {'f'};
+if strcmp(response,'ESCAPE')
+    exitFlag = {'ESCAPE'};
+% elseif rt < jitter*(1/expParams.mondrianHertz) && ~strcmp(response,'NO RESPONSE')
+%     exitFlag = {'CAUGHT'};
 end
 
 end

@@ -16,11 +16,11 @@ switch data.tType{trial}
     case 'CFS'
         if sa.values.trial == 1
             transparency = sa.params.x1;
-        elseif strcmp(sa.results.exitFlag(sa.values.trial-1), 'SPACE')
+        elseif strcmp(sa.results.exitFlag(sa.values.trial-1), 'NOSEE_ON_CFS')
             transparency = sa.results.transparency(sa.values.trial-1);
             sa.values.trial = sa.values.trial - 1;
         else
-            transparency_log = ...
+            [sa, transparency_log] = ...
                 SA(log(sa.results.transparency(sa.values.trial-1)),...
                 sa.values.trial, sa.results.rt(sa.values.trial-1), sa);
             % need to convert transparency scale

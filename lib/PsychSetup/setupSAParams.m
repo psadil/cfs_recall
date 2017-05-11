@@ -25,11 +25,16 @@ switch expt
         sa.results.rt = NaN(expParams.nTrials,1);
         
     case 'CFSRecall'
+        sa.values.nShifts(isnan(sa.values.nShifts)) = [];
         sa.values.nShifts = [sa.values.nShifts; NaN(expParams.nTrials*expParams.nStudyReps,1)];
+        sa.values.Yn(isnan(sa.values.Yn)) = [];
         sa.values.Yn = [sa.values.Yn; NaN(expParams.nTrials*expParams.nStudyReps,1)];
         
+        sa.results.rt(isnan(sa.results.rt)) = [];
         sa.results.rt = [sa.results.rt; NaN(expParams.nTrials*expParams.nStudyReps,1)];
+        sa.results.exitFlag(isempty(sa.results.exitFlag)) = [];
         sa.results.exitFlag = [sa.results.exitFlag; cell(expParams.nTrials,1)];
+        sa.results.transparency(isnan(sa.results.transparency)) = [];
         sa.results.transparency = [sa.results.transparency; NaN(expParams.nTrials*expParams.nStudyReps,1)];
 end
 
