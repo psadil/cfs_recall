@@ -37,11 +37,15 @@ wholesFile = arrayfun(@(x)...
     pairs.pair1, 'UniformOutput',false);
 [wholes_img, ~, wholes_alpha] = cellfun(@(x) imread(fullfile(wholesDir,x.name)), wholesFile, 'UniformOutput',false);
 
-bullet1 = cellfun(@(x,y,z) x.*y.*z, wholes_img, alpha1_inv, alpha1_inv(pairs.pair2), 'UniformOutput',false);
-bullet2 = cellfun(@(x,y,z) x.*y.*z, wholes_img, alpha2_inv, alpha2_inv(pairs.pair2), 'UniformOutput',false);
-bullet3 = cellfun(@(x,y,z) x.*y.*z, wholes_img, alpha3_inv, alpha3_inv(pairs.pair2), 'UniformOutput',false);
+bullet1 = cellfun(@(x,y) x.*y, wholes_img, alpha1_inv, 'UniformOutput',false);
+alpha1_out = cellfun(@(x,y) x.*y, wholes_alpha, alpha1_inv, 'UniformOutput',false);
 
-alpha1_out = cellfun(@(x,y,z) x.*y.*z, wholes_alpha, alpha1_inv, alpha1_inv(pairs.pair2), 'UniformOutput',false);
+
+% bullet1 = cellfun(@(x,y,z) x.*y.*z, wholes_img, alpha1_inv, alpha1_inv(pairs.pair2), 'UniformOutput',false);
+% bullet2 = cellfun(@(x,y,z) x.*y.*z, wholes_img, alpha2_inv, alpha2_inv(pairs.pair2), 'UniformOutput',false);
+% bullet3 = cellfun(@(x,y,z) x.*y.*z, wholes_img, alpha3_inv, alpha3_inv(pairs.pair2), 'UniformOutput',false);
+
+% alpha1_out = cellfun(@(x,y,z) x.*y.*z, wholes_alpha, alpha1_inv, alpha1_inv(pairs.pair2), 'UniformOutput',false);
 alpha2_out = cellfun(@(x,y,z) x.*y.*z, wholes_alpha, alpha2_inv, alpha2_inv(pairs.pair2), 'UniformOutput',false);
 alpha3_out = cellfun(@(x,y,z) x.*y.*z, wholes_alpha, alpha3_inv, alpha3_inv(pairs.pair2), 'UniformOutput',false);
 
