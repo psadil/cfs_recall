@@ -24,21 +24,21 @@ data.rt = repmat({repelem(NaN,expParams.nStudyReps)}, [expParams.nTrials,1]);
 switch expt
     case 'occularDominance'
         % jitter is in ticks, which translates to the hertz of mondrians
-        data.tType = Shuffle(repelem(1:4,expParams.nTrials/4))';
+        data.tType_study = Shuffle(repelem(1:4,expParams.nTrials/4))';
         
         % arrow points left(1) and right(2) on half of all trials
         data.correctDirection = cell(expParams.nTrials,1);
-        data.correctDirection(data.tType == 1 | data.tType==2) = {'\LEFT'};
-        data.correctDirection(data.tType == 3 | data.tType==4) = {'\RIGHT'};
+        data.correctDirection(data.tType_study == 1 | data.tType_study==2) = {'\LEFT'};
+        data.correctDirection(data.tType_study == 3 | data.tType_study==4) = {'\RIGHT'};
         
         % arrow shown to left eye only (codes 2,4) or right eye (1,3)
         data.eyes = repelem({[0,0]},expParams.nTrials)';
-        data.eyes(data.tType==2 | data.tType==4) = {[1,0]};
-        data.eyes(data.tType==1 | data.tType==3) = {[0,1]};
+        data.eyes(data.tType_study==2 | data.tType_study==4) = {[1,0]};
+        data.eyes(data.tType_study==1 | data.tType_study==3) = {[0,1]};
         
         data.eyePresent = repelem({''},expParams.nTrials)';
-        data.eyePresent(data.tType==2 | data.tType==4) = {'left'};
-        data.eyePresent(data.tType==1 | data.tType==3) = {'right'};
+        data.eyePresent(data.tType_study==2 | data.tType_study==4) = {'left'};
+        data.eyePresent(data.tType_study==1 | data.tType_study==3) = {'right'};
         
         data.RoboRT = repmat({repelem(3,expParams.nStudyReps)}, [expParams.nTrials,1]);
         
@@ -47,18 +47,18 @@ switch expt
         data.item = randperm(expParams.nTrials)';
         
         % trial type key
-        data.tType = Shuffle([repelem({'CFS'},expParams.nTrials*(4/5)),...
+        data.tType_study = Shuffle([repelem({'CFS'},expParams.nTrials*(4/5)),...
             repelem({'CATCH'},expParams.nTrials*(1/5))])';
         
         data.eyes = repelem({[0,0]},expParams.nTrials)';
         if strcmp(domEye, {'Right'})
-            data.eyes(strcmp(data.tType,{'CFS'})) = {[1,0]};
+            data.eyes(strcmp(data.tType_study,{'CFS'})) = {[1,0]};
         else
-            data.eyes(strcmp(data.tType,{'CFS'})) = {[0,1]};
+            data.eyes(strcmp(data.tType_study,{'CFS'})) = {[0,1]};
         end
         
         % jitter is in ticks, which translates to the hertz of mondrians
-        data.jitter(strcmp(data.tType,'CATCH')) = {1};
+        data.jitter(strcmp(data.tType_study,'CATCH')) = {1};
         
         
         data.transparency =...
@@ -72,8 +72,8 @@ switch expt
         
         data.roboBCFS = ...
             repmat(repelem({[]},expParams.nStudyReps), [expParams.nTrials,1]);
-        data.roboBCFS(strcmp(data.tType,'CFS')) = {'j'};
-        data.roboBCFS(strcmp(data.tType,'CATCH')) = {'f'};
+        data.roboBCFS(strcmp(data.tType_study,'CFS')) = {'j'};
+        data.roboBCFS(strcmp(data.tType_study,'CATCH')) = {'f'};
         
     case 'CFSRecall'
         domEye = varargin{1};
@@ -118,9 +118,9 @@ switch expt
         data.name_test = repelem({[]},expParams.nTrials)';
         for list = 1:expParams.nLists
             data.tType(data.list==list) = Shuffle([repelem({'CFS'},expParams.nTrialsPerList*(1/3)),...
-                repelem({'BINOCULAR'},expParams.nTrialsPerList*(1/3)), ...
-                repelem({'NOT STUDIED'},expParams.nTrialsPerList*(1/3))])';
-            for cond = {'CFS','BINOCULAR','NOT STUDIED'}
+                repelem({'Binocular'},expParams.nTrialsPerList*(1/3)), ...
+                repelem({'Not Studied'},expParams.nTrialsPerList*(1/3))])';
+            for cond = {'CFS','Binocular','Not Studied'}
                 data.swap(data.list==list & strcmp(data.tType,cond)) = ...
                     Shuffle(repelem({'match','mismatch'}, expParams.nCondPerList/2));
             end
@@ -135,15 +135,15 @@ switch expt
         data.roboBCFS = ...
             repmat(repelem({[]},expParams.nStudyReps), [expParams.nTrials,1]);
         data.roboBCFS(strcmp(data.tType,'CFS'),:) = repmat({'j'},[expParams.nTrials/3,expParams.nStudyReps]);
-        data.roboBCFS(strcmp(data.tType,'NOT STUDIED'),:) = repmat({'f'},[expParams.nTrials/3,expParams.nStudyReps]);
-        data.roboBCFS(strcmp(data.tType,'BINOCULAR'),:) = repmat({'z'},[expParams.nTrials/3,expParams.nStudyReps]);
+        data.roboBCFS(strcmp(data.tType,'Not Studied'),:) = repmat({'f'},[expParams.nTrials/3,expParams.nStudyReps]);
+        data.roboBCFS(strcmp(data.tType,'Binocular'),:) = repmat({'z'},[expParams.nTrials/3,expParams.nStudyReps]);
         
         data.mm_answer = repelem({[]},expParams.nTrials)';
         data.mm_answer(strcmp(data.swap_test,'match')) = {'p'};
         data.mm_answer(strcmp(data.swap_test,'mismatch')) = {'q'};
         
         data.eyes = repelem({[0,0]},expParams.nTrials)';
-        data.eyes(strcmp(data.tType,{'BINOCULAR'})) = {[1,1]};
+        data.eyes(strcmp(data.tType,{'Binocular'})) = {[1,1]};
         if strcmp(domEye, {'right'})
             data.eyes(strcmp(data.tType,{'CFS'})) = {[1,0]};
         else
@@ -158,11 +158,87 @@ switch expt
         data.exitFlag_cue = repelem({'EMPTY'},expParams.nTrials)';
         data.exitFlag_noise = repelem({'EMPTY'},expParams.nTrials)';
         % jitter is in ticks, which translates to the hertz of mondrians
-        data.jitter(strcmp(data.tType,'NOT STUDIED'),:) = {repelem(0,expParams.nStudyReps)};
+        data.jitter(strcmp(data.tType,'Not Studied'),:) = {repelem(0,expParams.nStudyReps)};
         data.jitter_cue = randi([0,expParams.mondrianHertz^-1 * 120],[expParams.nTrials,1]);
         data.jitter_noise = randi([0,expParams.mondrianHertz^-1 * 120],[expParams.nTrials,1]);
         
         
+        data.transparency =...
+            repmat({repelem(NaN,expParams.nStudyReps)}, [expParams.nTrials,1]);
+        data.pas = ...
+            repmat(repelem({[]},expParams.nStudyReps), [expParams.nTrials,1]);
+        data.RoboRT =...
+            repmat({repelem(NaN,expParams.nStudyReps)}, [expParams.nTrials,1]);
+        data.meanRoboRT =...
+            repmat({repelem(NaN,expParams.nStudyReps)}, [expParams.nTrials,1]);
+        
+        data.response_cue = cell(expParams.nTrials,1);
+        data.rt_cue = NaN(expParams.nTrials,1);
+        data.RoboRT_cue = repmat({2}, [expParams.nTrials,1]);
+        data.meanRoboRT_cue = NaN(expParams.nTrials,1);
+        data.response_noise = cell(expParams.nTrials,1);
+        data.rt_noise = NaN(expParams.nTrials,1);
+        data.RoboRT_noise = repmat({2}, [expParams.nTrials,1]);
+        data.meanRoboRT_noise = NaN(expParams.nTrials,1);
+        
+    case 'CFSgonogo'
+        domEye = varargin{1};
+        % in the main experiment, we take advantage of how writetable
+        % automatically splits non-elemental columns when writing a .csv
+        % file. So, every column that contains a vector for first and
+        % second study repetition will be split during the saving process
+        
+        t = readtable('blockingTable.csv');
+        t = t(t.subject==input.subject,:);
+        t = sortrows(t,'trial_study');
+        t = t(1:expParams.nTrials,:); % this only comes up when debugging
+
+        names = readtable(fullfile(pwd,'stims','expt','objectNames_2afc.csv'));
+              
+        data.item = t.pair1;
+        data.pair = t.pair2;
+        data.name = names{data.item,1};
+        data.list = t.list;
+        
+        % trial type key
+        data.tType_study = t.tType_study;
+        data.trial_test = t.trial_test;
+        
+        testTable = sortrows(t,'trial_test');
+        
+        data.item_test = testTable.pair1;
+        data.pair_test = testTable.pair2;
+        data.tType_test = testTable.tType_test;
+        data.name_test = names{data.item_test,1};
+        
+       data.roboBCFS = ...
+            repmat(repelem({[]},expParams.nStudyReps), [expParams.nTrials,1]);
+        data.roboBCFS(strcmp(data.tType_study,'CFS'),:) = repmat({'j'},[expParams.nTrials/3,expParams.nStudyReps]);
+        data.roboBCFS(strcmp(data.tType_study,'Not Studied'),:) = repmat({'f'},[expParams.nTrials/3,expParams.nStudyReps]);
+        data.roboBCFS(strcmp(data.tType_study,'Binocular'),:) = repmat({'z'},[expParams.nTrials/3,expParams.nStudyReps]);
+        
+        data.gonogo_answer = testTable.gonogo_answer;
+        
+        data.eyes = repelem({[0,0]},expParams.nTrials)';
+        data.eyes(strcmp(data.tType_study,{'Binocular'})) = {[1,1]};
+        if strcmp(domEye, {'right'})
+            data.eyes(strcmp(data.tType_study,{'CFS'})) = {[1,0]};
+        else
+            data.eyes(strcmp(data.tType_study,{'CFS'})) = {[0,1]};
+        end
+        
+        
+        data.tStart_cue = NaN(expParams.nTrials,1);
+        data.tEnd_cue = NaN(expParams.nTrials,1);
+        data.tStart_noise = NaN(expParams.nTrials,1);
+        data.tEnd_noise = NaN(expParams.nTrials,1);
+        data.exitFlag_cue = repelem({'EMPTY'},expParams.nTrials)';
+        data.exitFlag_noise = repelem({'EMPTY'},expParams.nTrials)';
+        % jitter is in ticks, which translates to the hertz of mondrians
+        data.jitter(strcmp(data.tType_study,'Not Studied'),:) = {repelem(0,expParams.nStudyReps)};
+        data.jitter_cue = randi([0,expParams.mondrianHertz^-1 * 120],[expParams.nTrials,1]);
+        data.jitter_noise = randi([0,expParams.mondrianHertz^-1 * 120],[expParams.nTrials,1]);
+           
         data.transparency =...
             repmat({repelem(NaN,expParams.nStudyReps)}, [expParams.nTrials,1]);
         data.pas = ...

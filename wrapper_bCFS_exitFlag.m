@@ -12,7 +12,7 @@ switch exitFlag
 %             keys, constants, responseHandler);
     case 'OK'
         switch tType
-            case {'CATCH', 'NOT STUDIED'}
+            case {'CATCH', 'Not Studied'}
                 switch response
                     case 'f'
                         showPromptAndWaitForResp(window, 'Correct! No object was going to appear.',...

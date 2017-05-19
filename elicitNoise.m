@@ -1,6 +1,6 @@
 function [ response, rt, tStart, tEnd, vbl, missed, exitFlag ] =...
     elicitNoise( window, responseHandler, tex, keys,...
-    expParams, constants, roboRT_preJitter, maxAlpha, jitter, answer, noisetex )
+    expParams, constants, roboRT_preJitter, maxAlpha, jitter, answer, noisetex, prompt )
 %collectResponses Show arrow until participant makes response, and collect
 %that response
 response = {'NO RESPONSE'};
@@ -32,7 +32,7 @@ noise_contrast = selectContrast(alpha.noise, 1);
 for tick = 0:(expParams.nTicks_noise-1)
     
     % for each tick, pick out one of the mondrians to draw
-    drawStimulus(window, tex, noisetex, noise_contrast, alpha_stim);
+    drawStimulus(window, tex, noisetex, noise_contrast, alpha_stim, prompt);
     
     % flip only in sync with mondrian presentation rate
     [vbl(tick+2), ~, ~, missed(tick+2)] =...
@@ -71,7 +71,7 @@ end
 
 end
 
-function drawStimulus(window, tex, noisetex, contrast, alpha_stim)
+function drawStimulus(window, tex, noisetex, contrast, alpha_stim, prompt)
 
 seed = GetSecs;
 tilt = 0;
@@ -79,16 +79,20 @@ tilt = 0;
 for eye = 1:2
     Screen('SelectStereoDrawBuffer',window.pointer,eye-1);
     
-    Screen('DrawTexture', window.pointer, noisetex,...
-        [], [], tilt, [], [], [], [], [], [contrast, seed, 0, 0]);
-    Screen('DrawTexture', window.pointer, tex,[],window.imagePlace,[],[],alpha_stim);
+    if ~isempty(tex)
+        Screen('DrawTextures', window.pointer, [noisetex; tex]);
+        Screen('DrawTexture', window.pointer, noisetex,...
+            [], [], tilt, [], [], [], [], [], [contrast, seed, 0, 0]);
+
+        Screen('DrawTexture', window.pointer, tex,[],window.imagePlace,[],[],alpha_stim);
+    end
     
     % small white fixation square
     Screen('DrawLines', window.pointer, window.fixCrossCoords,...
         2, window.white, window.center, 2);
      
     % prompt participant to respond
-    DrawFormattedText(window.pointer, 'Match (p) or Mismatch (q)?', ...
+    DrawFormattedText(window.pointer, prompt, ...
         'center', window.winRect(4)*.8);
     
 end

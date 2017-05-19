@@ -6,10 +6,13 @@ expParams.screen_scale = []; % show at full screen
 expParams.respDelay = 0;
 
 %% Set general parameters that change based on debug level only
-switch debugLevel
-    
+switch debugLevel    
     case 0
         % Level 0: normal experiment
+        expParams.mondrianHertz = refreshRate/10;
+        expParams.iti = 1; % seconds to wait between each trial
+        expParams.maxCFS = 30; % max duration until arrows are at full contrast
+    case 1
         expParams.mondrianHertz = refreshRate/10;
         expParams.iti = 1; % seconds to wait between each trial
         expParams.maxCFS = 30; % max duration until arrows are at full contrast
@@ -24,9 +27,17 @@ switch expt
         
         expParams.nStudyReps = 1;
     case 'staircase'
-        expParams.nTrials = 20;
-        expParams.alpha.mondrian = 1;
-        expParams.nStudyReps = 1;
+        switch debugLevel
+            case 0
+                expParams.nTrials = 20;
+                expParams.alpha.mondrian = 1;
+                expParams.nStudyReps = 1;
+                
+            case 1
+                expParams.nTrials = 5;
+                expParams.alpha.mondrian = 1;
+                expParams.nStudyReps = 1;           
+        end
         
     case 'CFSRecall'
         expParams.noiseHertz = refreshRate/10;
@@ -45,16 +56,43 @@ switch expt
             case 1
                 expParams.maxCFS = 30;
                 expParams.maxCFS_noise = 5;
-                expParams.nTrials = 6;
+                expParams.nTrials = 12;
                 expParams.nLists = 2;
                 expParams.nStudyReps = 2;
         end
         expParams.nTrialsPerList = expParams.nTrials / expParams.nLists;
         expParams.nCondPerList = expParams.nTrialsPerList / 3;
         expParams.nTicks_noise = ceil(expParams.maxCFS_noise * expParams.mondrianHertz);
+        
+    case 'CFSgonogo'
+        expParams.noiseHertz = refreshRate/10;
+        expParams.alpha.mondrian = 1;
+        
+        switch debugLevel
+            case 0
+                expParams.maxCFS = 30;
+                expParams.maxCFS_bino = 4;
+                expParams.nTicks_bino = ceil(expParams.maxCFS_bino * expParams.mondrianHertz);
+                
+                expParams.maxCFS_noise = 4;
+                expParams.nTrials = 96; 
+                expParams.nLists = expParams.nTrials/12;
+                expParams.nStudyReps = 2;
+            case 1
+                expParams.maxCFS = 30;
+                expParams.maxCFS_bino = 1;
+                expParams.nTicks_bino = ceil(expParams.maxCFS_bino * expParams.mondrianHertz);
+                
+                expParams.maxCFS_noise = 2;
+                expParams.nTrials = 12; 
+                expParams.nLists = expParams.nTrials/12;
+                expParams.nStudyReps = 1;
+        end
+        expParams.nTrialsPerList = expParams.nTrials / expParams.nLists;
+        expParams.nCondPerList = expParams.nTrialsPerList / 3;
+        expParams.nTicks_noise = ceil(expParams.maxCFS_noise * expParams.mondrianHertz);
 
 end
-
 
 %% defaults that need calculating
 expParams.nTicks = ceil(expParams.maxCFS * expParams.mondrianHertz);

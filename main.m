@@ -52,7 +52,7 @@ try
     
     %% run main experiment
     [data, tInfo, expParams, input, sa] =...
-        runCFSRecall(input, constants, window, responseHandler, mondrians, domEye, sa);
+        runCFSgonogo(input, constants, window, responseHandler, mondrians, domEye, sa);
     % save data
     expt = 'CFSRecall';
     structureCleanup(expt, input.subject, data, constants, tInfo, expParams, input, sa);

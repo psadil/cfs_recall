@@ -1,5 +1,5 @@
 function [transparency, sa] =...
-    wrapper_SA(data, trial, sa, expParams)
+    wrapper_SA(tType, sa, expParams)
 
 % This function helps implement two pieces of experimental logic.
 % First, the transparency on null trials is automatically set to 0.
@@ -7,11 +7,14 @@ function [transparency, sa] =...
 % dealing with non-null trials. The SA algorithm doesn't need to
 % see those trials for which participants weren't supposed to
 % respond!
+% if length(sa.results.exitFlag) < sa.values.trial-1
+%     2;
+% end
 
-switch data.tType{trial}
-    case {'CATCH', 'NOT STUDIED'}
+switch tType
+    case {'CATCH', 'Not Studied'}
         transparency = 0;
-    case 'BINOCULAR'
+    case 'Binocular'
         transparency = 1;
     case 'CFS'
         if sa.values.trial == 1

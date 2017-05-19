@@ -16,10 +16,10 @@ rep = 1;
 for trial = 1:expParams.nTrials
     
     [data.transparency{trial,rep}, sa] =...
-        wrapper_SA(data, trial, sa, expParams);
+        wrapper_SA(data.tType_study{trial}, sa, expParams);
     [data.RoboRT{trial,rep}, data.meanRoboRT{trial,rep}] = ...
         setupRobotResponses(data.transparency{trial,rep},...
-        sa, data.tType{trial});
+        sa, data.tType_study{trial});
     
     % make texture for this trial (function is setup to hopefully handle
     % creation of many textures if graphics card could handle that
@@ -43,7 +43,7 @@ for trial = 1:expParams.nTrials
     Screen('Close', stims.tex);
     % handle exitFlag, based on responses given
     
-    [data.pas(trial,rep), sa, esc] = wrapper_bCFS_exitFlag(data.exitFlag{trial,rep}, data.tType{trial}, data.rt{trial}(rep),...
+    [data.pas(trial,rep), sa, esc] = wrapper_bCFS_exitFlag(data.exitFlag{trial,rep}, data.tType_study{trial}, data.rt{trial}(rep),...
         data.response{trial,rep}, sa, window, keys, constants, responseHandler);    
     if esc
         return;
