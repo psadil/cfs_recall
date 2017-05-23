@@ -13,8 +13,8 @@ keys = setupKeys(expt);
 
 noiseRect = ScaleRect(window.imagePlace, 2, 2);
 res = repelem(noiseRect(3) - noiseRect(1),2);
-noisetex = CreateProceduralNoise(window.pointer, res(1), res(2), 'ClassicPerlin', [0.5 0.5 0.5 1]);
-
+% noisetex = CreateProceduralNoise(window.pointer, res(1), res(2), 'ClassicPerlin', [0.5 0.5 0.5 1]);
+noiseRect = ScaleRect(window.imagePlace, 2, 2);
 
 %% main experimental loop
 for list = 1:expParams.nLists
@@ -126,7 +126,7 @@ for list = 1:expParams.nLists
             ~, ~,...
             data.exitFlag_noise(trial)] = elicitNoise(window, ...
             responseHandler, stims.tex, keys_response, expParams,...
-            constants, data.RoboRT_noise{trial}, 1, data.jitter_noise(trial), answer, noisetex,...
+            constants, data.RoboRT_noise{trial}, 1, data.jitter_noise(trial), answer, noiseRect,...
             'Press Enter only if you see an object');
         if ~isempty(stims.tex)
             Screen('Close', stims.tex);
