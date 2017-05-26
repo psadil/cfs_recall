@@ -1,4 +1,0 @@
-"0","d %>%"
-"0","  filter(tType=='CFS') %>%"
-"0","  ggplot(aes(x=trial, y=rt, color=subject)) +"
-"0","  geom_line()"

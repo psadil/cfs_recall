@@ -1,7 +1,0 @@
-"0","dir_data <- ""data"""
-"0","files <- list.files(pattern=""*.csv"", recursive=TRUE, path=dir_data)"
-"0","d <- lapply(file.path(""data"",files) , read_csv, col_types=cols(pas=col_character())) %>% "
-"0","  bind_rows() %>%"
-"0","  select(-seed,-dominantEye,-sex,-ethnicity,-eyes_1,-eyes_2,-tStart,-tEnd,-race) %>%"
-"0","  filter(tType=='CFS') %>%"
-"0","  mutate(subject=factor(subject))"
