@@ -20,7 +20,7 @@ if exit_stat==1
     windowCleanup(constants);
     return
 end
-getDemographics(constants);
+demographics(constants.subDir);
 
 try
     PsychDefaultSetup(2);
@@ -51,11 +51,16 @@ try
     structureCleanup(expt, input.subject, data, constants, tInfo, expParams, input, sa);
     
     %% run main experiment
-    [data, tInfo, expParams, input, sa] =...
-        runCFSgonogo(input, constants, window, responseHandler, mondrians, domEye, sa);
-    % save data
-    expt = 'CFSRecall';
-    structureCleanup(expt, input.subject, data, constants, tInfo, expParams, input, sa);
+    if input.experiments(3)
+        [data, tInfo, expParams, input, sa] =...
+            runCFSgonogo(input, constants, window, responseHandler, mondrians, domEye, sa);
+        % save data
+        expt = 'CFSgonogo';
+        structureCleanup(expt, input.subject, data, constants, tInfo, expParams, input, sa);
+    end
+    
+    mondrians = struct2array(mondrians);
+    Screen('Close', mondrians);
     windowCleanup(constants);
     
 catch

@@ -36,6 +36,11 @@ try
     fixYCoords = [0, 0, -fixCrossDimPix, fixCrossDimPix];
     window.fixCrossCoords = [fixXCoords; fixYCoords];
     
+    [xc, yc] = RectCenter(window.imagePlace);
+    window.noiseTexesRect = ScaleRect(window.imagePlace, 2, 2);
+    window.noiseTexesRect = CenterRectOnPoint(window.noiseTexesRect,xc,yc);
+
+    
     
     % Get some the inter-frame interval, refresh rate, and the size of our window
     window.ifi = Screen('GetFlipInterval', window.pointer);

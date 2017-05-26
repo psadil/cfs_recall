@@ -11,10 +11,9 @@ data = setupDataTable(expParams, input, expt, domEye);
 keys = setupKeys(expt);
 % responseHandler = makeInputHandlerFcn(input.responder);
 
-noiseRect = ScaleRect(window.imagePlace, 2, 2);
-res = repelem(noiseRect(3) - noiseRect(1),2);
+
+% res = repelem(noiseRect(3) - noiseRect(1),2);
 % noisetex = CreateProceduralNoise(window.pointer, res(1), res(2), 'ClassicPerlin', [0.5 0.5 0.5 1]);
-noiseRect = ScaleRect(window.imagePlace, 2, 2);
 
 %% main experimental loop
 for list = 1:expParams.nLists
@@ -66,7 +65,7 @@ for list = 1:expParams.nLists
                 keys_response, mondrians, expParams,...
                 constants, data.RoboRT{trial}(rep),...
                 data.transparency{trial}(rep), data.jitter{trial}(rep), data.roboBCFS{trial,rep}, ...
-                expt, domEye, nTicks);
+                expt, domEye, nTicks, []);
             Screen('Close', stims.tex);
             
             
@@ -92,6 +91,9 @@ for list = 1:expParams.nLists
             keys, constants, responseHandler);
     end
     
+    % make 50 noise textures to use on this list
+    noiseTexes = makeNoiseTex(window);
+
     
     %% go through test phase of this list
     for item = 1:expParams.nTrialsPerList
@@ -104,33 +106,46 @@ for list = 1:expParams.nLists
             data.tStart_cue(trial), data.tEnd_cue(trial),...
             data.exitFlag_cue(trial)] = elicitCueName(window, ...
             responseHandler, stims.tex,...
-            keys_response, constants, '\ENTER');
+            keys_response, constants, [data.name_test{trial},'\ENTER']);
         Screen('Close', stims.tex);
         
         showPromptAndWaitForResp(window, 'Press Enter only if you see an object',...
             keys, constants, responseHandler);
         
         switch data.gonogo_answer{trial}
-            case 'go'
-                stims = makeTexs(data.item_test(trial), window, 'NOISE', data.pair_test(trial));
+            case 'go'      
                 answer = '\ENTER';
+                maxAlpha = 1;
             case 'nogo'
                 answer = ' ';
-                stims.tex = [];
+                maxAlpha = 0;
         end
+        stims = makeTexs(data.item_test(trial), window, 'NOISE', data.pair_test(trial));
         keys_response = keys.enter+keys.escape;
         iti(window, expParams.iti);
         
+        % function that presents stim and collects response
         [data.response_noise(trial), data.rt_noise(trial),...
             data.tStart_noise(trial), data.tEnd_noise(trial),...
             ~, ~,...
-            data.exitFlag_noise(trial)] = elicitNoise(window, ...
-            responseHandler, stims.tex, keys_response, expParams,...
-            constants, data.RoboRT_noise{trial}, 1, data.jitter_noise(trial), answer, noiseRect,...
+            data.exitFlag(trial)] = ...
+            elicitBCFS(window, responseHandler,...
+            stims.tex, [1, 1],...
+            keys_response, noiseTexes, expParams,...
+            constants, data.RoboRT_noise{trial},...
+            maxAlpha, data.jitter_noise(trial), answer, ...
+            'noise', domEye, expParams.nTicks_noise,...
             'Press Enter only if you see an object');
-        if ~isempty(stims.tex)
-            Screen('Close', stims.tex);
-        end
+        Screen('Close', stims.tex);
+        
+%         [data.response_noise(trial), data.rt_noise(trial),...
+%             data.tStart_noise(trial), data.tEnd_noise(trial),...
+%             ~, ~,...
+%             data.exitFlag_noise(trial)] = elicitNoise2(window, ...
+%             responseHandler, stims.tex, keys_response, expParams,...
+%             constants, data.RoboRT_noise{trial}, 1, data.jitter_noise(trial), answer, noisetex,...
+%             'Press Enter only if you see an object');
+
         % handle exitFlag, based on responses given
         switch data.exitFlag_noise{trial}
             case 'ESCAPE'
@@ -138,18 +153,18 @@ for list = 1:expParams.nLists
             case 'CAUGHT'
                 showPromptAndWaitForResp(window, 'Please only respond when an image is present!',...
                     keys, constants, responseHandler);
-            case 'OK'
+            otherwise
                 switch data.response_noise{trial}
                     case 'Return'
                         switch data.gonogo_answer{trial}
                             case 'go'
                                 prompt = 'Correct! There was an object';
                             otherwise
-                                prompt = 'Incorrect! The was no';
+                                prompt = 'Incorrect! The was no object';
                         end
-                    case 'q'
+                    case 'NO RESPONSE'
                         switch data.gonogo_answer{trial}
-                            case 'mismatch'
+                            case 'nogo'
                                 prompt = 'Correct! There was no object';
                             otherwise
                                 prompt = 'Incorrect! There was an object';
@@ -163,7 +178,8 @@ for list = 1:expParams.nLists
         % inter-trial-interval
         iti(window, expParams.iti);
     end
-    
+    noiseTexes = struct2array(noiseTexes);
+    Screen('Close', noiseTexes);
 end
 
 for eye = 1:2

@@ -1,0 +1,7 @@
+"0","  "
+"0","d %>%"
+"0","  select(rt_noise, tType_test) %>%"
+"0","  mutate(tType_test = factor(tType_test, levels=c('Not Studied','CFS','Binocular'))) %>%"
+"0","  group_by(tType_test) %>%"
+"0","  ggplot(aes(x=rt_noise, color=tType_test)) +"
+"0","  stat_ecdf()"

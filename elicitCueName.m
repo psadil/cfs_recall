@@ -25,20 +25,28 @@ while 1
 %     KbQueueWait;
     [keys_pressed, press_times] = responseHandler(constants.device, answer);
     if ~isempty(keys_pressed)
-        [keyName, rt] = ...
+        [keyName, rt, exitFlag] = ...
             wrapper_keyProcess(keys_pressed, press_times, tStart, 'name');
+        
         switch keyName{1}
-            case {'Return', 'ESCAPE'}
-                break;
             case 'BackSpace'
                 if ~isempty(response{1})
                     response = {response{1}(1:end-1)};
                 end
             case 'space'
                 response = {[response{1}, ' ']};
+            case {'Return', 'ESCAPE'}
+                break;
             otherwise
                 response = {[response{1}, keyName{1}]};
         end
+        % extra switch necessary for robot trials, where the last response
+        % might not be just Return
+        switch exitFlag{1}
+            case {'Return', 'ESCAPE'}
+                break;
+        end
+        
     end
 end
 tEnd = Screen('Flip', window.pointer, vbl + (0.5 * window.ifi));

@@ -236,7 +236,6 @@ switch expt
         data.exitFlag_noise = repelem({'EMPTY'},expParams.nTrials)';
         % jitter is in ticks, which translates to the hertz of mondrians
         data.jitter(strcmp(data.tType_study,'Not Studied'),:) = {repelem(0,expParams.nStudyReps)};
-        data.jitter_cue = randi([0,expParams.mondrianHertz^-1 * 120],[expParams.nTrials,1]);
         data.jitter_noise = randi([0,expParams.mondrianHertz^-1 * 120],[expParams.nTrials,1]);
            
         data.transparency =...
@@ -251,11 +250,11 @@ switch expt
         data.response_cue = cell(expParams.nTrials,1);
         data.rt_cue = NaN(expParams.nTrials,1);
         data.RoboRT_cue = repmat({2}, [expParams.nTrials,1]);
-        data.meanRoboRT_cue = NaN(expParams.nTrials,1);
+%         data.meanRoboRT_cue = NaN(expParams.nTrials,1);
         data.response_noise = cell(expParams.nTrials,1);
         data.rt_noise = NaN(expParams.nTrials,1);
         data.RoboRT_noise = repmat({2}, [expParams.nTrials,1]);
-        data.meanRoboRT_noise = NaN(expParams.nTrials,1);
+%         data.meanRoboRT_noise = NaN(expParams.nTrials,1);
 end
 
 end

@@ -20,6 +20,7 @@ switch tType
         if sa.values.trial == 1
             transparency = sa.params.x1;
         elseif strcmp(sa.results.exitFlag(sa.values.trial-1), 'NOSEE_ON_CFS')
+            sa.results.exitFlag(sa.values.trial-1) = {[]};
             transparency = sa.results.transparency(sa.values.trial-1);
             sa.values.trial = sa.values.trial - 1;
         else

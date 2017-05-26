@@ -45,8 +45,7 @@ for slide=1:nSlides
         window.bgColor);
     
     Screen('FillRect', mondrians(slide).tex, repmat(intensities(:,slide)',[3,1]), squeeze(positions(:,:,slide)));
-    %         Screen('FillRect', mondrians(slide).tex, intensities(:,slide)', squeeze(positions(:,:,slide)));
-    
+    %         Screen('FillRect', mondrians(slide).tex, intensities(:,slide)', squeeze(positions(:,:,slide)));    
 end
 
 end

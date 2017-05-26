@@ -11,7 +11,7 @@ sa.params.R = 500;  % location of weibull
 sa.params.K = 1500;
 sa.params.beta = 0.3;
 
-sa.params.delta = 1.5; % initial amount by which to change maximum transparency
+sa.params.delta = 2.5; % initial amount by which to change maximum transparency
 
 
 switch expt

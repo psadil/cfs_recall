@@ -20,11 +20,11 @@ end
 %% Set parameters that change based on experiment (+ debuglevel)
 switch expt
     case 'occularDominance'
-        expParams.nTrials = 20;
+        expParams.nTrials = 40;
         expParams.maxAlpha = .6;
         expParams.alpha.mondrian = linspace(1,1,expParams.maxAlpha*100);
         expParams.alpha.tex = linspace(0,expParams.maxAlpha,expParams.maxAlpha*100);
-        
+        expParams.noiseFadeInDur = 4;
         expParams.nStudyReps = 1;
     case 'staircase'
         switch debugLevel
@@ -32,11 +32,13 @@ switch expt
                 expParams.nTrials = 20;
                 expParams.alpha.mondrian = 1;
                 expParams.nStudyReps = 1;
+                expParams.noiseFadeInDur = 4;
                 
             case 1
                 expParams.nTrials = 5;
                 expParams.alpha.mondrian = 1;
-                expParams.nStudyReps = 1;           
+                expParams.nStudyReps = 1;    
+                expParams.noiseFadeInDur = 4;
         end
         
     case 'CFSRecall'
@@ -78,15 +80,17 @@ switch expt
                 expParams.nTrials = 96; 
                 expParams.nLists = expParams.nTrials/12;
                 expParams.nStudyReps = 2;
+                expParams.noiseFadeInDur = 4;
             case 1
                 expParams.maxCFS = 30;
-                expParams.maxCFS_bino = 1;
+                expParams.maxCFS_bino = .1;
                 expParams.nTicks_bino = ceil(expParams.maxCFS_bino * expParams.mondrianHertz);
                 
-                expParams.maxCFS_noise = 2;
+                expParams.maxCFS_noise = 5;
                 expParams.nTrials = 12; 
                 expParams.nLists = expParams.nTrials/12;
                 expParams.nStudyReps = 1;
+                expParams.noiseFadeInDur = 4;
         end
         expParams.nTrialsPerList = expParams.nTrials / expParams.nLists;
         expParams.nCondPerList = expParams.nTrialsPerList / 3;

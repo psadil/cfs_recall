@@ -1,0 +1,84 @@
+"0","knitr::opts_chunk$set(echo = FALSE, warning = FALSE,"
+"0","                      fig.path = file.path('output','figures'))"
+"0","library(tidyverse)"
+"2","Loading tidyverse: ggplot2
+Loading tidyverse: tibble
+Loading tidyverse: tidyr
+Loading tidyverse: readr
+Loading tidyverse: purrr
+Loading tidyverse: dplyr
+"
+"2","Conflicts with tidy packages -----------------------------------------------------------------------------------------------------
+"
+"2","filter(): dplyr, stats
+lag():    dplyr, stats
+"
+"0","library(magrittr)"
+"2","
+Attaching package: ‘magrittr’
+
+"
+"2","The following object is masked from ‘package:purrr’:
+
+    set_names
+
+"
+"2","The following object is masked from ‘package:tidyr’:
+
+    extract
+
+"
+"0","library(stringdist)"
+"0","library(Hmisc)"
+"2","Loading required package: lattice
+"
+"2","Loading required package: survival
+"
+"2","Loading required package: Formula
+"
+"2","
+Attaching package: ‘Hmisc’
+
+"
+"2","The following objects are masked from ‘package:dplyr’:
+
+    combine, src, summarize
+
+"
+"2","The following objects are masked from ‘package:base’:
+
+    format.pval, round.POSIXt, trunc.POSIXt, units
+
+"
+"0","library(extrafontdb)"
+"0","library(extrafont)"
+"2","Registering fonts with R
+"
+"0","cutoff <- 1"
+"0","source(file.path('utils.R'))"
+"0","targets <- read_csv('objectNames_2afc.csv') "
+"2","Parsed with column specification:
+cols(
+  name1 = col_character(),
+  name2 = col_character(),
+  name3 = col_character(),
+  name4 = col_character(),
+  name5 = col_character(),
+  name6 = col_character(),
+  name7 = col_character(),
+  name8 = col_character(),
+  name9 = col_character(),
+  name10 = col_character()
+)
+"
+"0","out <- list()"
+"0","for (i in 1:dim(targets[1])){"
+"0","  out[i] = list(c(targets[i,]$name1, targets[i,]$name2, targets[i,]$name3, targets[i,]$name4, targets[i,]$name5, targets[i,]$name6, targets[i,]$name7, targets[i,]$name8, targets[i,]$name9, targets[i,]$name10))"
+"0","}"
+"0","cbPalette <- c(""#000000"", ""#E69F00"", ""#56B4E9"", ""#009E73"", ""#F0E442"", ""#0072B2"", ""#D55E00"", ""#CC79A7"")"
+"0","Conditions = c('Not Studied','CFS, Image', 'Binocular, Image')"
+"0","colmap <- c('Not Studied'=cbPalette[7]"
+"0","            ,'Word'=cbPalette[2]"
+"0","            ,'CFS, Image'=cbPalette[3]"
+"0","            ,'Binocular, Image'=cbPalette[4])"
+"0","'%!in%' <- function(x,y)!('%in%'(x,y))"

@@ -1,0 +1,74 @@
+"0","dir_data <- ""data""
+files <- list.files(pattern=""*.csv"", recursive=TRUE, path=""data"")
+d <- lapply(file.path(""data"",files) , read_csv) %>% 
+  bind_rows()
+"
+"2","Parsed with column specification:
+cols(
+  subject = col_integer(),
+  seed = col_integer(),
+  dominantEye = col_character(),
+  sex = col_character(),
+  ethnicity = col_character(),
+  race = col_character(),
+  trial = col_integer(),
+  item = col_integer(),
+  tStart = col_double(),
+  tEnd = col_double(),
+  exitFlag = col_character(),
+  jitter = col_integer(),
+  tType = col_character(),
+  eyes_1 = col_integer(),
+  eyes_2 = col_integer(),
+  transparency = col_double(),
+  pas = col_character(),
+  response = col_character(),
+  rt = col_double()
+)
+"
+"2","Parsed with column specification:
+cols(
+  subject = col_integer(),
+  seed = col_integer(),
+  dominantEye = col_character(),
+  sex = col_character(),
+  ethnicity = col_character(),
+  race = col_character(),
+  trial = col_integer(),
+  item = col_integer(),
+  tStart = col_double(),
+  tEnd = col_double(),
+  exitFlag = col_character(),
+  jitter = col_integer(),
+  tType = col_character(),
+  eyes_1 = col_integer(),
+  eyes_2 = col_integer(),
+  transparency = col_double(),
+  pas = col_character(),
+  response = col_character(),
+  rt = col_double()
+)
+"
+"2","Parsed with column specification:
+cols(
+  subject = col_integer(),
+  seed = col_integer(),
+  dominantEye = col_character(),
+  sex = col_character(),
+  ethnicity = col_character(),
+  race = col_character(),
+  trial = col_integer(),
+  item = col_integer(),
+  tStart = col_double(),
+  tEnd = col_double(),
+  exitFlag = col_character(),
+  jitter = col_integer(),
+  tType = col_character(),
+  eyes_1 = col_integer(),
+  eyes_2 = col_integer(),
+  transparency = col_double(),
+  pas = col_character(),
+  response = col_character(),
+  rt = col_double()
+)
+"

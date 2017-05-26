@@ -26,8 +26,6 @@ for (i in 1:dim(targets[1])){
   out[i] = list(c(targets[i,]$name1, targets[i,]$name2, targets[i,]$name3, targets[i,]$name4, targets[i,]$name5, targets[i,]$name6, targets[i,]$name7, targets[i,]$name8, targets[i,]$name9, targets[i,]$name10))
 }
 
-
-
 cbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
 Conditions = c('Not Studied','CFS, Image', 'Binocular, Image')

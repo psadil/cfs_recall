@@ -1,6 +1,6 @@
 function handlerFcn = makeInputHandlerFcn(handlerName)
 
-valid_types = {'user','freeResponseRobot', 'simpleKeypressRobot'};
+valid_types = {'user','namingRobot_good', 'simpleKeypressRobot'};
 assert(ismember(handlerName, valid_types),...
     ['"handlerType" argument must be one of the following: ' strjoin(valid_types,', ')])
 
@@ -10,7 +10,7 @@ if ~strcmp(handlerName, 'user')
     switch handlerName
         case 'freeResponseRobot'
             n = 1;
-            handlerFcn = @FreeResponseRobot;
+            handlerFcn = @namingRobot_good;
             
         case 'simpleKeypressRobot'
             handlerFcn = @SimpleKeypressRobot;
@@ -41,7 +41,7 @@ end
         end
     end
 
-    function [keys_pressed, press_times] = FreeResponseRobot(device, answer)
+    function [keys_pressed, press_times] = namingRobot_good(device, answer)
         
         % This function is a wrapper around checkKeys, which provides
         % automatic keyboard input by simulating a keypress of each character in the given response string
