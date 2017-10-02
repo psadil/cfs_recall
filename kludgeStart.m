@@ -3,13 +3,13 @@ function [  ] = kludgeStart( varargin )
 
 
 screenNumber=max(Screen('Screens'));
-window.res = Screen('Resolution',screenNumber,[],[],120); % get screen resolution, set refresh rate
+window.res = Screen('Resolution',screenNumber,[],[],100); % get screen resolution, set refresh rate
 
 window = Screen('OpenWindow',screenNumber);
 
 % test refresh rate
 fps=Screen('FrameRate',window);
-if abs(fps - 120) > 2
+if abs(fps - 100) > 2
     instr = 1;
 else
     instr = 0;

@@ -66,7 +66,8 @@ function drawStimulus(window, response, tex)
 for eye = 1:2
     Screen('SelectStereoDrawBuffer',window.pointer,eye-1);
     
-    Screen('DrawTexture', window.pointer, tex, [], window.imagePlace);
+%     Screen('DrawTexture', window.pointer, tex, [], window.imagePlace);
+    Screen('DrawTexture', window.pointer, tex);
     
     % prompt participant to respond
     DrawFormattedText(window.pointer, 'What is this a part of?', ...

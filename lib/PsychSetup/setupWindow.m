@@ -1,9 +1,9 @@
-function window = setupWindow(constants)
+function window = setupWindow(constants,input)
 
 window.screenNumber = max(Screen('Screens')); % Choose a monitor to display on
-window.res = Screen('Resolution',window.screenNumber,[],[],120); % get screen resolution, set refresh rate
+window.res = Screen('Resolution',window.screenNumber,[],[],input.refreshRate); % get screen resolution, set refresh rate
 
-checkRefreshRate(120, 120, constants);
+checkRefreshRate(input.refreshRate, input.refreshRate, constants);
 
 try
     %     Screen('Preference', 'ConserveVRAM', 4096);

@@ -70,20 +70,31 @@ switch type
         stims.pair = varargin{1};
         
         % grab all images
-        [im, ~, ~] = arrayfun(@(x) imread(fullfile(pwd,...
-            'stims', 'expt', 'whole', ['object', num2str(x.id), '_noBkgrd']), 'png'), ...
-            stims, 'UniformOutput', 0);
-        [~, ~, alpha1] = arrayfun(@(x) imread(fullfile(pwd,...
+        [im, ~, alpha] = arrayfun(@(x) imread(fullfile(pwd,...
             'stims', 'expt', 'apertures', ['object', num2str(x.id), '_paired', num2str(x.pair),'_ap1']), 'png'), ...
             stims, 'UniformOutput', 0);
-        [~, ~, alpha2] = arrayfun(@(x) imread(fullfile(pwd,...
-            'stims', 'expt', 'apertures', ['object', num2str(x.id), '_paired', num2str(x.pair),'_ap2']), 'png'), ...
-            stims, 'UniformOutput', 0);
-        alpha = cellfun(@(x,y) x+y, alpha1,alpha2,'UniformOutput',false);
         stims.image = cellfun(@(x, y) cat(3,x,y), im, alpha, 'UniformOutput', false);
         
-        % make textures of images
-        stims.tex = arrayfun(@(x) Screen('MakeTexture',window.pointer,x.image{:}), stims);
+        for tex = 1:length(stims)
+            
+            % offscreen window to be used as texture
+            stims(tex).tex = Screen('OpenOffScreenWindow', window.screenNumber, ...
+                window.bgColor);
+            
+            % allow alpha blending (transparency) for this window
+            Screen('BlendFunction', stims(tex).tex, 'GL_SRC_ALPHA', 'GL_ONE_MINUS_SRC_ALPHA');
+            
+            % draw 'paper' which will appear to occlude whole object
+            Screen('FillRect', stims(tex).tex,  window.bgColor*.5, window.noiseTexesRect);
+            
+            % make a texture out of the image to draw to this window
+            texture = Screen('MakeTexture', window.pointer, stims.image{tex});
+            
+            % draw actual aperture, which appears appears mostly occluded
+            % by paper
+            Screen('DrawTexture', stims(tex).tex, texture, [], window.imagePlace);
+        end
+        
     case 'NOISE'
         stims = struct('id', item);
         stims.pair = varargin{1};
@@ -96,37 +107,7 @@ switch type
         
         % make textures of images
         stims.tex = arrayfun(@(x) Screen('MakeTexture',window.pointer,x.image{:}), stims);
-    case 'INSTRUCTION_CUE'
-        stims = struct('id', item);
-        stims.pair = varargin{1};
-        
-        % grab all images
-        [im, ~, ~] = arrayfun(@(x) imread(fullfile(pwd,...
-            'stims', 'expt', 'whole', ['object', num2str(x.id), '_noBkgrd']), 'png'), ...
-            stims, 'UniformOutput', 0);
-        [~, ~, alpha1] = arrayfun(@(x) imread(fullfile(pwd,...
-            'stims', 'instructions', ['object', num2str(x.id), '_paired', num2str(x.pair),'_ap1']), 'png'), ...
-            stims, 'UniformOutput', 0);
-        [~, ~, alpha2] = arrayfun(@(x) imread(fullfile(pwd,...
-            'stims', 'instructions', ['object', num2str(x.id), '_paired', num2str(x.pair),'_ap2']), 'png'), ...
-            stims, 'UniformOutput', 0);
-        alpha = cellfun(@(x,y) x+y, alpha1,alpha2,'UniformOutput',false);
-        stims.image = cellfun(@(x, y) cat(3,x,y), im, alpha, 'UniformOutput', false);
-        
-        % make textures of images
-        stims.tex = arrayfun(@(x) Screen('MakeTexture',window.pointer,x.image{:}), stims);
-    case 'INSTRUCTION_NOISE'
-        stims = struct('id', item);
-        stims.pair = varargin{1};
-        
-        % grab all images
-        [im, ~, alpha] = arrayfun(@(x) imread(fullfile(pwd,...
-            'stims', 'instructions', ['object', num2str(x.id), '_bullet']), 'png'), ...
-            stims, 'UniformOutput', 0);
-        stims.image = cellfun(@(x, y) cat(3,x,y), im, alpha, 'UniformOutput', false);
-        
-        % make textures of images
-        stims.tex = arrayfun(@(x) Screen('MakeTexture',window.pointer,x.image{:}), stims);
+
 end
 
 

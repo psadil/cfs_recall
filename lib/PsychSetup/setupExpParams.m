@@ -5,15 +5,17 @@ function expParams = setupExpParams( refreshRate, debugLevel, expt )
 expParams.screen_scale = []; % show at full screen
 expParams.respDelay = 0;
 
+hz = 10;
+
 %% Set general parameters that change based on debug level only
 switch debugLevel    
     case 0
         % Level 0: normal experiment
-        expParams.mondrianHertz = refreshRate/10;
+        expParams.mondrianHertz = refreshRate/hz;
         expParams.iti = 1; % seconds to wait between each trial
         expParams.maxCFS = 30; % max duration until arrows are at full contrast
     case 1
-        expParams.mondrianHertz = refreshRate/10;
+        expParams.mondrianHertz = refreshRate/hz;
         expParams.iti = 1; % seconds to wait between each trial
         expParams.maxCFS = 30; % max duration until arrows are at full contrast
 end
@@ -41,33 +43,9 @@ switch expt
                 expParams.noiseFadeInDur = 4;
         end
         
-    case 'CFSRecall'
-        expParams.noiseHertz = refreshRate/10;
-        expParams.alpha.mondrian = 1;
-        
-        switch debugLevel
-            case 0
-                expParams.maxCFS = 30;
-                expParams.maxCFS_bino = 4;
-                expParams.nTicks_bino = ceil(expParams.maxCFS_bino * expParams.mondrianHertz);
-                
-                expParams.maxCFS_noise = 10;
-                expParams.nTrials = 96-12; 
-                expParams.nLists = expParams.nTrials/12;
-                expParams.nStudyReps = 2;
-            case 1
-                expParams.maxCFS = 30;
-                expParams.maxCFS_noise = 5;
-                expParams.nTrials = 12;
-                expParams.nLists = 2;
-                expParams.nStudyReps = 2;
-        end
-        expParams.nTrialsPerList = expParams.nTrials / expParams.nLists;
-        expParams.nCondPerList = expParams.nTrialsPerList / 3;
-        expParams.nTicks_noise = ceil(expParams.maxCFS_noise * expParams.mondrianHertz);
-        
+    
     case 'CFSgonogo'
-        expParams.noiseHertz = refreshRate/10;
+        expParams.noiseHertz = refreshRate/hz;
         expParams.alpha.mondrian = 1;
         
         switch debugLevel
@@ -77,7 +55,7 @@ switch expt
                 expParams.nTicks_bino = ceil(expParams.maxCFS_bino * expParams.mondrianHertz);
                 
                 expParams.maxCFS_noise = 4;
-                expParams.nTrials = 96; 
+                expParams.nTrials = 120; 
                 expParams.nLists = expParams.nTrials/12;
                 expParams.nStudyReps = 2;
                 expParams.noiseFadeInDur = 4;

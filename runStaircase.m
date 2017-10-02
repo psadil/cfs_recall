@@ -3,7 +3,7 @@ function [data, tInfo, expParams, input, sa] =...
 
 expt = 'staircase';
 %%
-expParams = setupExpParams(120, input.debugLevel, expt);
+expParams = setupExpParams(input.refreshRate, input.debugLevel, expt);
 tInfo = setupTInfo(expParams, input.debugLevel, expt);
 sa = setupSAParams(expParams, expt, struct);
 

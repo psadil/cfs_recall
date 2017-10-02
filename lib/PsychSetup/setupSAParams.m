@@ -3,7 +3,7 @@ function sa = setupSAParams( expParams, expt, sa )
 % Almost all of the following comes from Hsu and Chen (2009)
 
 % defaults regardless of debug level
-sa.params.quant = .5; % desired percentile of responses
+sa.params.quant = .8; % desired percentile of responses
 sa.params.tau = 3;
 sa.params.x1 = .5; % initial maximum transparency
 sa.params.ratio = 0.22; % ratio of mean to sd in weibull

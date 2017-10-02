@@ -2,7 +2,7 @@ function [data, tInfo, expParams, input] = runOccularDominance( input, constants
 expt = 'occularDominance';
 
 
-expParams = setupExpParams(120, input.debugLevel, expt);
+expParams = setupExpParams(input.refreshRate, input.debugLevel, expt);
 tInfo = setupTInfo(expParams, input.debugLevel, expt);
 
 data = setupDataTable(expParams, input, expt);

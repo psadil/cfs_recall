@@ -3,7 +3,7 @@ function [data, tInfo, expParams, input, sa] =...
 
 expt = 'CFSgonogo';
 
-expParams = setupExpParams(120, input.debugLevel, expt);
+expParams = setupExpParams(input.refreshRate, input.debugLevel, expt);
 tInfo = setupTInfo(expParams, input.debugLevel, expt);
 sa = setupSAParams(expParams, expt, sa);
 
@@ -18,69 +18,69 @@ keys = setupKeys(expt);
 %% main experimental loop
 for list = 1:expParams.nLists
     
-    if list == 1
-        giveInstruction(window, keys, responseHandler, constants, expt, expParams);
-    else
-        showPromptAndWaitForResp(window, ['You are beginning list ', num2str(list), ' out of ', num2str(expParams.nLists), ' lists'],...
-            keys, constants, responseHandler);
-        showPromptAndWaitForResp(window, 'Remember to keep your eyes focused on the center cross',...
-            keys, constants, responseHandler);
-    end
-    
-    %% go through study phase of this list
-    for rep = 1:expParams.nStudyReps
-        for item = 1:expParams.nTrialsPerList
-            trial = item + (expParams.nTrialsPerList*(list-1));
-            
-            [data.transparency{trial}(rep), sa] =...
-                wrapper_SA(data.tType_study{trial}, sa, expParams);
-            [data.RoboRT{trial}(rep), data.meanRoboRT{trial}(rep)] = ...
-                setupRobotResponses(data.transparency{trial}(rep),...
-                sa, data.tType_study{trial});
-            
-            % make texture for this trial (function is setup to hopefully handle
-            % creation of many textures if graphics card could handle that
-            stims = makeTexs(data.item(trial), window, 'STUDY');
-            
-            switch data.tType_study{trial}
-                case 'Binocular'
-                    showPromptAndWaitForResp(window, 'Please study the details of the following object',...
-                        keys, constants, responseHandler);
-                    keys_response = keys.escape;
-                    nTicks = expParams.nTicks_bino;
-                case {'CFS', 'Not Studied'}
-                    showPromptAndWaitForResp(window, 'Press ''j'' if you see an object, or ''f'' if you think none will appear',...
-                        keys, constants, responseHandler);
-                    keys_response = keys.bCFS+keys.escape;
-                    nTicks = expParams.nTicks;
+    if input.study
+        if list == 1
+            giveInstruction(window, keys, responseHandler, constants, expt, expParams);
+        else
+            showPromptAndWaitForResp(window, ['You are beginning list ', num2str(list), ' out of ', num2str(expParams.nLists), ' lists'],...
+                keys, constants, responseHandler);
+            showPromptAndWaitForResp(window, 'Remember to keep your eyes focused on the center cross',...
+                keys, constants, responseHandler);
+        end
+        
+        %% go through study phase of this list
+        for rep = 1:expParams.nStudyReps
+            for item = 1:expParams.nTrialsPerList
+                trial = item + (expParams.nTrialsPerList*(list-1));
+                
+                [data.transparency{trial}(rep), sa] =...
+                    wrapper_SA(data.tType_study{trial}, sa, expParams);
+                [data.RoboRT{trial}(rep), data.meanRoboRT{trial}(rep)] = ...
+                    setupRobotResponses(data.transparency{trial}(rep),...
+                    sa, data.tType_study{trial});
+                
+                % make texture for this trial (function is setup to hopefully handle
+                % creation of many textures if graphics card could handle that
+                stims = makeTexs(data.item(trial), window, 'STUDY');
+                
+                switch data.tType_study{trial}
+                    case 'Binocular'
+                        showPromptAndWaitForResp(window, 'Please study the details of the following object',...
+                            keys, constants, responseHandler);
+                        keys_response = keys.escape;
+                        nTicks = expParams.nTicks_bino;
+                    case {'CFS', 'Not Studied'}
+                        showPromptAndWaitForResp(window, 'Press ''j'' if you see an object, or ''f'' if you think none will appear',...
+                            keys, constants, responseHandler);
+                        keys_response = keys.bCFS+keys.escape;
+                        nTicks = expParams.nTicks;
+                end
+                
+                % function that presents stim and collects response
+                [data.response(trial,rep), data.rt{trial}(rep),...
+                    data.tStart{trial}(rep), data.tEnd{trial}(rep),...
+                    ~, ~,...
+                    data.exitFlag(trial,rep)] = ...
+                    elicitBCFS(window, responseHandler,...
+                    stims.tex, data.eyes{trial},...
+                    keys_response, mondrians, expParams,...
+                    constants, data.RoboRT{trial}(rep),...
+                    data.transparency{trial}(rep), data.jitter{trial}(rep), data.roboBCFS{trial,rep}, ...
+                    expt, domEye, nTicks, []);
+                Screen('Close', stims.tex);
+                
+                % handle exitFlag, based on responses given
+                [data.pas(trial,rep), sa, esc] = wrapper_bCFS_exitFlag(data.exitFlag{trial,rep}, data.tType_study{trial}, data.rt{trial}(rep),...
+                    data.response{trial,rep}, sa, window, keys, constants, responseHandler);
+                if esc
+                    return;
+                end
+                
+                % inter-trial-interval
+                iti(window, expParams.iti);
             end
-            
-            % function that presents stim and collects response
-            [data.response(trial,rep), data.rt{trial}(rep),...
-                data.tStart{trial}(rep), data.tEnd{trial}(rep),...
-                ~, ~,...
-                data.exitFlag(trial,rep)] = ...
-                elicitBCFS(window, responseHandler,...
-                stims.tex, data.eyes{trial},...
-                keys_response, mondrians, expParams,...
-                constants, data.RoboRT{trial}(rep),...
-                data.transparency{trial}(rep), data.jitter{trial}(rep), data.roboBCFS{trial,rep}, ...
-                expt, domEye, nTicks, []);
-            Screen('Close', stims.tex);
-            
-            
-            % handle exitFlag, based on responses given
-            [data.pas(trial,rep), sa, esc] = wrapper_bCFS_exitFlag(data.exitFlag{trial,rep}, data.tType_study{trial}, data.rt{trial}(rep),...
-                data.response{trial,rep}, sa, window, keys, constants, responseHandler);
-            if esc
-                return;
-            end
-            
-            % inter-trial-interval
-            iti(window, expParams.iti);
         end
     end
-    
     %% Instruction for test
     if list == 1
         giveInstruction(window, keys, responseHandler, constants, 'TEST', expParams);
@@ -93,7 +93,7 @@ for list = 1:expParams.nLists
     
     % make 50 noise textures to use on this list
     noiseTexes = makeNoiseTex(window);
-
+    
     
     %% go through test phase of this list
     for item = 1:expParams.nTrialsPerList
@@ -108,12 +108,17 @@ for list = 1:expParams.nLists
             responseHandler, stims.tex,...
             keys_response, constants, [data.name_test{trial},'\ENTER']);
         Screen('Close', stims.tex);
+        switch data.exitFlag_cue{trial}
+            case 'ESCAPE'
+                return;
+        end
+        
         
         showPromptAndWaitForResp(window, 'Press Enter only if you see an object',...
             keys, constants, responseHandler);
         
         switch data.gonogo_answer{trial}
-            case 'go'      
+            case 'go'
                 answer = '\ENTER';
                 maxAlpha = 1;
             case 'nogo'
@@ -128,7 +133,7 @@ for list = 1:expParams.nLists
         [data.response_noise(trial), data.rt_noise(trial),...
             data.tStart_noise(trial), data.tEnd_noise(trial),...
             ~, ~,...
-            data.exitFlag(trial)] = ...
+            data.exitFlag_noise(trial)] = ...
             elicitBCFS(window, responseHandler,...
             stims.tex, [1, 1],...
             keys_response, noiseTexes, expParams,...
@@ -138,14 +143,14 @@ for list = 1:expParams.nLists
             'Press Enter only if you see an object');
         Screen('Close', stims.tex);
         
-%         [data.response_noise(trial), data.rt_noise(trial),...
-%             data.tStart_noise(trial), data.tEnd_noise(trial),...
-%             ~, ~,...
-%             data.exitFlag_noise(trial)] = elicitNoise2(window, ...
-%             responseHandler, stims.tex, keys_response, expParams,...
-%             constants, data.RoboRT_noise{trial}, 1, data.jitter_noise(trial), answer, noisetex,...
-%             'Press Enter only if you see an object');
-
+        %         [data.response_noise(trial), data.rt_noise(trial),...
+        %             data.tStart_noise(trial), data.tEnd_noise(trial),...
+        %             ~, ~,...
+        %             data.exitFlag_noise(trial)] = elicitNoise2(window, ...
+        %             responseHandler, stims.tex, keys_response, expParams,...
+        %             constants, data.RoboRT_noise{trial}, 1, data.jitter_noise(trial), answer, noisetex,...
+        %             'Press Enter only if you see an object');
+        
         % handle exitFlag, based on responses given
         switch data.exitFlag_noise{trial}
             case 'ESCAPE'

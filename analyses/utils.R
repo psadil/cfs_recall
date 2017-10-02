@@ -1,3 +1,6 @@
+'%!in%' <- function(x,y)!('%in%'(x,y))
+
+
 findMatches <- function(d, cutoff=3){
   
   # distance of this response from each other potential target (all rows, all elements)
@@ -12,6 +15,7 @@ findMatches <- function(d, cutoff=3){
     as_vector(.)
   return(indsOfCloseEnoughTargets)
 }
+
 
 countSwaps <- function(d, condition){
   sapply(X=d$potentialMatches, FUN=function(x) d[x, ]$condition==condition) %>%
@@ -31,3 +35,6 @@ nSwaps <- function(d,condition){
   ) %>%
     as_vector(.)
 }
+
+
+
