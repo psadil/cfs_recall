@@ -1,1561 +1,3049 @@
 firstTarget,response_cue,minDist,cue_correct,id
-high heel,shoe,0,1,1
-dresser,chest of drawers,9,1,2
-floss,chest of drawers,14,1,3
-purse,dental floss,11,0,4
-mailbox,house,7,0,5
-chain,chain,0,1,6
-glass,shoe,4,0,7
-foot stool,screw,4,0,8
-knife,shoe,4,0,9
-clothes pin,butterfly,9,0,10
-bed,bridge,4,0,11
-paint brush,table,5,0,12
-bandana,box,6,0,13
-calculator,calculator,0,1,14
-lazy chair,stroller,6,0,15
-lamp,table,4,0,16
-ring,plate,5,0,17
-pen,pen,0,1,18
-hole punch,recliner,8,0,19
-book,book,0,1,20
-paper towel,paper,6,0,21
-cutting board,plate,12,0,22
-stroller,greenhouse,9,0,23
-umbrella,book,7,0,24
-deoderant,tape,8,0,25
-paint tray,grater,8,0,26
-kid toy,plate,5,0,27
-shoe,ice cube tray,10,0,28
-mug,mug,0,1,29
-moccosin,slipper,0,1,30
-lure,lure,0,1,31
-plane,plane,0,1,32
-bib,basket,5,0,33
-radio,table,4,0,34
-scissors,scissors,0,1,35
-sweater,sweater,0,1,36
-crayon,concrete,7,0,37
-bobby pin,bobby pin,0,1,38
-keys,box,4,0,39
-ladle,hammer,4,0,40
-camera,camera,0,1,41
-guitar,spoon,6,0,42
-pill,pill,0,1,43
-axe,ax,1,1,44
-watering pot,spoon,9,0,45
-watch,clock,4,0,46
-cork screw,camera,8,0,47
-sponge,sponge,0,1,48
-blanket,towel,0,1,49
-scarf,scarf,0,1,50
-lock,chair,5,0,51
-notebook,crowbar,7,0,52
-truck,camera,5,0,53
-key,key,0,1,54
-clipboard,clipboard,0,1,55
-marker,hammer,3,0,56
-crowbar,spoon,6,0,57
-magnifying glass,fishing pole,11,0,58
-steering wheel,crowbar,12,0,59
-briefcase,crowbar,7,0,60
-mouse trap,paper,8,0,61
-speakers,screen,6,0,62
-egg beater,teapot,8,0,63
-pfd,life jacket,0,1,64
-eletric kettle,teapot,5,0,65
-battery,battery,0,1,66
-binder,blanket,4,0,67
-rug,rug,0,1,68
-knot,rug,3,0,69
-hammer,hammer,0,1,70
-toothbrush,baby toy,10,0,71
-helmet,helmet,0,1,72
-crib,crib,0,1,73
-nail,nail,0,1,74
-dice,crib,3,0,75
-cd,teapot,6,0,76
-cookie cutter,cookie cutter,0,1,77
-wheel,tire,0,1,78
-glasses,glasses,0,1,79
-saw,crib,4,0,80
-sundial,chest of drawers,13,0,81
-nail clippers,wheel,12,0,82
-comb,saw,4,0,83
-cell phone,chair,4,0,84
-mouse,ice cube tray,11,0,85
-flask,flask,0,1,86
-router,mask,4,0,87
-earring,ice tray,7,0,88
-pot,mouse,4,0,89
-vase,vase,0,1,90
-truck,ice tray,7,0,91
-ice tray,ice tray,0,1,92
-thimble,vase,4,0,93
-wallet,flask,5,0,94
-candlestick,vase,9,0,95
-bucket,bucket,0,1,96
-rake,rake,0,1,97
-candle,toilet paper,11,0,98
-stove,chair,5,0,99
-tub,tub,0,1,100
-satellite,motherboard,9,0,101
-office chair,paper,4,0,102
-paper clip,paperclip,1,0,103
-balloon,tub,7,0,104
 athletic tape,rug,4,0,105
-backpack,glove,5,0,106
-glove,glove,0,1,107
-computer drive,motherboard,0,1,108
-pillow,sweater,7,0,109
-saddle,briefcase,8,0,110
-box,box,0,1,111
-spoon,pill,4,0,112
-hinge,boat,5,0,113
-ethernet cable,cord,0,1,114
-binoculars,rope,9,0,115
-microphone,pipes,8,0,116
-chess board,chessboard,1,1,117
-boat,car,3,0,118
-cane,scissors,7,0,119
-necklace,beads,6,0,120
-purse,clothspin,8,0,121
-dresser,dresser,0,1,122
-paint brush,hanger,6,0,123
-floss,icebox,6,0,124
-bed,window,5,0,125
-high heel,high heeled shoe,2,1,126
-clothes pin,clothspin,2,1,127
-chain,necklace,6,0,128
-glass,high heeled shoe,12,0,129
-foot stool,wine glass,9,0,130
-knife,handbag,6,0,131
-mailbox,dresser,7,0,132
-pen,pen,0,1,133
-lamp,dress,5,0,134
-paper towel,mirror,9,0,135
-umbrella,umbrella,0,1,136
-book,book,0,1,137
-stroller,stroller,0,1,138
-bandana,window,5,0,139
-lazy chair,hole punch,8,0,140
-calculator,calculator,0,1,141
-cutting board,mirror,10,0,142
-hole punch,hole punch,0,1,143
-ring,hole punch,9,0,144
-lure,fishing bait,3,0,145
-sweater,cable knit sweater,11,1,146
-paint tray,sneaker,9,0,147
-bib,hand bag,7,0,148
-shoe,sneakers,0,1,149
-radio,airplane,7,0,150
-mug,mug,0,1,151
-deoderant,curtain,8,0,152
-moccosin,mockasin,1,1,153
-plane,airplane,0,1,154
-kid toy,shoe,3,0,155
-scissors,scizzors,2,1,156
-crayon,crayon,0,1,157
-bobby pin,bobbypin,1,1,158
-camera,gaming bag,7,0,159
-ladle,spoon,5,1,160
-keys,chair,5,0,161
-cork screw,ax,10,0,162
-axe,ax,1,1,163
-watering pot,clock,9,0,164
-pill,telescope lens,9,0,165
-guitar,pill,5,0,166
-sponge,sponge,0,1,167
-watch,clock,4,0,168
-briefcase,crow bar,7,0,169
-blanket,towel,0,1,170
-clipboard,clip board,1,1,171
-scarf,scarf,0,1,172
-magnifying glass,key,12,0,173
-key,key,0,1,174
-notebook,crow bar,7,0,175
-steering wheel,crow bar,12,0,176
-truck,gun,4,0,177
-crowbar,crow bar,1,1,178
-lock,lever,4,0,179
-marker,ax,5,0,180
-helmet,helmet,0,1,181
-knot,rug,3,0,182
-mouse trap,wood,7,0,183
-eletric kettle,teapot,5,0,184
-egg beater,iron,10,0,185
-speakers,tennis raquette,12,0,186
-hammer,hammer,0,1,187
-binder,wood,5,0,188
-toothbrush,ad,10,0,189
-battery,battery,0,1,190
-pfd,radio,4,0,191
-rug,bridge,4,0,192
-nail,brush,5,0,193
-crib,bed skirt,8,0,194
-saw,be,3,0,195
-glasses,sunglasses,0,1,196
-comb,comb,0,1,197
-nail clippers,hairbrush,11,0,198
-wheel,wheel,0,1,199
-cookie cutter,map,13,0,200
-sundial,shirft,6,0,201
-cell phone,phone over,5,0,202
-dice,crib,3,0,203
-cd,lightswitch,10,0,204
-vase,vase,0,1,205
-earring,bag,5,0,206
-thimble,glass juar,7,0,207
-router,push car,7,0,208
-bucket,bucket,0,1,209
-candlestick,lamp,10,0,210
-mouse,mook,3,0,211
-truck,ice tray,7,0,212
-ice tray,ice tray,0,1,213
-flask,flask,0,1,214
-wallet,flask,5,0,215
-pot,flask,5,0,216
-tub,bathtub,0,1,217
-candle,candle,0,1,218
-glove,glove,0,1,219
-paper clip,paper clip,0,1,220
-backpack,company lot,9,0,221
-computer drive,company facility,10,0,222
-stove,stand,3,0,223
-rake,rake,0,1,224
 athletic tape,purse,4,0,225
-satellite,solar panel,9,0,226
-office chair,toilet paper,9,0,227
-balloon,lamp,6,0,228
-microphone,simple machine,10,0,229
-chess board,chess,0,1,230
-hinge,box,5,0,231
-box,box,0,1,232
-ethernet cable,hose,3,0,233
-pillow,bracelet,7,0,234
-saddle,spoon,5,0,235
-boat,yahgt,2,1,236
-necklace,bracelet,7,1,237
-spoon,spoon,0,1,238
-cane,cane,0,1,239
-binoculars,crutch,9,0,240
-mailbox,bag,6,0,241
-floss,door,4,0,242
-chain,chain,0,1,243
-knife,knife,0,1,244
-dresser,fence,5,0,245
-purse,ribbon,5,0,246
-glass,wine glass,0,1,247
-high heel,bag,4,0,248
-bed,window,5,0,249
-clothes pin,NO RESPONSE,11,0,250
-paint brush,NO RESPONSE,11,0,251
-foot stool,table,4,0,252
-pen,NO RESPONSE,11,0,253
-book,book,0,1,254
-cutting board,bowl,11,0,255
-bandana,bandana,0,1,256
-ring,bowl,4,0,257
-umbrella,umbrella,0,1,258
-stroller,NO RESPONSE,11,0,259
-paper towel,NO RESPONSE,11,0,260
-lamp,table,4,0,261
-lazy chair,NO RESPONSE,11,0,262
-calculator,NO RESPONSE,11,0,263
-hole punch,bag,10,0,264
-paint tray,storage container,14,0,265
-mug,mug,0,1,266
-radio,NA,Inf,0,267
-shoe,NO RESPONSE,11,0,268
-deoderant,NO RESPONSE,11,0,269
-kid toy,NO RESPONSE,11,0,270
-sweater,NO RESPONSE,11,0,271
-plane,scissors,8,0,272
-lure,fish hook,0,1,273
-moccosin,NO RESPONSE,11,0,274
-bib,baby bib,5,0,275
-scissors,scissors,0,1,276
-crayon,NA,Inf,0,277
-cork screw,NO RESPONSE,11,0,278
-sponge,sponge,0,1,279
-watering pot,watering can,0,1,280
-bobby pin,NO RESPONSE,11,0,281
-camera,NO RESPONSE,11,0,282
-pill,NO RESPONSE,11,0,283
-keys,car keys,0,1,284
-ladle,NO RESPONSE,11,0,285
-watch,clock,4,0,286
-guitar,guitar,0,1,287
-axe,NO RESPONSE,11,0,288
-truck,NO RESPONSE,11,0,289
-steering wheel,NO RESPONSE,14,0,290
-lock,pad lock,1,1,291
-crowbar,NO RESPONSE,11,0,292
-marker,NO RESPONSE,11,0,293
-blanket,NO RESPONSE,11,0,294
-briefcase,clipboard,7,0,295
-magnifying glass,NO RESPONSE,13,0,296
-clipboard,clipboard,0,1,297
-scarf,NO RESPONSE,11,0,298
-key,key,0,1,299
-notebook,notebook,0,1,300
-pfd,NO RESPONSE,11,0,301
-speakers,boombox,8,0,302
-helmet,NO RESPONSE,11,0,303
-egg beater,NO RESPONSE,11,0,304
-knot,knot,0,1,305
-eletric kettle,NO RESPONSE,11,0,306
-toothbrush,NO RESPONSE,11,0,307
-rug,NO RESPONSE,11,0,308
-battery,battery,0,1,309
-mouse trap,plank,8,0,310
-hammer,NO RESPONSE,11,0,311
-binder,NO RESPONSE,11,0,312
-cd,cd rom,4,1,313
-wheel,tire,0,1,314
-nail,NO RESPONSE,11,0,315
-glasses,glasses,0,1,316
-saw,NO RESPONSE,11,0,317
-crib,NO RESPONSE,11,0,318
-cell phone,cellphone,1,1,319
-nail clippers,nail clippers,0,1,320
-dice,NO RESPONSE,11,0,321
-comb,comb,0,1,322
-cookie cutter,NO RESPONSE,13,0,323
-sundial,sundial,0,1,324
-router,modem,0,1,325
-ice tray,ice cube tray,0,1,326
-thimble,thimble,0,1,327
-mouse,NO RESPONSE,11,0,328
-candlestick,NO RESPONSE,11,0,329
-pot,puzzle piece,11,0,330
-vase,NO RESPONSE,11,0,331
-truck,truck,0,1,332
-flask,NO RESPONSE,11,0,333
-earring,NO RESPONSE,11,0,334
-bucket,NO RESPONSE,11,0,335
-wallet,NO RESPONSE,11,0,336
-athletic tape,ace bandage,0,1,337
-office chair,NO RESPONSE,11,0,338
-rake,rake,0,1,339
-tub,NO RESPONSE,11,0,340
-glove,glove,0,1,341
-paper clip,paperclip,1,0,342
-satellite,satellite,0,1,343
-balloon,NO RESPONSE,11,0,344
-candle,NO RESPONSE,11,0,345
-computer drive,NO RESPONSE,11,0,346
-stove,NO RESPONSE,11,0,347
-backpack,NO RESPONSE,11,0,348
-microphone,microphone,0,1,349
-boat,NO RESPONSE,11,0,350
-saddle,NO RESPONSE,11,0,351
-necklace,NO RESPONSE,11,0,352
-box,laptop,5,0,353
-binoculars,NO RESPONSE,11,0,354
-chess board,checkerboard,4,1,355
-hinge,NO RESPONSE,11,0,356
-pillow,NO RESPONSE,11,0,357
-cane,NO RESPONSE,11,0,358
-ethernet cable,NO RESPONSE,11,0,359
-spoon,NO RESPONSE,11,0,360
-mailbox,toolbox,3,0,361
-floss,bed,5,0,362
-purse,shoe,4,0,363
-dresser,dresser,0,1,364
-high heel,NO RESPONSE,11,0,365
-bed,bed,0,1,366
-clothes pin,NO RESPONSE,11,0,367
-glass,wine glass,0,1,368
-paint brush,NO RESPONSE,11,0,369
-chain,chain,0,1,370
-foot stool,screw,4,0,371
-knife,NA,Inf,0,372
-calculator,calculator,0,1,373
-umbrella,umbrella,0,1,374
-bandana,NO RESPONSE,11,0,375
-lamp,lamp,0,1,376
-cutting board,coaster,11,0,377
-pen,brush,5,0,378
-hole punch,open bag,8,0,379
-paper towel,papertowelroll,2,1,380
-lazy chair,NO RESPONSE,11,0,381
-book,book,0,1,382
-stroller,baby stroller,0,1,383
-ring,bowl,4,0,384
-deoderant,deodorant,1,1,385
-kid toy,rattle,5,1,386
-mug,mug,0,1,387
-radio,old radio,4,1,388
-bib,harness,7,0,389
-sweater,brush,7,0,390
-moccosin,hat,4,0,391
-lure,fishing tackle,5,0,392
-paint tray,NO RESPONSE,11,0,393
-scissors,scissors,0,1,394
-shoe,shoe,0,1,395
-plane,airplane,0,1,396
-crayon,capsule,6,0,397
-watch,scale or alarm clock,18,0,398
-cork screw,NO RESPONSE,11,0,399
-watering pot,ladle,8,0,400
-guitar,spoon,6,0,401
-keys,NO RESPONSE,11,0,402
-ladle,NO RESPONSE,11,0,403
-camera,camera,0,1,404
-sponge,sponge,0,1,405
-axe,knife,4,0,406
-pill,capsule or pill,8,0,407
-bobby pin,bobbypin,1,0,408
-steering wheel,steering wheel,0,1,409
-blanket,carpet,4,0,410
-clipboard,clipboard,0,1,411
-lock,lock,0,1,412
-truck,NO RESPONSE,11,0,413
-notebook,NO RESPONSE,11,0,414
-briefcase,briefcase,0,1,415
-crowbar,NO RESPONSE,11,0,416
-key,key,0,1,417
-marker,marker,0,1,418
-scarf,rag,4,0,419
-magnifying glass,NO RESPONSE,13,0,420
-rug,bag,2,0,421
-knot,belt,3,0,422
-helmet,ball,5,0,423
-binder,binder,0,1,424
-speakers,speaker,1,1,425
-pfd,life vest,0,1,426
-egg beater,bottle,8,0,427
-mouse trap,mouse trap,0,1,428
-eletric kettle,NO RESPONSE,11,0,429
-hammer,hammer,0,1,430
-toothbrush,toothbrush,0,1,431
-battery,battery,0,1,432
-nail,nail,0,1,433
-sundial,pocketwatch,10,0,434
-dice,NO RESPONSE,11,0,435
-crib,bed,4,0,436
-saw,NO RESPONSE,11,0,437
-glasses,glasses,0,1,438
-comb,comb,0,1,439
-cookie cutter,cookie cutter,0,1,440
-cd,cd,0,1,441
-nail clippers,watch,11,0,442
-cell phone,flip phone,0,1,443
-wheel,wheel,0,1,444
-truck,NO RESPONSE,11,0,445
-ice tray,ice cube tray,0,1,446
-candlestick,candlestick holder,0,1,447
-pot,puzzle piece,11,0,448
-thimble,gold ball,7,0,449
-bucket,bucket,0,1,450
-wallet,NO RESPONSE,11,0,451
-router,key,4,0,452
-mouse,NO RESPONSE,11,0,453
-flask,wallet,5,0,454
-vase,soccer ball,10,0,455
-earring,NO RESPONSE,11,0,456
 athletic tape,beehive,5,0,457
-satellite,solar panel,9,0,458
-glove,glove,0,1,459
-office chair,NO RESPONSE,11,0,460
-candle,NO RESPONSE,11,0,461
-computer drive,microchip,5,1,462
-stove,NO RESPONSE,11,0,463
-balloon,balloon,0,1,464
-backpack,NO RESPONSE,11,0,465
-paper clip,paperclip,1,1,466
-rake,rake,0,1,467
-tub,NO RESPONSE,11,0,468
-necklace,necklace,0,1,469
-ethernet cable,ethernet cable,0,1,470
-microphone,hinge,8,0,471
-spoon,NO RESPONSE,11,0,472
-binoculars,NO RESPONSE,11,0,473
-chess board,game board,5,0,474
-boat,NO RESPONSE,11,0,475
-cane,cane,0,1,476
-pillow,NO RESPONSE,11,0,477
-hinge,box,5,0,478
-box,NO RESPONSE,11,0,479
-saddle,saddle,0,1,480
-chain,chain,0,1,481
-dresser,chest of drawers,9,1,482
-mailbox,car,6,0,483
-paint brush,roof,4,0,484
-purse,ribbon,5,0,485
-knife,car,5,0,486
-clothes pin,butterfly,9,0,487
-foot stool,screw,4,0,488
-bed,car,3,0,489
-glass,spoon,5,0,490
-high heel,shoe,0,1,491
-floss,box,4,0,492
-paper towel,couch,10,0,493
-book,book,0,1,494
-calculator,calculator,0,1,495
-cutting board,cutting board,0,1,496
-pen,pen,0,1,497
-stroller,stroller,0,1,498
-lazy chair,chair,0,1,499
-bandana,house,7,0,500
-lamp,shoe,4,0,501
-umbrella,umbrella,0,1,502
-ring,mirror,5,0,503
-hole punch,hole punch,0,1,504
-deoderant,garbage can,9,0,505
-lure,fishing bait,3,1,506
-sweater,sweater,0,1,507
-moccosin,slipper,0,1,508
-paint tray,car,8,0,509
-plane,plane,0,1,510
-shoe,running shoe,8,0,511
-scissors,scissors,0,1,512
-kid toy,shoe,3,0,513
-radio,boat,5,0,514
-mug,mug,0,1,515
-bib,stroller,8,0,516
-bobby pin,strings,7,0,517
-sponge,sponge,0,1,518
-keys,chair,5,0,519
-crayon,crayon,0,1,520
-watch,clock,4,0,521
-camera,camera,0,1,522
-axe,axe,0,1,523
-cork screw,shoe,8,0,524
-guitar,knife,5,0,525
-watering pot,pen,8,0,526
-pill,tube,4,0,527
-ladle,corkscrew,8,0,528
-lock,tool,3,0,529
-scarf,scarf,0,1,530
-notebook,key,7,0,531
-key,key,0,1,532
-marker,rod,5,0,533
-steering wheel,crow bar,12,0,534
-truck,camera,5,0,535
-blanket,towel,0,1,536
-magnifying glass,magnifying glass,0,1,537
-clipboard,clip board,1,1,538
-briefcase,bag,7,1,539
-crowbar,tool,6,0,540
-mouse trap,wood,7,0,541
-battery,can,6,0,542
-knot,rug,3,0,543
-rug,rug,0,1,544
-speakers,microphone,10,0,545
-binder,mat,6,0,546
-egg beater,car,8,0,547
-toothbrush,toy,8,0,548
-hammer,kettle,6,0,549
-eletric kettle,kettle,0,1,550
-pfd,quilt,5,0,551
-helmet,pot,5,0,552
-dice,cloth,5,0,553
-comb,comb,0,1,554
-sundial,wood,6,0,555
-cookie cutter,roof,11,0,556
-cd,cd,0,1,557
-nail,board,4,0,558
-nail clippers,tin can,10,0,559
-glasses,glasses,0,1,560
-saw,knife,5,0,561
-cell phone,calculator,8,0,562
-wheel,wheel,0,1,563
-crib,bed,4,0,564
-vase,vase,0,1,565
-pot,paddle,5,0,566
-candlestick,chair,9,0,567
-router,lawn mower,7,0,568
-flask,bucket,6,0,569
-thimble,golf ball,7,0,570
-truck,box,5,0,571
-wallet,leather bag,9,0,572
-earring,mouse,7,0,573
-mouse,book,4,0,574
-bucket,basket,2,0,575
-ice tray,ice cube tray,0,1,576
-office chair,bag,4,0,577
-tub,bath tub,1,1,578
-backpack,shoe,4,0,579
-balloon,ball,3,0,580
-rake,rake,0,1,581
-stove,ladder,5,0,582
-satellite,computer chip,11,0,583
-candle,fountain,7,0,584
-computer drive,computer chip,0,1,585
-paper clip,paper clip,0,1,586
-glove,glove,0,1,587
 athletic tape,rug,4,0,588
-hinge,wall,5,0,589
+athletic tape,NO RESPONSE,11,0,828
+athletic tape,NO RESPONSE,11,0,948
+athletic tape,sprain bandaid,7,0,1060
+athletic tape,roll,5,0,1182
+athletic tape,NO RESPONSE,11,0,1305
+athletic tape,fabric,5,0,1668
+athletic tape,rug,4,0,1782
+athletic tape,NO RESPONSE,11,0,2025
+athletic tape,rag,4,0,2146
+athletic tape,roll,5,0,2260
+athletic tape,rug,4,0,2379
+athletic tape,NO RESPONSE,11,0,2506
+athletic tape,first aid bandage,8,1,2624
+athletic tape,not sure,6,0,2748
+athletic tape,NO RESPONSE,11,0,2867
+athletic tape,NO RESPONSE,11,0,2980
+athletic tape,NO RESPONSE,11,0,3341
+athletic tape,unsure,4,0,3577
+athletic tape,wallet,4,0,3703
+athletic tape,yoga mat,6,0,3819
+athletic tape,wallet,4,0,3944
+athletic tape,rope,4,0,4067
+athletic tape,wrap,5,0,4186
+athletic tape,NO RESPONSE,11,0,4298
+axe,NO RESPONSE,11,0,288
+axe,knife,4,0,406
+axe,NO RESPONSE,11,0,766
+axe,guitar,6,0,1003
+axe,NO RESPONSE,11,0,1122
+axe,classical guitar,13,0,1481
+axe,not sure,7,0,1605
+axe,rug,3,0,1726
+axe,idk,3,0,1967
+axe,rug,3,0,2086
+axe,knife,4,0,2205
+axe,rug,3,0,2320
+axe,NO RESPONSE,11,0,2442
+axe,spoon,5,0,2568
+axe,not sure,7,0,2681
+axe,NO RESPONSE,11,0,2804
+axe,clothing edge,11,0,3048
+axe,pen,3,0,3167
+axe,clock,5,0,3284
+axe,rug,3,0,3404
+axe,ladle,3,0,3523
+axe,knive,4,0,3645
+axe,guitar,6,0,3759
+axe,keys,4,0,3877
+axe,shoe,3,0,4008
+axe,plank,4,0,4127
+axe,NO RESPONSE,11,0,4247
+backpack,glove,5,0,106
+backpack,company lot,9,0,221
+backpack,NO RESPONSE,11,0,348
+backpack,NO RESPONSE,11,0,465
+backpack,shoe,4,0,579
+backpack,NO RESPONSE,11,0,824
+backpack,baseball glove,11,0,938
+backpack,shoe lack,6,0,1064
+backpack,shoes,5,0,1185
+backpack,NO RESPONSE,11,0,1308
+backpack,NO RESPONSE,11,0,1545
+backpack,NO RESPONSE,11,0,1904
+backpack,tissue paper,10,0,2018
+backpack,shpe,4,0,2141
+backpack,NO RESPONSE,11,0,2505
+backpack,glove,5,0,2620
+backpack,not sure,8,0,2746
+backpack,NO RESPONSE,11,0,2866
+backpack,mitt,4,0,2979
+backpack,NO RESPONSE,11,0,3105
+backpack,NO RESPONSE,11,0,3338
+backpack,unsure,6,0,3586
+backpack,show,4,0,3705
+backpack,shoulder bag,9,0,3827
+backpack,shoe,4,0,4060
+backpack,shoe,4,0,4305
+balloon,tub,7,0,104
+balloon,lamp,6,0,228
+balloon,NO RESPONSE,11,0,344
+balloon,ball,3,0,580
+balloon,NO RESPONSE,11,0,817
+balloon,sundial,7,0,939
+balloon,NA,Inf,0,1066
+balloon,bulb,5,0,1183
+balloon,hot tub,7,0,1426
+balloon,NO RESPONSE,11,0,1539
+balloon,lamp,6,0,1785
+balloon,NO RESPONSE,11,0,1901
+balloon,mirror,6,0,2140
+balloon,NO RESPONSE,11,0,2264
+balloon,light,6,0,2377
+balloon,NO RESPONSE,11,0,2502
+balloon,i dont know,10,0,2619
+balloon,NO RESPONSE,11,0,2863
+balloon,NO RESPONSE,11,0,3100
+balloon,NO RESPONSE,11,0,3348
+balloon,mouse,7,0,3461
+balloon,unsure,7,0,3580
+balloon,lamp,6,0,3707
+balloon,cup,7,0,3818
+balloon,lamp,6,0,4183
+balloon,NO RESPONSE,11,0,4302
+bandana,box,6,0,13
+bandana,window,5,0,139
+bandana,NO RESPONSE,11,0,375
+bandana,house,7,0,500
+bandana,shirt,7,0,616
+bandana,umbrella,7,0,736
+bandana,chair,6,0,853
+bandana,umbrella,7,0,983
+bandana,NO RESPONSE,11,0,1102
+bandana,recliner,7,0,1224
+bandana,box,6,0,1334
+bandana,box,6,0,1575
+bandana,arm chair,8,0,1700
+bandana,shirt,7,0,1816
+bandana,chair,6,0,1941
+bandana,spider,6,0,2062
+bandana,ribbon,6,0,2177
+bandana,roof,7,0,2302
+bandana,NO RESPONSE,11,0,2417
+bandana,chair,6,0,2542
+bandana,not sure,8,0,2654
+bandana,NO RESPONSE,11,0,2779
+bandana,NO RESPONSE,11,0,2893
+bandana,scarf,6,0,3016
+bandana,bag,5,0,3135
+bandana,NO RESPONSE,11,0,3254
+bandana,scarf,6,0,3379
+bandana,umbrella,7,0,3494
+bandana,recliner,7,0,3619
+bandana,box,6,0,3741
+bandana,lamp,6,0,3862
+bandana,stroller,8,0,3983
+bandana,box,6,0,4104
+bandana,NO RESPONSE,11,0,4220
+battery,can,6,0,542
+battery,d battery,2,1,908
+battery,wheel,6,0,1029
+battery,can,6,0,1745
+battery,vault,6,0,2344
+battery,NO RESPONSE,11,0,2466
+battery,NO RESPONSE,11,0,2832
+battery,NO RESPONSE,11,0,2949
+battery,NO RESPONSE,11,0,3072
+battery,NO RESPONSE,11,0,3429
+battery,can,6,0,3662
+battery,lighter,5,0,3782
+bed,bridge,4,0,11
+bed,window,5,0,125
+bed,window,5,0,249
+bed,car,3,0,489
+bed,window,5,0,602
+bed,NO RESPONSE,11,0,723
+bed,NA,Inf,0,844
+bed,drawer,5,0,970
+bed,gate,4,0,1091
+bed,birdge,4,0,1325
+bed,NO RESPONSE,11,0,1448
+bed,bridge,4,0,1572
+bed,window,5,0,1682
+bed,bench,3,0,1812
+bed,NO RESPONSE,11,0,2049
+bed,bench,3,0,2172
+bed,window,5,0,2289
+bed,NA,Inf,0,2406
+bed,chair,5,0,2529
+bed,NO RESPONSE,11,0,2772
+bed,gate,4,0,3009
+bed,NA,Inf,0,3247
+bed,frame,5,0,3364
+bed,shoe,4,0,3483
+bed,bookshelf,7,0,3723
+bed,desk,3,0,3965
+bed,fence,4,0,4086
+bed,fence,4,0,4209
+bib,basket,5,0,33
+bib,hand bag,7,0,148
+bib,baby bib,5,0,275
+bib,harness,7,0,389
+bib,stroller,8,0,516
+bib,NO RESPONSE,11,0,865
+bib,baseball glove,12,0,988
+bib,skateboard,9,0,1109
+bib,NO RESPONSE,11,0,1228
+bib,baby bib,5,1,1356
+bib,pouch,5,0,1474
+bib,hat,3,0,1595
+bib,idk,3,0,1952
+bib,boomerang,8,0,2076
+bib,bag,2,0,2312
+bib,NA,Inf,0,2436
+bib,not sure,8,0,2673
+bib,NO RESPONSE,11,0,2788
+bib,NO RESPONSE,11,0,2911
+bib,hat or fabric,11,0,3031
+bib,cloth,5,0,3155
+bib,fish hook,8,0,3271
+bib,fabric,4,0,3395
+bib,unsure,6,0,3513
+bib,plane,5,0,3631
+bib,bag,2,0,3747
+bib,bag,2,0,3989
+bib,NO RESPONSE,11,0,4236
+binder,blanket,4,0,67
+binder,wood,5,0,188
+binder,NO RESPONSE,11,0,312
+binder,mat,6,0,546
+binder,NO RESPONSE,11,0,782
+binder,three ring binder,11,0,903
+binder,table,5,0,1032
+binder,book,5,0,1145
+binder,book,5,0,1272
+binder,not sure,7,0,1629
+binder,book,5,0,1749
+binder,NO RESPONSE,11,0,1989
+binder,wooden frame,9,0,2110
+binder,NO RESPONSE,11,0,2224
+binder,book,5,0,2343
+binder,NO RESPONSE,11,0,2465
+binder,not sure,7,0,2704
+binder,NO RESPONSE,11,0,2825
+binder,NO RESPONSE,11,0,2944
+binder,notebook paper holder,17,1,3068
+binder,NO RESPONSE,11,0,3188
+binder,NA,Inf,0,3302
+binder,paper container,12,0,3425
+binder,unsure,5,0,3546
+binder,rug,6,0,3672
+binder,book,5,0,3784
+binder,box,5,0,4027
+binder,file,4,0,4144
+binder,NO RESPONSE,11,0,4269
+binoculars,rope,9,0,115
+binoculars,crutch,9,0,240
+binoculars,NO RESPONSE,11,0,354
+binoculars,NO RESPONSE,11,0,473
 binoculars,mower,8,0,590
-microphone,mic stand,6,0,591
-saddle,boot,6,0,592
-chess board,chess board,0,1,593
-spoon,flat iron,7,0,594
-boat,boat,0,1,595
-necklace,bracelet,7,1,596
-pillow,coat,6,0,597
+binoculars,screw,9,0,713
+binoculars,NO RESPONSE,11,0,836
+binoculars,NO RESPONSE,11,0,955
+binoculars,headphone,10,0,1072
+binoculars,fan,9,0,1192
+binoculars,wire,8,0,1319
+binoculars,head phones,10,0,1434
+binoculars,NO RESPONSE,11,0,1552
+binoculars,not sure,7,0,1678
+binoculars,headphone,10,0,1796
+binoculars,NO RESPONSE,11,0,1914
+binoculars,wire,8,0,2029
+binoculars,NO RESPONSE,11,0,2152
+binoculars,NO RESPONSE,11,0,2272
+binoculars,bag,8,0,2400
+binoculars,NO RESPONSE,11,0,2517
+binoculars,i dont know,10,0,2634
+binoculars,not sure,7,0,2752
+binoculars,NO RESPONSE,11,0,2872
+binoculars,NO RESPONSE,11,0,2996
+binoculars,NO RESPONSE,11,0,3110
+binoculars,NO RESPONSE,11,0,3353
+binoculars,NO RESPONSE,11,0,3473
+binoculars,binocular strap,5,0,3593
+binoculars,sppom,9,0,3712
+binoculars,spoon,9,0,3829
+binoculars,headphones,9,0,4074
+binoculars,NO RESPONSE,11,0,4198
+blanket,NO RESPONSE,11,0,294
+blanket,carpet,4,0,410
+blanket,folded towel,7,0,899
+blanket,cloth,5,0,1018
+blanket,rug,5,0,1136
+blanket,page,4,0,2219
+blanket,NO RESPONSE,11,0,2450
+blanket,not sure,7,0,2697
+blanket,NO RESPONSE,11,0,2814
+blanket,clothing,7,0,3052
+blanket,carpet,4,0,3179
+blanket,clothing,7,0,3414
+blanket,unsure,6,0,3533
+blanket,NO RESPONSE,11,0,3896
+blanket,cloth,5,0,4138
+boat,car,3,0,118
+boat,yahgt,2,1,236
+boat,NO RESPONSE,11,0,350
+boat,NO RESPONSE,11,0,475
+boat,place,4,0,716
+boat,NO RESPONSE,11,0,833
+boat,car,3,0,1079
+boat,wallet,4,0,1195
+boat,NO RESPONSE,11,0,1554
+boat,not sure,7,0,1676
+boat,drawer,5,0,1792
+boat,NO RESPONSE,11,0,1915
+boat,NO RESPONSE,11,0,2035
+boat,desk,4,0,2397
+boat,NO RESPONSE,11,0,2514
+boat,i dont know,9,0,2630
+boat,not sure,7,0,2750
+boat,NO RESPONSE,11,0,2876
+boat,chess board,8,0,3117
+boat,NO RESPONSE,11,0,3237
+boat,NO RESPONSE,11,0,3477
+boat,unsure,6,0,3595
+boat,drawer,5,0,3832
+boat,dresser,7,0,3956
+boat,computer,6,0,4078
+boat,drawer,5,0,4195
+boat,NO RESPONSE,11,0,4320
+bobby pin,NO RESPONSE,11,0,281
+bobby pin,strings,7,0,517
+bobby pin,NA,Inf,0,640
+bobby pin,NO RESPONSE,11,0,887
+bobby pin,guitar,7,0,998
+bobby pin,files,7,0,1124
+bobby pin,wire,6,0,1362
+bobby pin,NO RESPONSE,11,0,1484
+bobby pin,NO RESPONSE,11,0,1846
+bobby pin,hair clip,3,0,1960
+bobby pin,comb,7,0,2077
+bobby pin,key,8,0,2202
+bobby pin,NO RESPONSE,11,0,2448
+bobby pin,rake,7,0,2564
+bobby pin,NO RESPONSE,11,0,2807
+bobby pin,hair clip,3,0,2924
+bobby pin,NO RESPONSE,11,0,3042
+bobby pin,stick,7,0,3405
+bobby pin,guitar,7,0,3640
+bobby pin,guitar,7,0,3768
+bobby pin,rake,7,0,4117
+book,calculator,9,0,734
+book,board,3,0,1695
+book,NO RESPONSE,11,0,2421
+book,not sure,7,0,2658
+book,NO RESPONSE,11,0,2773
+book,NO RESPONSE,11,0,2895
+book,notebook,4,0,3256
+book,calculator,9,0,3499
+book,calculator,9,0,3613
+book,handbag,7,0,3735
+book,notebook,4,0,3860
+box,laptop,5,0,353
+box,NO RESPONSE,11,0,479
 box,book,2,0,598
+box,shovel,5,0,710
+box,NO RESPONSE,11,0,834
+box,NO RESPONSE,11,0,954
+box,laptop,5,0,1073
+box,book,2,0,1191
+box,NO RESPONSE,11,0,1320
+box,labtop,4,0,1436
+box,NO RESPONSE,11,0,1553
+box,laptop,5,0,1798
+box,NO RESPONSE,11,0,1910
+box,NO RESPONSE,11,0,2151
+box,NO RESPONSE,11,0,2271
+box,book,2,0,2396
+box,NO RESPONSE,11,0,2511
+box,seat cover,9,0,2633
+box,not sure,7,0,2760
+box,NO RESPONSE,11,0,2873
+box,NO RESPONSE,11,0,2991
+box,rug,3,0,3111
+box,classor,6,0,3235
+box,NO RESPONSE,11,0,3359
+box,NO RESPONSE,11,0,3478
+box,unsure,6,0,3594
+box,bag,2,0,3720
+box,chessboard,8,0,3833
+box,cap,3,0,4072
+box,floppy disk,10,0,4191
+box,floppy disk,10,0,4310
+briefcase,crowbar,7,0,60
+briefcase,crow bar,7,0,169
+briefcase,clipboard,7,0,295
+briefcase,bag,7,0,539
+briefcase,notebook,8,0,655
+briefcase,NO RESPONSE,11,0,777
+briefcase,NO RESPONSE,11,0,900
+briefcase,notebook,8,0,1012
+briefcase,NO RESPONSE,11,0,1135
+briefcase,NO RESPONSE,11,0,1256
+briefcase,tray,7,0,1378
+briefcase,NO RESPONSE,11,0,1499
+briefcase,not sure,8,0,1619
+briefcase,rug,8,0,1737
+briefcase,notebook,8,0,1854
+briefcase,bag,7,0,1977
+briefcase,edge,7,0,2091
+briefcase,NO RESPONSE,11,0,2218
+briefcase,notebook,8,0,2332
+briefcase,NO RESPONSE,11,0,2454
+briefcase,bag,7,0,2574
+briefcase,purse,7,0,2700
+briefcase,NO RESPONSE,11,0,2815
+briefcase,NO RESPONSE,11,0,2935
+briefcase,lock,8,0,3056
+briefcase,marker,8,0,3180
+briefcase,NO RESPONSE,11,0,3294
+briefcase,lock,8,0,3410
+briefcase,unsure,8,0,3531
+briefcase,book,8,0,3656
+briefcase,notebook,8,0,3773
+briefcase,marker,8,0,3890
+briefcase,marker,8,0,4017
+briefcase,board,7,0,4133
+briefcase,NO RESPONSE,11,0,4249
+bucket,NO RESPONSE,11,0,335
+bucket,basket,2,0,575
+bucket,dumster,5,0,694
+bucket,NO RESPONSE,11,0,934
+bucket,plastic holder,12,0,1049
+bucket,pale,5,1,1410
+bucket,NO RESPONSE,11,0,1896
+bucket,trough,6,0,2126
+bucket,NO RESPONSE,11,0,2495
+bucket,NO RESPONSE,11,0,2849
+bucket,bin,5,0,3096
+bucket,bin,5,0,3446
+bucket,mop bucket,4,1,3567
+bucket,lundry bag,9,0,3811
+bucket,bin,5,0,4174
+bucket,pail,6,1,4293
+calculator,NO RESPONSE,11,0,263
+calculator,remote,9,0,619
+calculator,solar calculator,6,0,854
+calculator,stereo,9,0,1343
+calculator,NO RESPONSE,11,0,1461
+calculator,grill,9,0,2184
+calculator,NO RESPONSE,11,0,2304
+calculator,NO RESPONSE,11,0,2422
+calculator,i dont know,10,0,2539
+calculator,NO RESPONSE,11,0,2780
+calculator,NO RESPONSE,11,0,3023
+calculator,NO RESPONSE,11,0,3264
+calculator,heater,7,0,3378
+calculator,electronic balance,14,0,3734
+camera,gaming bag,7,0,159
+camera,NO RESPONSE,11,0,282
+camera,scale,4,0,647
+camera,NO RESPONSE,11,0,759
+camera,NO RESPONSE,11,0,884
+camera,hammer,3,0,1000
+camera,NO RESPONSE,11,0,1117
+camera,air pump,8,0,1367
+camera,NO RESPONSE,11,0,1488
+camera,scale,4,0,1608
+camera,desk,5,0,1725
+camera,watch,5,0,2079
+camera,guitar,5,0,2199
+camera,desk,5,0,2322
+camera,NO RESPONSE,11,0,2446
+camera,i dont know,11,0,2562
+camera,NO RESPONSE,11,0,2803
+camera,NO RESPONSE,11,0,3047
+camera,NO RESPONSE,11,0,3288
+camera,NA,Inf,0,3398
+camera,unsure,5,0,3525
+camera,locker,5,0,3648
+camera,guitar,5,0,3757
+candle,toilet paper,11,0,98
+candle,NO RESPONSE,11,0,345
+candle,NO RESPONSE,11,0,461
+candle,fountain,7,0,584
+candle,pole,4,0,706
+candle,NO RESPONSE,11,0,822
+candle,log,6,0,940
+candle,tiolet paper,11,0,1063
+candle,plastic,6,0,1423
+candle,NO RESPONSE,11,0,1546
+candle,ice cube,6,0,1900
+candle,tissue paper,11,0,2020
+candle,rubber,6,0,2145
+candle,roll,5,0,2267
+candle,NO RESPONSE,11,0,2497
+candle,mug,6,0,2618
+candle,NO RESPONSE,11,0,2857
+candle,stonr pot,8,0,3106
+candle,stone glass,9,0,3459
+candle,bowl,5,0,3698
+candle,hanger,4,0,3824
+candle,mug,6,0,4188
+candlestick,vase,9,0,95
+candlestick,lamp,10,0,210
+candlestick,NO RESPONSE,11,0,329
+candlestick,chair,9,0,567
+candlestick,lamp,10,0,695
+candlestick,table,8,0,927
+candlestick,cap,9,0,1046
+candlestick,candle stand,4,1,1174
+candlestick,cup,10,0,1405
+candlestick,bell,10,0,1529
+candlestick,cup,10,0,1776
+candlestick,vase,9,0,1892
+candlestick,candle stand,4,1,2007
+candlestick,lampo,10,0,2128
+candlestick,hookah,11,0,2248
+candlestick,NO RESPONSE,11,0,2494
+candlestick,lamp,10,0,2615
+candlestick,NO RESPONSE,11,0,2854
+candlestick,flower pot,10,0,3095
+candlestick,chandllier,6,0,3209
+candlestick,NO RESPONSE,11,0,3331
+candlestick,chair,9,0,3445
+candlestick,lamp,10,0,3694
+candlestick,bowl,10,0,3805
+candlestick,lamp,10,0,4176
+cane,scissors,7,0,119
+cane,NO RESPONSE,11,0,358
 cane,mower,4,0,599
+cane,handle,3,0,718
+cane,NO RESPONSE,11,0,830
+cane,bike,3,0,953
+cane,water pipe,7,0,1076
+cane,glasses,5,0,1438
+cane,NO RESPONSE,11,0,1557
+cane,bike,3,0,1672
+cane,NO RESPONSE,11,0,1909
+cane,hook,4,0,2155
+cane,mike,3,0,2280
+cane,NO RESPONSE,11,0,2518
+cane,i dont know,10,0,2632
+cane,NO RESPONSE,11,0,2874
+cane,NO RESPONSE,11,0,3115
+cane,NO RESPONSE,11,0,3356
+cane,NO RESPONSE,11,0,3476
+cane,bike,3,0,3835
+cane,wire,3,0,4192
+cane,NO RESPONSE,11,0,4318
+cd,teapot,6,0,76
+cd,lightswitch,10,0,204
+cd,cd rom,4,1,313
+cd,tire,4,0,921
+cd,NO RESPONSE,11,0,1044
+cd,lamp,4,0,1153
+cd,lamp,4,0,1279
+cd,compact disk,10,1,1524
+cd,speaker,7,0,1758
+cd,NO RESPONSE,11,0,2004
+cd,car,2,0,2124
+cd,vintage cd,8,0,2359
+cd,NO RESPONSE,11,0,2476
+cd,not sure,8,0,2716
+cd,NO RESPONSE,11,0,2837
+cd,NO RESPONSE,11,0,2958
+cd,NO RESPONSE,11,0,3073
+cd,car,2,0,3197
+cd,NO RESPONSE,11,0,3321
+cd,NO RESPONSE,11,0,3444
+cd,unsure,6,0,3563
+cd,clock,4,0,3684
+cd,disc,3,0,3924
+cd,NO RESPONSE,11,0,4280
+cell phone,chair,4,0,84
+cell phone,phone over,5,0,202
+cell phone,calculator,8,0,562
+cell phone,NO RESPONSE,11,0,801
+cell phone,NO RESPONSE,11,0,918
+cell phone,chair,4,0,1158
+cell phone,NO RESPONSE,11,0,1994
+cell phone,chair,4,0,2118
+cell phone,NO RESPONSE,11,0,2484
+cell phone,NO RESPONSE,11,0,2844
+cell phone,NO RESPONSE,11,0,2963
+cell phone,NO RESPONSE,11,0,3313
+cell phone,unsure,5,0,3559
+cell phone,dice,4,0,3680
+cell phone,mobile phone,5,1,3801
+cell phone,chair,4,0,4276
+chain,necklace,6,0,128
+chain,necklace,6,0,608
+chain,NO RESPONSE,11,0,846
+chain,long chain,5,1,967
+chain,lamp,4,0,1324
+chain,NA,Inf,0,1443
+chain,necklace,6,0,1692
+chain,necklace,6,0,1811
+chain,necklace,6,0,2287
+chain,NO RESPONSE,11,0,2405
+chain,NO RESPONSE,11,0,2770
+chain,bag,4,0,3363
+chain,necklace,6,0,3608
+chain,bike chain,5,0,3728
+chess board,checkerboard,4,0,355
+chess board,game board,5,1,474
+chess board,NO RESPONSE,11,0,831
+chess board,foopath,7,0,1198
+chess board,NO RESPONSE,11,0,1558
+chess board,floor,5,0,1680
+chess board,piano,5,0,1913
+chess board,NO RESPONSE,11,0,2032
+chess board,keyboard,5,0,2390
+chess board,NO RESPONSE,11,0,2512
+chess board,NO RESPONSE,11,0,2870
+chess board,tablt,5,0,3112
+chess board,unsure,6,0,3597
+chess board,binder,6,0,3830
+chess board,tile,5,0,3951
+chess board,NO RESPONSE,11,0,4314
+clipboard,NO RESPONSE,11,0,894
+clipboard,cardboard,3,0,1010
+clipboard,suitcase,7,0,1133
+clipboard,not sure,6,0,1617
+clipboard,radio,5,0,1740
+clipboard,organizer,8,0,1976
+clipboard,exam rester,6,0,2213
+clipboard,hinge,5,0,2330
+clipboard,NO RESPONSE,11,0,2452
+clipboard,purse,4,0,2693
+clipboard,NO RESPONSE,11,0,2818
+clipboard,NO RESPONSE,11,0,2937
+clipboard,paper board,5,0,3049
+clipboard,writingpad,8,1,3173
+clipboard,paper board,5,0,3415
+clipboard,unsure,5,0,3539
+clipboard,NO RESPONSE,11,0,4250
+clothes pin,butterfly,9,0,10
+clothes pin,clothspin,2,1,127
+clothes pin,NO RESPONSE,11,0,250
+clothes pin,NO RESPONSE,11,0,367
+clothes pin,butterfly,9,0,487
+clothes pin,flower,8,0,603
+clothes pin,NO RESPONSE,11,0,727
+clothes pin,bed,10,0,849
+clothes pin,purse,10,0,962
+clothes pin,NA,Inf,0,1083
+clothes pin,NO RESPONSE,11,0,1201
+clothes pin,flower,8,0,1326
+clothes pin,NO RESPONSE,11,0,1445
+clothes pin,NO RESPONSE,11,0,1561
+clothes pin,shoe,9,0,1684
+clothes pin,flower,8,0,1801
+clothes pin,flower,8,0,1928
+clothes pin,NO RESPONSE,11,0,2046
+clothes pin,plant,9,0,2171
+clothes pin,flower,8,0,2281
+clothes pin,NO RESPONSE,11,0,2407
+clothes pin,flower,8,0,2522
+clothes pin,not sure,8,0,2642
+clothes pin,NA,Inf,0,2768
+clothes pin,NO RESPONSE,11,0,2890
+clothes pin,plant,9,0,3005
+clothes pin,flower,8,0,3131
+clothes pin,NO RESPONSE,11,0,3248
+clothes pin,flower,8,0,3362
+clothes pin,unsure,10,0,3485
+clothes pin,cutton,8,0,3727
+clothes pin,shoe,9,0,3841
+clothes pin,NO RESPONSE,11,0,3964
+clothes pin,flower,8,0,4084
+clothes pin,purse,10,0,4204
+comb,saw,4,0,83
+comb,NO RESPONSE,11,0,2479
+comb,NO RESPONSE,11,0,2841
+comb,unsure,6,0,3553
+comb,baby bed,7,0,3794
+computer drive,company facility,10,0,222
+computer drive,NO RESPONSE,11,0,346
+computer drive,microchip,5,1,462
+computer drive,curcuit,5,0,704
+computer drive,NO RESPONSE,11,0,825
+computer drive,microchip,5,1,943
+computer drive,comb,3,0,1065
+computer drive,microchip,5,0,1420
+computer drive,NO RESPONSE,11,0,1538
+computer drive,not sure,8,0,1663
+computer drive,blade,5,0,1778
+computer drive,NO RESPONSE,11,0,1906
+computer drive,comp,2,0,2028
+computer drive,satellite,7,0,2263
+computer drive,bag,4,0,2387
+computer drive,NO RESPONSE,11,0,2499
+computer drive,not sure,8,0,2742
+computer drive,NO RESPONSE,11,0,2861
+computer drive,space rocket,9,0,3107
+computer drive,sattelite,7,0,3219
+computer drive,computer motherboard,6,1,3337
+computer drive,space rocket,9,0,3465
+computer drive,sattlelite,7,0,3587
+computer drive,circuit board,6,1,3706
+computer drive,toothbrush,8,0,3821
+computer drive,plane,5,0,3939
+computer drive,satellite,7,0,4178
+computer drive,NO RESPONSE,11,0,4307
+cookie cutter,map,13,0,200
+cookie cutter,NO RESPONSE,13,0,323
+cookie cutter,roof,11,0,556
+cookie cutter,NO RESPONSE,13,0,676
+cookie cutter,NO RESPONSE,13,0,804
+cookie cutter,NO RESPONSE,13,0,914
+cookie cutter,tin shead,10,0,1038
+cookie cutter,NO RESPONSE,13,0,1155
+cookie cutter,NA,Inf,0,1282
+cookie cutter,curtain,11,0,1404
+cookie cutter,NO RESPONSE,13,0,1515
+cookie cutter,not sure,9,0,1636
+cookie cutter,hammer,11,0,1757
+cookie cutter,NO RESPONSE,13,0,1882
+cookie cutter,NO RESPONSE,13,0,2002
+cookie cutter,pan,13,0,2113
+cookie cutter,NO RESPONSE,13,0,2234
+cookie cutter,wood,11,0,2362
+cookie cutter,NO RESPONSE,13,0,2474
+cookie cutter,i dont know,12,0,2593
+cookie cutter,not sure,9,0,2723
+cookie cutter,NO RESPONSE,13,0,2842
+cookie cutter,NO RESPONSE,13,0,2957
+cookie cutter,metal,11,0,3083
+cookie cutter,NO RESPONSE,13,0,3200
+cookie cutter,NO RESPONSE,13,0,3316
+cookie cutter,curtain,11,0,3434
+cookie cutter,unsure,11,0,3564
+cookie cutter,comb,11,0,3674
+cookie cutter,stapler,11,0,3804
+cookie cutter,stapler,11,0,4036
+cookie cutter,curtain,11,0,4156
+cork screw,camera,8,0,47
+cork screw,ax,10,0,162
+cork screw,NO RESPONSE,11,0,278
+cork screw,NO RESPONSE,11,0,399
+cork screw,shoe,8,0,524
+cork screw,axe,9,0,637
+cork screw,NO RESPONSE,11,0,758
+cork screw,NO RESPONSE,11,0,877
+cork screw,NO RESPONSE,11,0,1001
+cork screw,bobby pin,9,0,1118
+cork screw,NA,Inf,0,1238
+cork screw,handle,9,0,1361
+cork screw,NO RESPONSE,11,0,1477
+cork screw,not sure,5,0,1607
+cork screw,knife,8,0,1720
+cork screw,car keys,7,0,1841
+cork screw,idk,9,0,1968
+cork screw,clothe,8,0,2088
+cork screw,NO RESPONSE,11,0,2206
+cork screw,knife,8,0,2324
+cork screw,NO RESPONSE,11,0,2441
+cork screw,keys and fob,11,0,2560
+cork screw,not sure,5,0,2683
+cork screw,NO RESPONSE,11,0,2806
+cork screw,NO RESPONSE,11,0,2920
+cork screw,NO RESPONSE,11,0,3043
+cork screw,corkpuller,5,1,3159
+cork screw,NO RESPONSE,11,0,3287
+cork screw,NO RESPONSE,11,0,3397
+cork screw,unsure,7,0,3518
+cork screw,pen,8,0,3644
+cork screw,cookie,6,0,3762
+cork screw,NO RESPONSE,11,0,3886
+cork screw,NO RESPONSE,11,0,3998
+cork screw,key,8,0,4123
+cork screw,NO RESPONSE,11,0,4245
+crayon,concrete,7,0,37
+crayon,NA,Inf,0,277
+crayon,capsule,6,0,397
+crayon,axe,5,0,643
+crayon,NO RESPONSE,11,0,761
+crayon,NO RESPONSE,11,0,882
+crayon,NO RESPONSE,11,0,1007
+crayon,NA,Inf,0,1128
+crayon,axe,5,0,1248
+crayon,NO RESPONSE,11,0,1480
+crayon,not sure,8,0,1597
+crayon,rug,5,0,1719
+crayon,axe,5,0,1839
+crayon,idk,6,0,1966
+crayon,cupboard,6,0,2084
+crayon,NO RESPONSE,11,0,2200
+crayon,bed,6,0,2328
+crayon,NO RESPONSE,11,0,2444
+crayon,axe,5,0,2566
+crayon,not sure,8,0,2685
+crayon,NO RESPONSE,11,0,2802
+crayon,NO RESPONSE,11,0,2922
+crayon,NO RESPONSE,11,0,3038
+crayon,waterdispenser,12,0,3161
+crayon,NO RESPONSE,11,0,3403
+crayon,unsure,6,0,3524
+crayon,dresser,6,0,3642
+crayon,roap,4,0,3763
+crayon,NO RESPONSE,11,0,3878
+crayon,bag,5,0,3999
+crayon,NO RESPONSE,11,0,4118
+crayon,NO RESPONSE,11,0,4241
+crib,bed skirt,8,0,194
+crib,NO RESPONSE,11,0,318
+crib,bed,4,0,436
+crib,bed,4,0,564
+crib,toothbrush,9,0,684
+crib,blanket,7,0,797
+crib,baby crib,5,1,919
+crib,cloth,4,0,1033
+crib,brush,4,0,1164
+crib,NO RESPONSE,11,0,1520
+crib,not sure,8,0,1641
+crib,bed,4,0,1761
+crib,NO RESPONSE,11,0,1880
+crib,NA,Inf,0,1995
+crib,clover,5,0,2121
+crib,NO RESPONSE,11,0,2243
+crib,bed,4,0,2360
+crib,NO RESPONSE,11,0,2478
+crib,not sure,8,0,2713
+crib,NO RESPONSE,11,0,2840
+crib,NO RESPONSE,11,0,2959
+crib,table cloth,10,0,3074
+crib,NO RESPONSE,11,0,3193
+crib,NO RESPONSE,11,0,3440
+crib,unsure,6,0,3562
+crib,towel,5,0,3675
+crib,pizza,5,0,3797
+crib,NO RESPONSE,11,0,3919
+crib,sponge,6,0,4042
+crib,NO RESPONSE,11,0,4159
+crib,rope,4,0,4277
+crowbar,spoon,6,0,57
+crowbar,NO RESPONSE,11,0,292
+crowbar,NO RESPONSE,11,0,416
+crowbar,tool,6,0,540
+crowbar,pliers,7,0,658
+crowbar,NO RESPONSE,11,0,774
+crowbar,NO RESPONSE,11,0,1016
+crowbar,NA,Inf,0,1140
+crowbar,NO RESPONSE,11,0,1495
+crowbar,not sure,7,0,1614
+crowbar,tool,6,0,1731
+crowbar,NO RESPONSE,11,0,1858
+crowbar,idk,7,0,1974
+crowbar,glasses,7,0,2090
+crowbar,NO RESPONSE,11,0,2212
+crowbar,handle,7,0,2329
+crowbar,NO RESPONSE,11,0,2460
+crowbar,not sure,7,0,2689
+crowbar,NO RESPONSE,11,0,2811
+crowbar,NO RESPONSE,11,0,2940
+crowbar,NO RESPONSE,11,0,3054
+crowbar,clip,6,0,3169
+crowbar,NO RESPONSE,11,0,3296
+crowbar,NO RESPONSE,11,0,3420
+crowbar,unsure,7,0,3534
+crowbar,watch,7,0,3652
+crowbar,scissor,6,0,3777
+crowbar,NO RESPONSE,11,0,3897
+crowbar,glasses,7,0,4019
+crowbar,NO RESPONSE,11,0,4132
+crowbar,NO RESPONSE,11,0,4259
+cutting board,plate,12,0,22
+cutting board,mirror,10,0,142
+cutting board,bowl,11,0,255
+cutting board,coaster,11,0,377
+cutting board,ring,10,0,614
+cutting board,NO RESPONSE,13,0,743
+cutting board,table,11,0,855
+cutting board,ash tray,11,0,981
+cutting board,concrete slab,11,0,1104
+cutting board,plate,12,0,1223
+cutting board,table,11,0,1335
+cutting board,NO RESPONSE,13,0,1464
+cutting board,coaster,11,0,1580
+cutting board,plate,12,0,1694
+cutting board,ring,10,0,1821
+cutting board,frisbee,11,0,1944
+cutting board,NO RESPONSE,13,0,2055
+cutting board,desk,13,0,2183
+cutting board,circular board,7,0,2294
+cutting board,NO RESPONSE,13,0,2423
+cutting board,bag,11,0,2544
+cutting board,NO RESPONSE,13,0,2783
+cutting board,NO RESPONSE,13,0,3024
+cutting board,stone,11,0,3142
+cutting board,disk,12,0,3261
+cutting board,table,11,0,3384
+cutting board,lamp,12,0,3618
+cutting board,bowl,11,0,3737
+cutting board,dog bowl,9,0,3854
+cutting board,plate,12,0,3979
+cutting board,plate,12,0,4096
+deoderant,tape,8,0,25
+deoderant,curtain,8,0,152
+deoderant,NO RESPONSE,11,0,269
+deoderant,garbage can,9,0,505
+deoderant,NO RESPONSE,11,0,634
+deoderant,wastebasket,8,0,752
+deoderant,NO RESPONSE,11,0,870
+deoderant,purse,8,0,991
+deoderant,trashbin,8,0,1107
+deoderant,NO RESPONSE,11,0,1471
+deoderant,trash can,8,0,1594
+deoderant,chair,8,0,1707
+deoderant,NO RESPONSE,11,0,1834
+deoderant,bin,8,0,1950
+deoderant,book,8,0,2069
+deoderant,NO RESPONSE,11,0,2186
+deoderant,mat,7,0,2310
+deoderant,NO RESPONSE,11,0,2432
+deoderant,i dont know,9,0,2551
+deoderant,not sure,8,0,2676
+deoderant,NO RESPONSE,11,0,2791
+deoderant,NO RESPONSE,11,0,2913
+deoderant,NO RESPONSE,11,0,3032
+deoderant,trashbin,8,0,3152
+deoderant,NO RESPONSE,11,0,3276
+deoderant,NO RESPONSE,11,0,3392
+deoderant,unsure,8,0,3509
+deoderant,radio,8,0,3625
+deoderant,sofa,7,0,3754
+deoderant,garbage can,9,0,3993
+deoderant,bin,8,0,4112
+dice,crib,3,0,75
+dice,crib,3,0,203
+dice,NO RESPONSE,11,0,321
+dice,NO RESPONSE,11,0,435
+dice,cloth,5,0,553
+dice,crib,3,0,674
+dice,NO RESPONSE,11,0,799
+dice,NO RESPONSE,11,0,920
+dice,cloth,5,0,1034
+dice,mountain,7,0,1160
+dice,crib,3,0,1399
+dice,not sure,7,0,1639
+dice,lamp,4,0,1764
+dice,NO RESPONSE,11,0,1881
+dice,baking template,13,0,1999
+dice,pan,3,0,2114
+dice,NO RESPONSE,11,0,2239
+dice,blanket,6,0,2356
+dice,NO RESPONSE,11,0,2481
+dice,not sure,7,0,2719
+dice,NO RESPONSE,11,0,2838
+dice,NO RESPONSE,11,0,2955
+dice,NO RESPONSE,11,0,3076
+dice,saw,3,0,3199
+dice,pot,3,0,3433
+dice,unsure,5,0,3556
+dice,crib,3,0,3673
+dice,paper,4,0,3800
+dice,NO RESPONSE,11,0,3915
+dice,pillow,5,0,4035
+dice,cube,3,0,4158
+dice,NO RESPONSE,11,0,4283
+dresser,chest of drawers,9,1,2
+dresser,fence,5,0,245
+dresser,chest of drawers,9,1,482
+dresser,house,5,0,611
+dresser,NO RESPONSE,11,0,725
+dresser,chair,5,0,966
+dresser,bed,6,0,1089
+dresser,cabinet,6,0,1452
+dresser,wall,6,0,1564
+dresser,wall,6,0,1804
+dresser,NO RESPONSE,11,0,2041
+dresser,desk,4,0,2404
+dresser,wood,6,0,2650
+dresser,NA,Inf,0,2766
+dresser,NO RESPONSE,11,0,2881
+dresser,wood,6,0,3008
+dresser,NO RESPONSE,11,0,3121
+dresser,cabinet,6,0,3725
+dresser,wood,6,0,3845
+dresser,wooden door,5,0,4087
+dresser,wood,6,0,4203
+earring,ice tray,7,0,88
+earring,bag,5,0,206
+earring,NO RESPONSE,11,0,334
+earring,NO RESPONSE,11,0,456
+earring,mouse,7,0,573
+earring,NO RESPONSE,11,0,688
+earring,NO RESPONSE,11,0,813
+earring,NO RESPONSE,11,0,935
+earring,truck,6,0,1051
+earring,NO RESPONSE,11,0,1173
+earring,mask,6,0,1414
+earring,puzzle piece,11,0,1526
+earring,not sure,8,0,1655
+earring,window,7,0,1767
+earring,NO RESPONSE,11,0,1891
+earring,hook,7,0,2014
+earring,puzzle,7,0,2132
+earring,NO RESPONSE,11,0,2255
+earring,scissor,7,0,2371
+earring,NO RESPONSE,11,0,2487
+earring,i dont know,10,0,2614
+earring,hook,7,0,2725
+earring,NO RESPONSE,11,0,2846
+earring,NO RESPONSE,11,0,2974
+earring,NO RESPONSE,11,0,3091
+earring,hook,7,0,3213
+earring,NO RESPONSE,11,0,3333
+earring,NO RESPONSE,11,0,3452
+earring,unsure,7,0,3566
+earring,glasses,7,0,3691
+earring,nail trimmer,9,0,3815
+earring,NO RESPONSE,11,0,3935
+earring,curtain,5,0,4054
+earring,NO RESPONSE,11,0,4169
+earring,NO RESPONSE,11,0,4295
+egg beater,teapot,8,0,63
+egg beater,iron,10,0,185
+egg beater,NO RESPONSE,11,0,304
+egg beater,bottle,8,0,427
+egg beater,car,8,0,547
+egg beater,NO RESPONSE,11,0,670
+egg beater,NO RESPONSE,11,0,783
+egg beater,teapot,8,0,901
+egg beater,kettle,8,0,1031
+egg beater,NO RESPONSE,11,0,1147
+egg beater,hand mixer,8,1,1270
+egg beater,iron,10,0,1383
+egg beater,NA,Inf,0,1508
+egg beater,hand mixer,8,1,1625
+egg beater,kettle,8,0,1752
+egg beater,NO RESPONSE,11,0,1868
+egg beater,NO RESPONSE,11,0,1982
+egg beater,NA,Inf,0,2106
+egg beater,NO RESPONSE,11,0,2222
+egg beater,vase,8,0,2346
+egg beater,NO RESPONSE,11,0,2469
+egg beater,toy,9,0,2592
+egg beater,mixer,8,1,2703
+egg beater,NA,Inf,0,2823
+egg beater,NO RESPONSE,11,0,2948
+egg beater,NO RESPONSE,11,0,3067
+egg beater,mixer,8,1,3181
+egg beater,hand mixer,8,1,3312
+egg beater,clothing,10,0,3431
+egg beater,tea kettle,7,0,3666
+egg beater,teapot,8,0,3788
+egg beater,lock,10,0,3904
+egg beater,mixer,8,0,4022
+egg beater,scissor,9,0,4149
+egg beater,mixer,8,1,4270
+eletric kettle,teapot,5,0,65
+eletric kettle,teapot,5,0,184
+eletric kettle,NO RESPONSE,11,0,306
+eletric kettle,NO RESPONSE,11,0,429
+eletric kettle,lightbulb,7,0,664
+eletric kettle,NO RESPONSE,11,0,785
+eletric kettle,teapot,5,0,904
+eletric kettle,teeth,4,0,1030
+eletric kettle,teeth,4,0,1151
+eletric kettle,NO RESPONSE,11,0,1510
+eletric kettle,not sure,6,0,1631
+eletric kettle,lsmp,6,0,1750
+eletric kettle,NO RESPONSE,11,0,1864
+eletric kettle,NO RESPONSE,11,0,1981
+eletric kettle,sheet,5,0,2107
+eletric kettle,NA,Inf,0,2223
+eletric kettle,scart,6,0,2351
+eletric kettle,NO RESPONSE,11,0,2461
+eletric kettle,teapot,5,0,2581
+eletric kettle,not sure,6,0,2710
+eletric kettle,NO RESPONSE,11,0,2829
+eletric kettle,NO RESPONSE,11,0,2941
+eletric kettle,NO RESPONSE,11,0,3070
+eletric kettle,flower,6,0,3190
+eletric kettle,teapot,5,0,3307
+eletric kettle,NO RESPONSE,11,0,3422
+eletric kettle,unsure,5,0,3541
+eletric kettle,towel,5,0,3787
+eletric kettle,NO RESPONSE,11,0,3907
+eletric kettle,cloth,5,0,4148
+eletric kettle,NO RESPONSE,11,0,4268
+ethernet cable,hose,3,0,233
+ethernet cable,NO RESPONSE,11,0,359
 ethernet cable,rope,3,0,600
-paint brush,NA,Inf,0,601
-glass,wine glass,0,1,602
-mailbox,chest,7,0,603
-chain,lamp,4,0,604
-bed,birdge,4,0,605
-clothes pin,flower,8,0,606
-knife,cleaver,6,0,607
-purse,pouring water,9,0,608
-high heel,shoe,0,1,609
-floss,chair,5,0,610
-foot stool,table thingy,11,0,611
-dresser,dresser,0,1,612
-hole punch,glasses,9,0,613
-bandana,box,6,0,614
-cutting board,table,11,0,615
-lamp,vase,3,0,616
-ring,ring,0,1,617
-book,book,0,1,618
-paper towel,bag,10,0,619
-stroller,stroler,1,1,620
-lazy chair,desk,5,0,621
-pen,pen,0,1,622
-calculator,stereo,9,0,623
-umbrella,umbrella,0,1,624
-plane,airplane,0,1,625
-shoe,shoe,0,1,626
-paint tray,paint tray,0,1,627
-mug,mug,0,1,628
-radio,plate,5,0,629
-scissors,scissors,0,1,630
-lure,fishing lure,0,1,631
-moccosin,hat,4,0,632
-kid toy,tamberine,8,0,633
-sweater,sweater,0,1,634
-deoderant,deodorant,1,1,635
-bib,baby bib,5,1,636
-keys,keys,0,1,637
-axe,ax,1,1,638
-crayon,crayon,0,1,639
-guitar,guitar,0,1,640
-cork screw,handle,9,0,641
-bobby pin,wire,6,0,642
-watering pot,clock,9,0,643
-sponge,spunge,1,1,644
-ladle,idk,4,0,645
-watch,clcok,5,0,646
-camera,air pump,8,0,647
-pill,microscopic hair,13,0,648
-magnifying glass,vlipboard,11,0,649
-blanket,towels,1,0,650
-scarf,scarf,0,1,651
-key,key,0,1,652
-lock,lock,0,1,653
-clipboard,clip board,1,1,654
-notebook,note book,1,1,655
-steering wheel,cro bar,12,0,656
-crowbar,cro bar,1,1,657
-briefcase,tray,7,0,658
-marker,rain guard,8,0,659
-truck,truck,0,1,660
-helmet,helmet,0,1,661
-battery,battery,0,1,662
-egg beater,iron,10,0,663
-binder,binder,0,1,664
-hammer,kettle,6,0,665
-pfd,sweater,7,0,666
-knot,rope,0,1,667
-rug,carpet,5,0,668
-toothbrush,princess monioke,16,0,669
-speakers,amp,7,0,670
-mouse trap,plywood,7,0,671
-eletric kettle,kettle,0,1,672
-saw,idk,3,0,673
-comb,comb,0,1,674
-wheel,tire,0,1,675
-cd,cd,0,1,676
-cell phone,cell phone,0,1,677
-sundial,compass,7,0,678
-dice,crib,3,0,679
-nail clippers,finger clippers,5,1,680
-crib,crib,0,1,681
-nail,gable roof,8,0,682
-glasses,glasses,0,1,683
-cookie cutter,curtain,11,0,684
-candlestick,cup,10,0,685
-flask,flask,0,1,686
-vase,vase,0,1,687
-pot,top of a head,11,0,688
-mouse,ice tray,8,0,689
-bucket,pale,5,0,690
-wallet,patch,5,0,691
-truck,truck,0,1,692
-thimble,kis,6,0,693
-earring,mask,6,0,694
-router,weigh machine,12,0,695
-ice tray,ice tray,0,1,696
-glove,gloves,1,0,697
-satellite,satelite,1,1,698
-tub,tray,3,0,699
-computer drive,microchip,5,1,700
-athletic tape,ace bandage,0,1,701
-stove,phone,3,0,702
-candle,plastic,6,0,703
-paper clip,paper clip,0,1,704
-office chair,cloth,4,0,705
-balloon,hot tub,7,0,706
-rake,rake,0,1,707
-backpack,bag,0,1,708
-saddle,bike seat,8,0,709
-chess board,chess board,0,1,710
-boat,boat,0,1,711
-necklace,beads,6,0,712
-hinge,idk,4,0,713
-binoculars,head phones,10,0,714
-spoon,magnifine,8,0,715
-box,labtop,4,0,716
-pillow,cloth,5,0,717
-cane,glasses,5,0,718
-ethernet cable,ear buds,6,0,719
-microphone,microphone,0,1,720
-bed,bed,0,1,721
-clothes pin,not sure,8,0,722
-mailbox,not sure,8,0,723
-chain,chain link,0,1,724
-paint brush,toolbox,7,0,725
-purse,not sure,6,0,726
-glass,wine glass,0,1,727
-floss,not sure,7,0,728
-foot stool,screw,4,0,729
-dresser,wood,6,0,730
-high heel,shoe,0,1,731
-knife,not sure,7,0,732
-stroller,not sure,7,0,733
-bandana,not sure,8,0,734
-cutting board,cutting board,0,1,735
-lazy chair,not sure,7,0,736
-ring,not sure,8,0,737
-book,not sure,7,0,738
-pen,not sure,8,0,739
-calculator,calculator,0,1,740
-umbrella,book,7,0,741
-lamp,not sure,8,0,742
-paper towel,not sure,9,0,743
-hole punch,not sure,7,0,744
-lure,fish hook,0,1,745
-mug,mug,0,1,746
-radio,radio,0,1,747
-moccosin,not sure,6,0,748
-kid toy,not sure,7,0,749
-paint tray,grater,8,0,750
-shoe,not sure,6,0,751
-sweater,sweater,0,1,752
-bib,not sure,8,0,753
-scissors,scissors,0,1,754
-plane,airplane,0,1,755
-deoderant,not sure,8,0,756
-sponge,sponge,0,1,757
-ladle,not sure,7,0,758
-camera,camera,0,1,759
-guitar,ladel,6,0,760
-axe,not sure,7,0,761
-bobby pin,bobby pin,0,1,762
-cork screw,not sure,5,0,763
-pill,bamboo,6,0,764
-crayon,not sure,8,0,765
-watch,clock,4,0,766
-watering pot,not sure,7,0,767
-keys,not sure,7,0,768
-crowbar,not sure,7,0,769
-steering wheel,steering wheel,0,1,770
-magnifying glass,not sure,11,0,771
-lock,purse,5,0,772
-clipboard,purse,4,0,773
-key,key,0,1,774
-scarf,curtain,6,0,775
-marker,marker,0,1,776
-blanket,not sure,7,0,777
-notebook,not sure,5,0,778
-truck,not sure,6,0,779
-briefcase,purse,7,0,780
-toothbrush,toothbrush,0,1,781
-battery,battery,0,1,782
-egg beater,mixer,8,0,783
-binder,not sure,7,0,784
-rug,not sure,7,0,785
-knot,not sure,6,0,786
-helmet,moon,6,0,787
-mouse trap,wood,7,0,788
-pfd,life vest,0,1,789
-eletric kettle,not sure,6,0,790
-speakers,radio,7,0,791
-hammer,teapot,6,0,792
-crib,not sure,8,0,793
-nail,nail,0,1,794
-comb,comb,0,1,795
-cd,not sure,8,0,796
-wheel,tire,0,1,797
-glasses,mixer,6,0,798
-dice,not sure,7,0,799
-cell phone,cell phone,0,1,800
-saw,not sure,7,0,801
-nail clippers,not sure,10,0,802
-cookie cutter,not sure,9,0,803
-sundial,not sure,8,0,804
-earring,hook,7,0,805
-wallet,wallet,0,1,806
-vase,not sure,6,0,807
-ice tray,not sure,7,0,808
-pot,not sure,6,0,809
-mouse,not sure,5,0,810
-thimble,not sure,7,0,811
-truck,not sure,6,0,812
-bucket,bucket,0,1,813
-flask,not sure,7,0,814
-router,not sure,5,0,815
-candlestick,candlestick,0,1,816
-rake,rake,0,1,817
-candle,candle,0,1,818
-paper clip,not sure,9,0,819
-stove,furnace,6,0,820
-glove,chair,5,0,821
-computer drive,not sure,8,0,822
-satellite,sattelite,2,1,823
-office chair,not sure,7,0,824
-tub,not sure,6,0,825
-backpack,not sure,8,0,826
-balloon,balloon,0,1,827
-athletic tape,not sure,6,0,828
-chess board,chessboard,1,1,829
-boat,not sure,7,0,830
-hinge,not sure,7,0,831
-binoculars,not sure,7,0,832
-microphone,not sure,9,0,833
-ethernet cable,cord,0,1,834
-cane,cane,0,1,835
-spoon,not sure,7,0,836
-necklace,necklace,0,1,837
-saddle,not sure,7,0,838
-pillow,not sure,8,0,839
-box,not sure,7,0,840
-purse,shoe,4,0,841
-foot stool,screw,4,0,842
-dresser,drawers,0,1,843
-bed,bed,0,1,844
-clothes pin,clothes pin,0,1,845
-high heel,belt,4,0,846
-floss,drawers,6,0,847
-chain,necklace,6,0,848
-mailbox,bed,6,0,849
-glass,chair,4,0,850
-knife,bed,5,0,851
-paint brush,lamp,5,0,852
-book,calculator,9,0,853
-lamp,shoe,4,0,854
-paper towel,recliner,9,0,855
-ring,clock,5,0,856
-hole punch,watch,8,0,857
-cutting board,lamp,12,0,858
-bandana,recliner,7,0,859
-pen,pen,0,1,860
-stroller,stroller,0,1,861
-umbrella,umbrella,0,1,862
-calculator,calculator,0,1,863
-lazy chair,cahir,1,1,864
-deoderant,radio,8,0,865
-radio,lure,5,0,866
-mug,cup,2,0,867
-sweater,sweater,0,1,868
-kid toy,watch,4,0,869
-plane,plane,0,1,870
-bib,plane,5,0,871
-paint tray,stroller,9,0,872
-moccosin,stroller,5,0,873
-scissors,scissors,0,1,874
-lure,fishing lure,0,1,875
-shoe,shoe,0,1,876
-guitar,axe,6,0,877
-pill,pill,0,1,878
-keys,lamp,4,0,879
-bobby pin,guitar,7,0,880
-sponge,sponge,0,1,881
-crayon,dresser,6,0,882
-watch,watch,0,1,883
-cork screw,pen,8,0,884
-axe,knive,4,0,885
-watering pot,watch,6,0,886
-ladle,pin,5,0,887
-camera,locker,5,0,888
-magnifying glass,magnifying glass,0,1,889
-truck,gun,4,0,890
-notebook,book,4,1,891
-crowbar,watch,7,0,892
-key,key,0,1,893
-blanket,towel,0,1,894
-clipboard,clip board,1,1,895
-briefcase,book,8,0,896
-marker,magnifying glass,13,0,897
-steering wheel,stroller,10,0,898
-scarf,neck tie,7,0,899
-lock,shovel,5,0,900
-mouse trap,rug,9,0,901
-battery,can,6,0,902
-helmet,helmet,0,1,903
-toothbrush,toy,8,0,904
-hammer,hammer,0,1,905
-egg beater,tea kettle,7,0,906
-speakers,radio,7,0,907
-pfd,helmet,6,0,908
-knot,shoe,3,0,909
-rug,rug,0,1,910
-eletric kettle,tea kettle,0,1,911
-binder,rug,6,0,912
-dice,crib,3,0,913
-cookie cutter,comb,11,0,914
-crib,towel,5,0,915
-glasses,glasses,0,1,916
-comb,comb,0,1,917
-saw,crib,4,0,918
-nail clippers,glasses,10,0,919
-cell phone,dice,4,0,920
-wheel,rim,3,0,921
-sundial,tire,6,0,922
-nail,axe,3,0,923
-cd,clock,4,0,924
-router,pallet jack,10,0,925
-vase,vase,0,1,926
-bucket,bucket,0,1,927
-ice tray,cell phone,8,0,928
-thimble,shower head,0,1,929
-mouse,phone,4,0,930
-earring,glasses,7,0,931
-truck,clock,3,0,932
-flask,bag,4,0,933
-candlestick,lamp,10,0,934
-pot,bag,3,0,935
-wallet,shirt,5,0,936
-stove,board,5,0,937
-candle,bowl,5,0,938
-tub,light,5,0,939
-satellite,board,9,0,940
-glove,wallet,5,0,941
-paper clip,paper clip,0,1,942
-athletic tape,wallet,4,0,943
-office chair,shirt,3,0,944
-backpack,show,4,0,945
-computer drive,circuit board,6,1,946
-balloon,lamp,6,0,947
-rake,rake,0,1,948
-hinge,boat,5,0,949
-cane,kane,1,1,950
-boat,boatr,1,1,951
-binoculars,sppom,9,0,952
-necklace,braclet,7,0,953
-saddle,sppo,5,0,954
-ethernet cable,braclet,4,0,955
-pillow,chess game,10,0,956
-spoon,spoon,0,1,957
-microphone,watch,9,0,958
-chess board,chess board,0,1,959
-box,bag,2,0,960
-purse,a part of cell,11,0,961
-paint brush,a steel pencil case,16,0,962
-bed,bookshelf,7,0,963
-knife,hanger,5,0,964
-dresser,cabinet,6,0,965
-foot stool,screwdriver,10,0,966
-clothes pin,cutton,8,0,967
-chain,bike chain,5,0,968
-mailbox,bed,6,0,969
-glass,gobblet,6,1,970
-high heel,chair,4,0,971
-floss,fridge,5,0,972
-lazy chair,babycart,6,0,973
-calculator,electronic balance,14,0,974
-book,handbag,7,0,975
-ring,clipper,6,0,976
-cutting board,bowl,11,0,977
-hole punch,chair,10,0,978
-umbrella,book,7,0,979
-lamp,chair,4,0,980
-bandana,box,6,0,981
-paper towel,chiar,10,0,982
-stroller,babycarrier,6,1,983
-pen,pen,0,1,984
-radio,sneaker,6,0,985
-kid toy,mug,3,0,986
-bib,bag,2,0,987
-shoe,sneaker,1,0,988
-lure,fish hook,0,1,989
-mug,mug,0,1,990
-plane,skateboard,8,0,991
-moccosin,sweater,4,0,992
-sweater,sweater,0,1,993
-deoderant,sofa,7,0,994
-scissors,physician scissor,11,1,995
-paint tray,telegraph,9,0,996
-camera,guitar,5,0,997
-watch,clock,4,0,998
-axe,guitar,6,0,999
-sponge,rug,5,0,1000
-watering pot,screw,8,0,1001
-cork screw,cookie,6,0,1002
-crayon,roap,4,0,1003
-keys,mattress,5,0,1004
-ladle,cloth,5,0,1005
-pill,tissue paper,9,0,1006
-guitar,plate,5,0,1007
-bobby pin,guitar,7,0,1008
-truck,gun,4,0,1009
-scarf,coat,4,0,1010
-key,key chain,6,0,1011
-notebook,rug,8,0,1012
-briefcase,notebook,8,0,1013
-magnifying glass,straw hat,11,0,1014
-clipboard,clip board,1,1,1015
-marker,leather bag,8,0,1016
-crowbar,scissor,6,0,1017
-blanket,blanket,0,1,1018
-lock,desk,3,0,1019
-steering wheel,bike,12,0,1020
-rug,bamboo chair,12,0,1021
-battery,lighter,5,0,1022
-mouse trap,tupperware,8,0,1023
-binder,book,5,0,1024
-speakers,bag,7,0,1025
-helmet,sofa,6,0,1026
-eletric kettle,towel,5,0,1027
-egg beater,teapot,8,0,1028
-toothbrush,paper art,10,0,1029
-knot,brush,4,0,1030
-pfd,battery,7,0,1031
-hammer,tea pot,6,0,1032
-sundial,mobile phone,12,0,1033
-comb,baby bed,7,0,1034
-cd,cd,0,1,1035
-glasses,mobile phone,11,0,1036
-crib,pizza,5,0,1037
-nail clippers,nail trimmer,5,1,1038
-saw,knife,5,0,1039
-dice,paper,4,0,1040
-cell phone,mobile phone,5,1,1041
-nail,mobile phone,10,0,1042
-wheel,car wheel,4,0,1043
-cookie cutter,stapler,11,0,1044
-candlestick,bowl,10,0,1045
-flask,cheese grinder,13,0,1046
-wallet,bag,5,0,1047
-truck,puzzle piece,11,0,1048
-thimble,shower,4,0,1049
-router,screw,4,0,1050
-bucket,lundry bag,9,0,1051
-vase,vase,0,1,1052
-mouse,book,4,0,1053
-ice tray,storage box,10,0,1054
-earring,nail trimmer,9,0,1055
-pot,sofa,3,0,1056
-glove,glove,0,1,1057
-balloon,cup,7,0,1058
-athletic tape,yoga mat,6,0,1059
-stove,wallet,5,0,1060
-computer drive,toothbrush,8,0,1061
-satellite,satellite,0,1,1062
-paper clip,clipper,9,0,1063
-candle,hanger,4,0,1064
-rake,an agricultural tool for softening soil,36,1,1065
-office chair,mat,4,0,1066
-backpack,shoulder bag,9,1,1067
-tub,toilet,5,0,1068
-binoculars,spoon,9,0,1069
-chess board,binder,6,0,1070
-microphone,binder,9,0,1071
-boat,drawer,5,0,1072
-box,chessboard,8,0,1073
-ethernet cable,cake,2,0,1074
-cane,bike,3,0,1075
-saddle,spoon,5,0,1076
-pillow,chessboard,9,0,1077
-necklace,bracelate,5,0,1078
-hinge,jeans,5,0,1079
-spoon,pen,3,0,1080
-clothes pin,shoe,9,0,1081
-mailbox,mailbox,0,1,1082
-high heel,high heel,0,1,1083
-bed,bed,0,1,1084
-dresser,wood,6,0,1085
-foot stool,cork screw,7,0,1086
-glass,NO RESPONSE,11,0,1087
-floss,purse,4,0,1088
-chain,chain,0,1,1089
-purse,tweezers,7,0,1090
-knife,purse,4,0,1091
-paint brush,NO RESPONSE,11,0,1092
-pen,umbrella,7,0,1093
-cutting board,dog bowl,9,0,1094
-umbrella,umbrella,0,1,1095
-calculator,calculator,0,1,1096
-ring,lamp,4,0,1097
-hole punch,lamp,8,0,1098
-lazy chair,NO RESPONSE,11,0,1099
-book,notebook,4,0,1100
-stroller,NO RESPONSE,11,0,1101
-bandana,lamp,6,0,1102
-lamp,lamp,0,1,1103
-paper towel,NO RESPONSE,11,0,1104
-mug,mug,0,1,1105
-deoderant,deodorant,1,1,1106
-scissors,scissors,0,1,1107
-paint tray,NO RESPONSE,11,0,1108
-bib,bib,0,1,1109
-kid toy,NO RESPONSE,11,0,1110
-plane,airplane,0,1,1111
-sweater,sweater,0,1,1112
-lure,fish hook,0,1,1113
-radio,NO RESPONSE,11,0,1114
-moccosin,NO RESPONSE,11,0,1115
-shoe,sneaker,1,1,1116
-axe,keys,4,0,1117
-crayon,NO RESPONSE,11,0,1118
-watering pot,NA,Inf,0,1119
-bobby pin,bobby pin,0,1,1120
-guitar,keys,6,0,1121
-watch,clock,4,0,1122
-keys,keys,0,1,1123
-pill,capsule pill,5,1,1124
-camera,camera,0,1,1125
-cork screw,NO RESPONSE,11,0,1126
-sponge,sponge,0,1,1127
-ladle,key,5,0,1128
-notebook,marker,8,0,1129
-briefcase,marker,8,0,1130
-lock,padlock,0,1,1131
-scarf,dress,5,0,1132
-magnifying glass,NO RESPONSE,13,0,1133
-truck,gun,4,0,1134
-steering wheel,steering wheel,0,1,1135
-blanket,NO RESPONSE,11,0,1136
-crowbar,NO RESPONSE,11,0,1137
-marker,pen,5,0,1138
-key,skeleton key,9,1,1139
-clipboard,clipboard,0,1,1140
-knot,rope knot,5,1,1141
-battery,battery,0,1,1142
-rug,rug,0,1,1143
-egg beater,lock,10,0,1144
-binder,binder,0,1,1145
-speakers,speaker,1,1,1146
-eletric kettle,NO RESPONSE,11,0,1147
-helmet,NO RESPONSE,11,0,1148
-pfd,boxes,5,0,1149
-hammer,hammer,0,1,1150
-toothbrush,toothbrush,0,1,1151
-mouse trap,wood,7,0,1152
-cookie cutter,cookie cutter,0,1,1153
-comb,comb,0,1,1154
-dice,NO RESPONSE,11,0,1155
-nail,nail,0,1,1156
-wheel,wheel,0,1,1157
-glasses,glasses,0,1,1158
-crib,NO RESPONSE,11,0,1159
-saw,saw,0,1,1160
-cell phone,flip phone,0,1,1161
-sundial,sneaker,6,0,1162
-nail clippers,tweezers,10,0,1163
-cd,disc,3,0,1164
-pot,puzzle piece,11,0,1165
-ice tray,ice tray,0,1,1166
-truck,truck,0,1,1167
-router,computer gadget,10,1,1168
-candlestick,candle stick,1,0,1169
-wallet,wallet,0,1,1170
-mouse,book,4,0,1171
-flask,NO RESPONSE,11,0,1172
-vase,bowl,4,0,1173
-thimble,vase,4,0,1174
-earring,NO RESPONSE,11,0,1175
-bucket,bucket,0,1,1176
-paper clip,paper clip,0,1,1177
-stove,NO RESPONSE,11,0,1178
-computer drive,plane,5,0,1179
-satellite,plane,7,0,1180
-glove,hat,5,0,1181
-candle,candle,0,1,1182
-office chair,NO RESPONSE,11,0,1183
-athletic tape,wallet,4,0,1184
-balloon,balloon,0,1,1185
-rake,rake,0,1,1186
-tub,NO RESPONSE,11,0,1187
-backpack,backpack,0,1,1188
-spoon,pen,3,0,1189
-microphone,NO RESPONSE,11,0,1190
-chess board,tile,5,0,1191
-saddle,saddle,0,1,1192
-hinge,NO RESPONSE,11,0,1193
-binoculars,binoculars,0,1,1194
-cane,cane,0,1,1195
-boat,dresser,7,0,1196
-pillow,box,5,0,1197
-box,box,0,1,1198
-necklace,necklace,0,1,1199
-ethernet cable,cable,0,1,1200
-mailbox,roof,6,0,1201
-floss,mailbox,6,0,1202
-chain,chain,0,1,1203
-clothes pin,NO RESPONSE,11,0,1204
-bed,desk,3,0,1205
-purse,tweezers,7,0,1206
-glass,glass,0,1,1207
-dresser,drawers,0,1,1208
-paint brush,brick,3,0,1209
-high heel,shoe,0,1,1210
-foot stool,nail,4,0,1211
-knife,bag,5,0,1212
-lamp,table,4,0,1213
-calculator,calculator,0,1,1214
-umbrella,umbrella,0,1,1215
-hole punch,handbag,9,0,1216
-book,book,0,1,1217
-paper towel,rug,10,0,1218
-cutting board,plate,12,0,1219
-pen,pen,0,1,1220
-ring,clock,5,0,1221
-lazy chair,chair,0,1,1222
-bandana,stroller,8,0,1223
-stroller,stroller,0,1,1224
-moccosin,moccasin,0,1,1225
-plane,airplane,0,1,1226
-paint tray,cheese grater,10,0,1227
-scissors,scissors,0,1,1228
-bib,bag,2,0,1229
-kid toy,bottle opener,11,0,1230
-mug,mug,0,1,1231
-shoe,sneaker,1,0,1232
-deoderant,garbage can,9,0,1233
-radio,radio,0,1,1234
-lure,fish bait,0,1,1235
-sweater,sweater,0,1,1236
-sponge,sponge,0,1,1237
-cork screw,NO RESPONSE,11,0,1238
-crayon,bag,5,0,1239
-camera,camera,0,1,1240
-ladle,ladle,0,1,1241
-watch,clock,4,0,1242
-watering pot,needle,8,0,1243
-guitar,spoon,6,0,1244
-bobby pin,bobby pin,0,1,1245
-pill,pill,0,1,1246
-keys,shoe,4,0,1247
-axe,shoe,3,0,1248
-truck,gun,4,0,1249
-clipboard,clipboard,0,1,1250
-lock,lock,0,1,1251
-steering wheel,crowbar,12,0,1252
-blanket,towel,0,1,1253
-marker,crow bar,7,0,1254
-scarf,scarf,0,1,1255
-key,key,0,1,1256
-briefcase,marker,8,0,1257
-magnifying glass,magnify glass,0,1,1258
-crowbar,glasses,7,0,1259
-notebook,shirt,8,0,1260
-rug,rug,0,1,1261
-egg beater,mixer,8,1,1262
-toothbrush,toy,8,0,1263
-hammer,hammer,0,1,1264
-eletric kettle,kettle,0,1,1265
-helmet,battery,6,0,1266
-binder,box,5,0,1267
-mouse trap,mousetrap,1,0,1268
-battery,battery,0,1,1269
-speakers,microphone,10,0,1270
-knot,rug,3,0,1271
-pfd,vest,4,0,1272
-glasses,sunglasses,0,1,1273
-nail clippers,spoon,12,0,1274
-dice,pillow,5,0,1275
-cookie cutter,stapler,11,0,1276
-cd,cd,0,1,1277
-cell phone,cell phone,0,1,1278
-wheel,tire,0,1,1279
-comb,comb,0,1,1280
-sundial,sneaker,6,0,1281
-crib,sponge,6,0,1282
-saw,axe,3,0,1283
-nail,toothbrush,10,0,1284
-candlestick,candlestick,0,1,1285
-pot,bin,3,0,1286
-vase,vase,0,1,1287
-mouse,book,4,0,1288
-bucket,bucket,0,1,1289
-flask,bucket,6,0,1290
-truck,ice cube tray,12,0,1291
-thimble,golf ball,7,0,1292
-router,dolley,4,0,1293
-earring,curtain,5,0,1294
-ice tray,ice cube tray,0,1,1295
-wallet,cloth,5,0,1296
-satellite,solar panel,9,0,1297
-paper clip,paperclip,1,1,1298
-candle,candle,0,1,1299
-backpack,shoe,4,0,1300
-glove,glove,0,1,1301
-computer drive,hard drive,0,1,1302
-balloon,balloon,0,1,1303
-stove,gun,5,0,1304
-office chair,balloon,7,0,1305
-tub,bathtub,0,1,1306
-athletic tape,rope,4,0,1307
-rake,hoe,3,0,1308
-hinge,cardboard,9,0,1309
-chess board,chess board,0,1,1310
-ethernet cable,wire,0,1,1311
-box,cap,3,0,1312
-cane,cane,0,1,1313
-binoculars,headphones,9,0,1314
-pillow,cloth,5,0,1315
-microphone,stapler,9,0,1316
-saddle,shoe,4,0,1317
-boat,computer,6,0,1318
-spoon,soup spoon,0,1,1319
-necklace,bracelet,7,0,1320
-floss,NO RESPONSE,11,0,1321
-purse,bag,0,1,1322
-paint brush,table,5,0,1323
-clothes pin,flower,8,0,1324
-mailbox,leaf,6,0,1325
-bed,fence,4,0,1326
-dresser,wooden door,5,0,1327
-glass,wine glass,0,1,1328
-knife,knife,0,1,1329
-high heel,belt,4,0,1330
-foot stool,chair,5,0,1331
-chain,chain,0,1,1332
-lamp,vase,3,0,1333
-book,book,0,1,1334
-pen,pen,0,1,1335
-cutting board,plate,12,0,1336
-hole punch,bag,10,0,1337
-ring,ring,0,1,1338
-lazy chair,NO RESPONSE,11,0,1339
-calculator,calculator,0,1,1340
-umbrella,umbrella,0,1,1341
-stroller,tent,6,0,1342
-paper towel,NO RESPONSE,11,0,1343
-bandana,box,6,0,1344
-kid toy,painting,7,0,1345
-shoe,shoe,0,1,1346
-lure,fishing rod,3,0,1347
-plane,plane,0,1,1348
-scissors,scissors,0,1,1349
-bib,bib,0,1,1350
-moccosin,hat,4,0,1351
-deoderant,bin,8,0,1352
-paint tray,tray,6,1,1353
-radio,tv,5,0,1354
-mug,mug,0,1,1355
-sweater,sweater,0,1,1356
-bobby pin,rake,7,0,1357
-crayon,NO RESPONSE,11,0,1358
-watering pot,watering can,0,1,1359
-camera,camera,0,1,1360
-pill,telescope,7,0,1361
-guitar,NO RESPONSE,11,0,1362
-cork screw,key,8,0,1363
-keys,car key,1,1,1364
-ladle,NO RESPONSE,11,0,1365
-sponge,sponge,0,1,1366
-axe,plank,4,0,1367
-watch,clock,4,0,1368
-steering wheel,steering wheel,0,1,1369
-key,corkscrew,7,0,1370
-lock,lock,0,1,1371
-crowbar,NO RESPONSE,11,0,1372
-briefcase,board,7,0,1373
-clipboard,clipboard,0,1,1374
-marker,rod,5,0,1375
-notebook,binder,8,0,1376
-magnifying glass,box,13,0,1377
-blanket,cloth,5,0,1378
-truck,engine,5,0,1379
-scarf,jacket,5,0,1380
-helmet,cap,6,0,1381
-rug,rug,0,1,1382
-toothbrush,microorganism,10,0,1383
-binder,file,4,0,1384
-pfd,barrel,6,0,1385
-speakers,speaker,1,0,1386
-battery,battery,0,1,1387
-eletric kettle,cloth,5,0,1388
-egg beater,scissor,9,0,1389
-mouse trap,mousetrap,1,1,1390
-hammer,hammer,0,1,1391
-knot,rope,0,1,1392
-comb,comb,0,1,1393
-nail,shelf,4,0,1394
-glasses,glasses,0,1,1395
-cookie cutter,curtain,11,0,1396
-sundial,wood,6,0,1397
-dice,cube,3,0,1398
-crib,NO RESPONSE,11,0,1399
-wheel,tire,0,1,1400
-cell phone,cellphone,1,1,1401
-saw,paper,4,0,1402
-nail clippers,nailcutter,6,1,1403
-cd,cd,0,1,1404
-flask,shoe,5,0,1405
-thimble,grater,0,1,1406
-wallet,flask,5,0,1407
-mouse,light switch,11,0,1408
-earring,NO RESPONSE,11,0,1409
-vase,vase,0,1,1410
-ice tray,ice cube tray,0,1,1411
-pot,puzzle piece,11,0,1412
-router,wireless router,9,1,1413
-bucket,bin,5,0,1414
-truck,truck,0,1,1415
-candlestick,lamp,10,0,1416
-paper clip,paper clip,0,1,1417
-computer drive,satellite,7,0,1418
-glove,glove,0,1,1419
-satellite,satellite,0,1,1420
-tub,NO RESPONSE,11,0,1421
-rake,rake,0,1,1422
-balloon,lamp,6,0,1423
-stove,NO RESPONSE,11,0,1424
-backpack,bag,0,1,1425
-athletic tape,wrap,5,0,1426
-office chair,NO RESPONSE,11,0,1427
-candle,mug,6,0,1428
-hinge,hinge,0,1,1429
-necklace,string of beads,13,0,1430
-box,floppy disk,10,0,1431
-cane,wire,3,0,1432
-microphone,gun,9,0,1433
-pillow,pillow,0,1,1434
-boat,drawer,5,0,1435
-spoon,spoon,0,1,1436
-chess board,chess board,0,1,1437
-binoculars,NO RESPONSE,11,0,1438
-ethernet cable,wires,1,1,1439
-saddle,saddle,0,1,1440
-mailbox,NO RESPONSE,11,0,1441
-floss,NO RESPONSE,11,0,1442
-dresser,wood,6,0,1443
-clothes pin,purse,10,0,1444
-paint brush,NO RESPONSE,11,0,1445
-chain,chain,0,1,1446
-purse,NO RESPONSE,11,0,1447
-glass,glass,0,1,1448
-bed,fence,4,0,1449
-high heel,shoe,0,1,1450
-foot stool,screw,4,0,1451
-knife,NO RESPONSE,11,0,1452
-pen,toothbrush,10,0,1453
-book,book,0,1,1454
-paper towel,NO RESPONSE,11,0,1455
-lamp,lamp,0,1,1456
-stroller,NO RESPONSE,11,0,1457
-ring,cutting board,6,0,1458
-cutting board,cutting board,0,1,1459
-bandana,NO RESPONSE,11,0,1460
-lazy chair,NO RESPONSE,11,0,1461
-calculator,calculator,0,1,1462
-umbrella,umbrella,0,1,1463
-hole punch,NO RESPONSE,11,0,1464
-lure,fishing hook,0,1,1465
-radio,radio,0,1,1466
-scissors,scissors,0,1,1467
-deoderant,deoderant,0,1,1468
-mug,mug,0,1,1469
-sweater,sweater,0,1,1470
-paint tray,NO RESPONSE,11,0,1471
+ethernet cable,NO RESPONSE,11,0,959
+ethernet cable,pipe,2,0,1196
+ethernet cable,ear buds,6,0,1439
+ethernet cable,gise,2,0,1789
+ethernet cable,ethernal wire,6,1,2033
+ethernet cable,pipe,2,0,2156
+ethernet cable,ropes,4,0,2275
+ethernet cable,hose,3,0,2394
+ethernet cable,NO RESPONSE,11,0,2513
+ethernet cable,NO RESPONSE,11,0,2877
+ethernet cable,hose,3,0,2998
+ethernet cable,rope,3,0,3109
+ethernet cable,rope,3,0,3471
+ethernet cable,modem cable,6,1,3589
+ethernet cable,braclet,4,0,3715
+ethernet cable,cake,2,0,3834
+flask,NO RESPONSE,11,0,333
+flask,wallet,5,0,454
+flask,bucket,6,0,569
+flask,NO RESPONSE,11,0,806
+flask,NO RESPONSE,11,0,931
+flask,shoes,5,0,1050
+flask,cookie,6,0,1166
+flask,NO RESPONSE,11,0,1532
+flask,nog xufd,8,0,1646
+flask,shoes,5,0,1769
+flask,NO RESPONSE,11,0,1885
+flask,NO RESPONSE,11,0,2006
+flask,vasew,4,0,2130
+flask,shoe,5,0,2246
+flask,box,5,0,2374
+flask,NO RESPONSE,11,0,2493
+flask,faucet,5,0,2606
+flask,not sure,7,0,2734
+flask,NO RESPONSE,11,0,2851
+flask,NO RESPONSE,11,0,2972
+flask,sth for decoration,16,0,3087
+flask,chopper,7,0,3206
+flask,object for decoration,19,0,3447
+flask,unsure,6,0,3573
+flask,bag,4,0,3693
+flask,cheese grinder,13,0,3806
+flask,NO RESPONSE,11,0,3932
+flask,bucket,6,0,4050
+flask,shoe,5,0,4165
+flask,NO RESPONSE,11,0,4296
+floss,chest of drawers,14,0,3
+floss,icebox,6,0,124
+floss,door,4,0,242
+floss,bed,5,0,362
+floss,box,4,0,492
+floss,bag,5,0,601
+floss,NO RESPONSE,11,0,726
+floss,NO RESPONSE,11,0,852
+floss,purse,4,0,964
+floss,NA,Inf,0,1082
+floss,chair,5,0,1330
+floss,NO RESPONSE,11,0,1444
+floss,box,4,0,1568
+floss,light,5,0,1691
+floss,NO RESPONSE,11,0,1809
+floss,bed,5,0,1923
+floss,NO RESPONSE,11,0,2043
+floss,lightswitch,10,0,2163
+floss,bes,4,0,2284
+floss,NO RESPONSE,11,0,2410
+floss,i dont know,10,0,2525
+floss,not sure,7,0,2648
+floss,NO RESPONSE,11,0,2767
+floss,NO RESPONSE,11,0,2892
+floss,window frame,11,0,3007
+floss,mailbox,6,0,3124
+floss,peg,5,0,3244
+floss,window,6,0,3365
+floss,unsure,6,0,3486
+floss,drawers,6,0,3607
+floss,fridge,5,0,3732
+floss,purse,4,0,3848
+floss,mailbox,6,0,3962
+floss,NO RESPONSE,11,0,4081
+floss,NO RESPONSE,11,0,4202
+foot stool,screw,4,0,8
+foot stool,wine glass,9,0,130
+foot stool,table,4,0,252
+foot stool,screw,4,0,371
+foot stool,screw,4,0,488
+foot stool,table,4,0,607
+foot stool,wine glass,9,0,729
+foot stool,NO RESPONSE,11,0,848
+foot stool,steel tripod,9,0,969
+foot stool,NO RESPONSE,11,0,1081
+foot stool,screw,4,0,1207
+foot stool,table thingy,11,0,1331
+foot stool,NO RESPONSE,11,0,1441
+foot stool,screw,4,0,1569
+foot stool,screw,4,0,1685
+foot stool,bolt,4,0,1925
+foot stool,NO RESPONSE,11,0,2042
+foot stool,screw,4,0,2168
+foot stool,screw,4,0,2286
+foot stool,NO RESPONSE,11,0,2412
+foot stool,bottle opener,10,0,2532
+foot stool,screw,4,0,2649
+foot stool,NO RESPONSE,11,0,2763
+foot stool,NO RESPONSE,11,0,2887
+foot stool,nail,4,0,3002
+foot stool,bed,5,0,3126
+foot stool,screw,4,0,3245
+foot stool,chair,5,0,3366
+foot stool,screw,4,0,3602
+foot stool,screwdriver,10,0,3726
+foot stool,cork screw,7,0,3846
+foot stool,nail,4,0,3971
+foot stool,chair,5,0,4091
+foot stool,screw,4,0,4211
+glass,shoe,4,0,7
+glass,high heeled shoe,12,0,129
+glass,spoon,5,0,490
+glass,NO RESPONSE,11,0,728
+glass,table,5,0,851
+glass,NO RESPONSE,11,0,1211
+glass,table,5,0,1571
+glass,lamp,3,0,1688
+glass,NO RESPONSE,11,0,2048
+glass,shoes,4,0,2162
+glass,lamp,3,0,2292
+glass,NO RESPONSE,11,0,2408
+glass,NA,Inf,0,2764
+glass,NO RESPONSE,11,0,2882
+glass,shoe,4,0,3127
+glass,shoe,4,0,3484
+glass,chair,4,0,3610
+glass,gobblet,6,0,3730
+glass,NO RESPONSE,11,0,3847
+glasses,specs,5,1,1040
+glasses,NO RESPONSE,11,0,2482
+glasses,mixer,6,0,2718
+glasses,NO RESPONSE,11,0,2843
+glasses,NO RESPONSE,11,0,2961
+glasses,eye glass,6,1,3080
+glasses,eyeglass,5,1,3195
+glasses,eye glass,6,1,3442
+glasses,eyeglasses,3,1,3558
+glasses,mobile phone,11,0,3796
+glove,NO RESPONSE,11,0,818
+glove,hand glove,5,1,1068
+glove,clothes,4,0,1178
+glove,NO RESPONSE,11,0,2027
+glove,vest,5,0,2142
+glove,NO RESPONSE,11,0,2508
+glove,chair,5,0,2741
+glove,NO RESPONSE,11,0,2865
+glove,NO RESPONSE,11,0,2986
+glove,NO RESPONSE,11,0,3344
+glove,shirt,5,0,3578
+glove,wallet,5,0,3701
+glove,hat,5,0,3941
+guitar,spoon,6,0,42
+guitar,pill,5,0,166
+guitar,spoon,6,0,401
+guitar,knife,5,0,525
+guitar,cup,5,0,639
+guitar,NO RESPONSE,11,0,760
+guitar,NO RESPONSE,11,0,883
+guitar,NO RESPONSE,11,0,1008
+guitar,NO RESPONSE,11,0,1120
+guitar,ladle,6,0,1244
+guitar,classical guitar,10,1,1487
+guitar,not sure,7,0,1600
+guitar,ladle,6,0,1724
+guitar,car keys,8,0,1840
+guitar,NO RESPONSE,11,0,1965
+guitar,frame,6,0,2078
+guitar,NO RESPONSE,11,0,2208
+guitar,lamp,6,0,2326
+guitar,NO RESPONSE,11,0,2440
+guitar,spoon,6,0,2565
+guitar,ladel,6,0,2680
+guitar,NO RESPONSE,11,0,2799
+guitar,NO RESPONSE,11,0,2923
+guitar,hammer,5,0,3037
+guitar,NO RESPONSE,11,0,3286
+guitar,babby rattle,11,0,3527
+guitar,axe,6,0,3637
+guitar,plate,5,0,3767
+guitar,keys,6,0,3881
+guitar,spoon,6,0,4004
+guitar,NO RESPONSE,11,0,4122
+hammer,NO RESPONSE,11,0,311
+hammer,kettle,6,0,549
+hammer,NO RESPONSE,11,0,787
+hammer,kettle,6,0,1385
+hammer,not sure,7,0,1621
+hammer,kettle,6,0,1747
+hammer,claw hammer,5,1,2102
+hammer,jug,6,0,2221
+hammer,bag,5,0,2348
+hammer,NO RESPONSE,11,0,2470
+hammer,teapot,6,0,2712
+hammer,NO RESPONSE,11,0,2826
+hammer,NO RESPONSE,11,0,2947
+hammer,pot,6,0,3065
+hammer,crowbar,6,0,3303
+hammer,pot,6,0,3426
+hammer,unsure,5,0,3549
+hammer,tea pot,6,0,3792
+helmet,NO RESPONSE,11,0,303
+helmet,ball,5,0,423
+helmet,pot,5,0,552
+helmet,ball,5,0,669
+helmet,NO RESPONSE,11,0,789
+helmet,round dish,10,0,1021
+helmet,NO RESPONSE,11,0,1152
+helmet,NA,Inf,0,1505
+helmet,not sure,8,0,1630
+helmet,steering wheel,12,0,1744
+helmet,NO RESPONSE,11,0,1870
+helmet,NO RESPONSE,11,0,1984
+helmet,wheel,4,0,2101
+helmet,NO RESPONSE,11,0,2231
+helmet,wheel,4,0,2345
+helmet,NO RESPONSE,11,0,2471
+helmet,a plate,5,0,2585
+helmet,moon,6,0,2707
+helmet,NO RESPONSE,11,0,2824
+helmet,NO RESPONSE,11,0,2951
+helmet,NO RESPONSE,11,0,3064
+helmet,NO RESPONSE,11,0,3187
+helmet,teapot,4,0,3304
+helmet,lock,5,0,3424
+helmet,unsure,6,0,3547
+helmet,sofa,6,0,3786
+helmet,NO RESPONSE,11,0,3908
+helmet,battery,6,0,4026
+helmet,cap,6,0,4141
+helmet,NO RESPONSE,11,0,4264
+high heel,high heeled shoe,2,1,126
+high heel,bag,4,0,248
+high heel,NO RESPONSE,11,0,365
+high heel,belt,4,0,606
+high heel,boot,3,0,730
+high heel,belt,4,0,841
+high heel,waist belt,7,0,961
+high heel,boots,4,1,1088
+high heel,NO RESPONSE,11,0,1562
+high heel,belt,4,0,2051
+high heel,bag,4,0,2161
+high heel,NO RESPONSE,11,0,2403
+high heel,bag,4,0,2523
+high heel,NO RESPONSE,11,0,2765
+high heel,womans shoe,6,1,2889
+high heel,bag,4,0,3003
+high heel,belt,4,0,3252
+high heel,bag,4,0,3367
+high heel,belt,4,0,3606
+high heel,chair,4,0,3731
+high heel,belt,4,0,4090
+hinge,boat,5,0,113
+hinge,box,5,0,231
+hinge,NO RESPONSE,11,0,356
+hinge,box,5,0,478
+hinge,wall,5,0,589
+hinge,boat,5,0,719
+hinge,NO RESPONSE,11,0,837
+hinge,NO RESPONSE,11,0,956
+hinge,plastic,7,0,1077
+hinge,NA,Inf,0,1189
+hinge,NO RESPONSE,11,0,1318
+hinge,idk,4,0,1433
+hinge,not sure,7,0,1673
+hinge,paper,5,0,1791
+hinge,NO RESPONSE,11,0,1919
+hinge,NO RESPONSE,11,0,2030
+hinge,string,4,0,2150
+hinge,book,5,0,2279
+hinge,wall,5,0,2399
+hinge,NO RESPONSE,11,0,2520
+hinge,i dont know,8,0,2638
+hinge,not sure,7,0,2751
+hinge,NO RESPONSE,11,0,2878
+hinge,NO RESPONSE,11,0,2999
+hinge,NO RESPONSE,11,0,3118
+hinge,box,5,0,3236
+hinge,NO RESPONSE,11,0,3357
+hinge,NA,Inf,0,3469
+hinge,unsure,5,0,3596
+hinge,boat,5,0,3709
+hinge,jeans,5,0,3839
+hinge,NO RESPONSE,11,0,3953
+hinge,cardboard,9,0,4069
+hinge,NA,Inf,0,4315
+hole punch,recliner,8,0,19
+hole punch,bag,10,0,264
+hole punch,open bag,8,0,379
+hole punch,chair,10,0,624
+hole punch,NO RESPONSE,11,0,741
+hole punch,NO RESPONSE,11,0,864
+hole punch,cap,9,0,973
+hole punch,purse,8,0,1094
+hole punch,glasses,9,0,1333
+hole punch,ring,9,0,1453
+hole punch,not sure,7,0,1576
+hole punch,chair,10,0,1820
+hole punch,idk,10,0,1939
+hole punch,NO RESPONSE,11,0,2180
+hole punch,door,9,0,2301
+hole punch,NO RESPONSE,11,0,2414
+hole punch,not sure,7,0,2664
+hole punch,NO RESPONSE,11,0,2778
+hole punch,stroller,10,0,2898
+hole punch,scarf,10,0,3015
+hole punch,umbrella,10,0,3139
+hole punch,arm chair,9,0,3258
+hole punch,cloth,8,0,3382
+hole punch,unsure,9,0,3503
+hole punch,watch,8,0,3617
+hole punch,chair,10,0,3738
+hole punch,lamp,8,0,3858
+hole punch,handbag,9,0,3976
+hole punch,bag,10,0,4097
+hole punch,NO RESPONSE,11,0,4224
+ice tray,ice cubes,5,0,1165
+ice tray,NO RESPONSE,11,0,1531
+ice tray,not sure,7,0,1654
+ice tray,NO RESPONSE,11,0,2015
+ice tray,page,8,0,2256
+ice tray,book,8,0,2376
+ice tray,NO RESPONSE,11,0,2488
+ice tray,not sure,7,0,2728
+ice tray,NO RESPONSE,11,0,2847
+ice tray,NO RESPONSE,11,0,3090
+ice tray,router,7,0,3214
+ice tray,NO RESPONSE,11,0,3451
+ice tray,unsure,7,0,3570
+ice tray,cell phone,8,0,3688
+ice tray,storage box,10,0,3814
+ice tray,NO RESPONSE,11,0,4286
+key,skeleton key,9,0,896
+key,old key,4,1,1494
+key,NO RESPONSE,11,0,2455
+key,NO RESPONSE,11,0,2820
+key,key chain,6,0,3771
+key,skeleton key,9,1,3899
+key,corkscrew,7,0,4130
+keys,box,4,0,39
+keys,chair,5,0,161
+keys,NO RESPONSE,11,0,402
+keys,chair,5,0,519
+keys,vacuum,6,0,644
+keys,NA,Inf,0,765
+keys,NO RESPONSE,11,0,880
+keys,cup,4,0,1006
+keys,wheel,4,0,1125
+keys,ladle,5,0,1245
+keys,not sure,7,0,1604
+keys,lamp,4,0,1717
+keys,idk,4,0,1957
+keys,tray,4,0,2081
+keys,bag,4,0,2197
+keys,vase,4,0,2325
+keys,NO RESPONSE,11,0,2447
+keys,keys and fob,8,0,2561
+keys,not sure,7,0,2688
+keys,NO RESPONSE,11,0,2801
+keys,NO RESPONSE,11,0,2921
+keys,camera,5,0,3165
+keys,NO RESPONSE,11,0,3285
+keys,NO RESPONSE,11,0,3401
+keys,unsure,6,0,3522
+keys,lamp,4,0,3639
+keys,mattress,5,0,3764
+keys,shoe,4,0,4007
+keys,NO RESPONSE,11,0,4238
+kid toy,plate,5,0,27
+kid toy,shoe,3,0,155
+kid toy,NO RESPONSE,11,0,270
+kid toy,rattle,5,0,386
+kid toy,shoe,3,0,513
+kid toy,show,3,0,628
+kid toy,NO RESPONSE,11,0,756
+kid toy,moccasin,7,0,876
+kid toy,cup,3,0,993
+kid toy,NO RESPONSE,11,0,1113
+kid toy,rattle,5,1,1233
+kid toy,tamberine,8,0,1353
 kid toy,NO RESPONSE,11,0,1472
-shoe,NO RESPONSE,11,0,1473
-plane,airplane,0,1,1474
-moccosin,NO RESPONSE,11,0,1475
-bib,NO RESPONSE,11,0,1476
-pill,pill,0,1,1477
-keys,NO RESPONSE,11,0,1478
-guitar,guitar,0,1,1479
-bobby pin,bobby pin,0,1,1480
-crayon,NO RESPONSE,11,0,1481
-watch,clock,4,0,1482
-sponge,sponge,0,1,1483
-camera,camera,0,1,1484
-cork screw,NO RESPONSE,11,0,1485
-watering pot,NO RESPONSE,11,0,1486
-axe,NO RESPONSE,11,0,1487
-ladle,NO RESPONSE,11,0,1488
-briefcase,NO RESPONSE,11,0,1489
-clipboard,NO RESPONSE,11,0,1490
-truck,NO RESPONSE,11,0,1491
-key,key,0,1,1492
-lock,shovel,5,0,1493
-marker,NO RESPONSE,11,0,1494
-steering wheel,NO RESPONSE,14,0,1495
-notebook,NO RESPONSE,11,0,1496
-blanket,towel,0,1,1497
-magnifying glass,NO RESPONSE,13,0,1498
-crowbar,NO RESPONSE,11,0,1499
-scarf,clothes,7,0,1500
-pfd,vest,4,0,1501
-speakers,speaker,1,1,1502
-rug,rug,0,1,1503
-helmet,NO RESPONSE,11,0,1504
-battery,battery,0,1,1505
-knot,NO RESPONSE,11,0,1506
-hammer,hammer,0,1,1507
-eletric kettle,NO RESPONSE,11,0,1508
-binder,NO RESPONSE,11,0,1509
-egg beater,mixer,8,0,1510
-toothbrush,toothbrush,0,1,1511
-mouse trap,NO RESPONSE,11,0,1512
-wheel,bike,2,0,1513
-nail,nail,0,1,1514
-saw,NO RESPONSE,11,0,1515
-cell phone,chair,4,0,1516
-crib,rope,4,0,1517
-glasses,glasses,0,1,1518
-comb,comb,0,1,1519
-cd,NO RESPONSE,11,0,1520
-sundial,NO RESPONSE,11,0,1521
-cookie cutter,cookie cutter,0,1,1522
-dice,NO RESPONSE,11,0,1523
-nail clippers,nail trimmer,5,1,1524
-router,NO RESPONSE,11,0,1525
-ice tray,NO RESPONSE,11,0,1526
-vase,NO RESPONSE,11,0,1527
-candlestick,candle holder,0,1,1528
-thimble,thimble,0,1,1529
-pot,NO RESPONSE,11,0,1530
-truck,NO RESPONSE,11,0,1531
-mouse,NO RESPONSE,11,0,1532
-bucket,pail,6,1,1533
-wallet,NO RESPONSE,11,0,1534
-earring,NO RESPONSE,11,0,1535
-flask,NO RESPONSE,11,0,1536
-glove,glove,0,1,1537
-athletic tape,NO RESPONSE,11,0,1538
-stove,NO RESPONSE,11,0,1539
-candle,candle,0,1,1540
-rake,hoe,3,1,1541
-balloon,NO RESPONSE,11,0,1542
-satellite,solar panel,9,0,1543
-paper clip,paper clip,0,1,1544
-backpack,shoe,4,0,1545
-office chair,balloon,7,0,1546
-computer drive,NO RESPONSE,11,0,1547
-tub,NO RESPONSE,11,0,1548
-binoculars,binoculars,0,1,1549
-box,floppy disk,10,0,1550
-necklace,bracelet,7,1,1551
-saddle,NO RESPONSE,11,0,1552
-microphone,NO RESPONSE,11,0,1553
-chess board,NO RESPONSE,11,0,1554
-hinge,NA,Inf,0,1555
+kid toy,not sure,7,0,1589
+kid toy,window,5,0,1716
+kid toy,NO RESPONSE,11,0,1826
+kid toy,idk,3,0,1948
+kid toy,lamp,4,0,2073
+kid toy,NO RESPONSE,11,0,2196
+kid toy,plate,5,0,2313
+kid toy,NO RESPONSE,11,0,2426
+kid toy,plate,5,0,2550
+kid toy,not sure,7,0,2669
+kid toy,NO RESPONSE,11,0,2785
+kid toy,NO RESPONSE,11,0,2914
+kid toy,NO RESPONSE,11,0,3025
+kid toy,sneaker,7,0,3270
+kid toy,NO RESPONSE,11,0,3389
+kid toy,unsure,6,0,3511
+kid toy,watch,4,0,3629
+kid toy,mug,3,0,3746
+kid toy,NO RESPONSE,11,0,3870
+kid toy,bottle opener,11,0,3990
+kid toy,painting,7,0,4105
+kid toy,NO RESPONSE,11,0,4232
+knife,shoe,4,0,9
+knife,handbag,6,0,131
+knife,NA,Inf,0,372
+knife,car,5,0,486
+knife,paintbrush,9,0,605
+knife,NO RESPONSE,11,0,731
+knife,NO RESPONSE,11,0,847
+knife,NO RESPONSE,11,0,968
+knife,bed,5,0,1092
+knife,NO RESPONSE,11,0,1212
+knife,cleaver,6,1,1327
+knife,NO RESPONSE,11,0,1450
+knife,needle,5,0,1565
+knife,brush,5,0,1690
+knife,bed,5,0,1929
+knife,book,5,0,2047
+knife,bag,5,0,2164
+knife,paintbrush,9,0,2283
+knife,NO RESPONSE,11,0,2402
+knife,not sure,7,0,2652
+knife,NO RESPONSE,11,0,2769
+knife,NO RESPONSE,11,0,2888
+knife,table,4,0,3006
+knife,bed,5,0,3130
+knife,paint brush,10,0,3250
+knife,bag,5,0,3368
+knife,mailbox,6,0,3490
+knife,bed,5,0,3611
+knife,hanger,5,0,3724
+knife,purse,4,0,3851
+knife,bag,5,0,3972
+knife,NO RESPONSE,11,0,4212
+knot,rug,3,0,69
+knot,rug,3,0,182
+knot,belt,3,0,422
+knot,rug,3,0,543
+knot,NO RESPONSE,11,0,784
+knot,NO RESPONSE,11,0,912
+knot,NO RESPONSE,11,0,1142
+knot,NO RESPONSE,11,0,1266
+knot,belt,3,0,1741
+knot,rope knot,5,1,1861
+knot,cloth,3,0,1985
+knot,rug,3,0,2108
+knot,NO RESPONSE,11,0,2228
+knot,hat,3,0,2347
+knot,NO RESPONSE,11,0,2464
+knot,not sure,6,0,2706
+knot,NO RESPONSE,11,0,2830
+knot,NO RESPONSE,11,0,2946
+knot,knot or rope,8,1,3185
+knot,NO RESPONSE,11,0,3310
+knot,unsure,5,0,3542
+knot,shoe,3,0,3669
+knot,brush,4,0,3790
+knot,rope knot,5,1,3901
+knot,rug,3,0,4031
+knot,NO RESPONSE,11,0,4266
+ladle,hammer,4,0,40
+ladle,spoon,5,0,160
+ladle,NO RESPONSE,11,0,285
+ladle,NO RESPONSE,11,0,403
+ladle,corkscrew,8,0,528
+ladle,screw,5,0,641
+ladle,NO RESPONSE,11,0,757
+ladle,NO RESPONSE,11,0,879
+ladle,car keys,6,0,997
+ladle,spoon,5,0,1127
+ladle,idk,4,0,1365
+ladle,NO RESPONSE,11,0,1486
+ladle,spoon,5,0,1723
+ladle,NO RESPONSE,11,0,1845
+ladle,spoon,5,0,1959
+ladle,tongs,5,0,2082
+ladle,pin,5,0,2203
+ladle,NO RESPONSE,11,0,2443
+ladle,keys and fob,10,0,2559
+ladle,not sure,7,0,2678
+ladle,NO RESPONSE,11,0,2808
+ladle,NO RESPONSE,11,0,2925
+ladle,NO RESPONSE,11,0,3041
+ladle,puddle,3,0,3163
+ladle,NO RESPONSE,11,0,3282
+ladle,car key,5,0,3407
+ladle,pin,5,0,3647
+ladle,cloth,5,0,3765
+ladle,key,5,0,3888
+ladle,NO RESPONSE,11,0,4125
+ladle,NO RESPONSE,11,0,4248
+lamp,table,4,0,16
+lamp,dress,5,0,134
+lamp,table,4,0,261
+lamp,shoe,4,0,501
+lamp,chair,4,0,613
+lamp,NO RESPONSE,11,0,858
+lamp,bell,4,0,982
+lamp,vase,3,0,1103
+lamp,vase,3,0,1336
+lamp,NO RESPONSE,11,0,1456
+lamp,glass,3,0,1819
+lamp,NO RESPONSE,11,0,2056
+lamp,ribbon,6,0,2173
+lamp,NO RESPONSE,11,0,2413
+lamp,i dont know,11,0,2541
+lamp,not sure,8,0,2662
+lamp,NO RESPONSE,11,0,2782
+lamp,vase,3,0,2904
+lamp,chair,4,0,3019
+lamp,lampshade,5,0,3136
+lamp,table,4,0,3373
+lamp,shoe,4,0,3614
+lamp,chair,4,0,3740
+lamp,table,4,0,3973
+lamp,vase,3,0,4093
+lazy chair,stroller,6,0,15
+lazy chair,hole punch,8,0,140
+lazy chair,NO RESPONSE,11,0,262
+lazy chair,NO RESPONSE,11,0,381
+lazy chair,umbrella,8,0,617
+lazy chair,NO RESPONSE,11,0,738
+lazy chair,NO RESPONSE,11,0,863
+lazy chair,cap,3,0,978
+lazy chair,concrete,6,0,1101
+lazy chair,desk,5,0,1341
+lazy chair,NO RESPONSE,11,0,1459
+lazy chair,not sure,7,0,1579
+lazy chair,table,5,0,1704
+lazy chair,NO RESPONSE,11,0,1817
+lazy chair,idk,5,0,1935
+lazy chair,hole puncher,8,0,2060
+lazy chair,book,5,0,2178
+lazy chair,table,5,0,2293
+lazy chair,NO RESPONSE,11,0,2419
+lazy chair,not sure,7,0,2656
+lazy chair,NO RESPONSE,11,0,2775
+lazy chair,NO RESPONSE,11,0,2897
+lazy chair,ring,5,0,3021
+lazy chair,bag,4,0,3133
+lazy chair,hole puncher,8,0,3260
+lazy chair,scarf,4,0,3374
+lazy chair,unsure,5,0,3497
+lazy chair,babycart,6,0,3733
+lazy chair,NO RESPONSE,11,0,3859
+lazy chair,NO RESPONSE,11,0,4099
+lazy chair,NO RESPONSE,11,0,4221
+lock,chair,5,0,51
+lock,lever,4,0,179
+lock,tool,3,0,529
+lock,steering wheel,14,0,772
+lock,NO RESPONSE,11,0,1251
+lock,NO RESPONSE,11,0,1497
+lock,bag,4,0,1733
+lock,shovel,5,0,1855
+lock,idk,3,0,1970
+lock,NO RESPONSE,11,0,2453
+lock,shovel,5,0,2578
+lock,purse,5,0,2692
+lock,NO RESPONSE,11,0,2819
+lock,NO RESPONSE,11,0,2934
+lock,NO RESPONSE,11,0,3293
+lock,shovel,5,0,3660
+lock,desk,3,0,3779
+lock,shovel,5,0,4253
+lure,fishing bait,3,1,145
+lure,fishing tackle,5,1,392
+lure,fishing bait,3,1,506
+lure,NO RESPONSE,11,0,745
+lure,fishing gear,4,1,1467
+lure,bait and hooks,7,1,1713
+lure,fishing pole,3,0,1953
+lure,NO RESPONSE,11,0,2190
+lure,bait and hook,6,1,2311
+lure,NO RESPONSE,11,0,2429
+lure,NO RESPONSE,11,0,2792
+lure,NO RESPONSE,11,0,3036
+lure,fishing rod,3,0,4107
+magnifying glass,fishing pole,11,0,58
+magnifying glass,key,12,0,173
+magnifying glass,NO RESPONSE,13,0,296
+magnifying glass,NO RESPONSE,13,0,420
+magnifying glass,NO RESPONSE,13,0,770
+magnifying glass,notebook,12,0,1019
+magnifying glass,book,13,0,1132
+magnifying glass,vlipboard,11,0,1369
+magnifying glass,NO RESPONSE,13,0,1496
+magnifying glass,not sure,11,0,1620
+magnifying glass,calculator,11,0,1729
+magnifying glass,NO RESPONSE,13,0,1860
+magnifying glass,key,12,0,1972
+magnifying glass,frmae,11,0,2096
+magnifying glass,NA,Inf,0,2209
+magnifying glass,notebook,12,0,2334
+magnifying glass,NO RESPONSE,13,0,2457
+magnifying glass,i dont know,12,0,2572
+magnifying glass,not sure,11,0,2691
+magnifying glass,NO RESPONSE,13,0,2817
+magnifying glass,NO RESPONSE,13,0,2930
+magnifying glass,NO RESPONSE,13,0,3053
+magnifying glass,writing pad,10,0,3171
+magnifying glass,crowbar,12,0,3289
+magnifying glass,NO RESPONSE,13,0,3413
+magnifying glass,unsure,12,0,3538
+magnifying glass,straw hat,11,0,3774
+magnifying glass,NO RESPONSE,13,0,3893
+magnifying glass,box,13,0,4137
+magnifying glass,NO RESPONSE,13,0,4258
+mailbox,house,7,0,5
+mailbox,dresser,7,0,132
+mailbox,bag,6,0,241
+mailbox,toolbox,3,0,361
+mailbox,car,6,0,483
+mailbox,bag,6,0,609
+mailbox,NO RESPONSE,11,0,732
+mailbox,NO RESPONSE,11,0,842
+mailbox,leaf,6,0,963
+mailbox,chest,7,0,1084
+mailbox,NO RESPONSE,11,0,1203
+mailbox,chest,7,0,1323
+mailbox,NO RESPONSE,11,0,1447
+mailbox,wall,5,0,1563
+mailbox,bed,6,0,1686
+mailbox,NO RESPONSE,11,0,1810
+mailbox,bed,6,0,1922
+mailbox,NO RESPONSE,11,0,2052
+mailbox,bag,6,0,2169
+mailbox,bed,6,0,2291
+mailbox,NO RESPONSE,11,0,2409
+mailbox,table,5,0,2528
+mailbox,not sure,8,0,2643
+mailbox,NO RESPONSE,11,0,2761
+mailbox,NO RESPONSE,11,0,2891
+mailbox,chair,6,0,3012
+mailbox,NO RESPONSE,11,0,3122
+mailbox,table,5,0,3249
+mailbox,bag,6,0,3369
+mailbox,shoe,6,0,3481
+mailbox,bed,6,0,3609
+mailbox,bed,6,0,3729
+mailbox,roof,6,0,3961
+mailbox,leaf,6,0,4085
+mailbox,NO RESPONSE,11,0,4201
+marker,hammer,3,0,56
+marker,ax,5,0,180
+marker,NO RESPONSE,11,0,293
+marker,rod,5,0,533
+marker,hammer,3,0,657
+marker,NO RESPONSE,11,0,780
+marker,NO RESPONSE,11,0,893
+marker,umbrella,6,0,1020
+marker,NO RESPONSE,11,0,1139
+marker,rain guard,8,0,1379
+marker,NO RESPONSE,11,0,1489
+marker,not sure,7,0,1618
+marker,tube,5,0,1736
+marker,NO RESPONSE,11,0,1859
+marker,key,4,0,1969
+marker,pipe,5,0,2093
+marker,NO RESPONSE,11,0,2220
+marker,book,5,0,2340
+marker,NO RESPONSE,11,0,2458
+marker,i dont know,10,0,2571
+marker,NO RESPONSE,11,0,2812
+marker,NO RESPONSE,11,0,2932
+marker,wood,6,0,3060
+marker,crowbar,6,0,3290
+marker,hammer,3,0,3409
+marker,magnifying glass,13,0,3657
+marker,leather bag,8,0,3776
+marker,pen,5,0,3898
+marker,crow bar,7,0,4014
+marker,rod,5,0,4135
+marker,NO RESPONSE,11,0,4254
+microphone,pipes,8,0,116
+microphone,simple machine,10,0,229
+microphone,hinge,8,0,471
+microphone,mic stand,6,0,591
+microphone,NO RESPONSE,11,0,829
+microphone,NO RESPONSE,11,0,952
+microphone,hinge,8,0,1078
+microphone,NO RESPONSE,11,0,1199
+microphone,NO RESPONSE,11,0,1317
+microphone,not suer,9,0,1671
+microphone,hinge,8,0,1794
+microphone,NO RESPONSE,11,0,2036
+microphone,frame,8,0,2154
+microphone,saddle,9,0,2269
+microphone,NO RESPONSE,11,0,2393
+microphone,NO RESPONSE,11,0,2510
+microphone,not sure,9,0,2753
+microphone,NO RESPONSE,11,0,2871
+microphone,NO RESPONSE,11,0,2993
+microphone,steel door holder,13,0,3114
+microphone,torch,8,0,3234
+microphone,NO RESPONSE,11,0,3354
+microphone,door clipper,10,0,3472
+microphone,unsure,9,0,3592
+microphone,watch,9,0,3718
+microphone,binder,9,0,3831
+microphone,NO RESPONSE,11,0,3950
+microphone,stapler,9,0,4076
+microphone,gun,9,0,4193
+microphone,NO RESPONSE,11,0,4313
+moccosin,NO RESPONSE,11,0,274
+moccosin,hat,4,0,391
+moccosin,NO RESPONSE,11,0,746
+moccosin,purse,4,0,875
+moccosin,NO RESPONSE,11,0,992
+moccosin,boot,4,0,1116
+moccosin,hat,4,0,1352
+moccosin,NO RESPONSE,11,0,1466
+moccosin,hat,4,0,1585
+moccosin,umbrella,7,0,1708
+moccosin,NO RESPONSE,11,0,1836
+moccosin,idk,5,0,1949
+moccosin,mocassin,2,1,2074
+moccosin,vase,4,0,2308
+moccosin,NO RESPONSE,11,0,2430
+moccosin,not sure,6,0,2668
+moccosin,NO RESPONSE,11,0,2793
+moccosin,NO RESPONSE,11,0,3027
+moccosin,cloth,4,0,3151
+moccosin,hat,4,0,3268
+moccosin,cloth,4,0,3393
+moccosin,unsure,5,0,3507
+moccosin,stroller,5,0,3633
+moccosin,sweater,4,0,3752
+moccosin,NO RESPONSE,11,0,3875
+moccosin,hat,4,0,4111
+moccosin,NO RESPONSE,11,0,4235
+mouse,ice cube tray,11,0,85
+mouse,mook,3,0,211
+mouse,NO RESPONSE,11,0,328
+mouse,NO RESPONSE,11,0,453
+mouse,book,4,0,574
+mouse,book,4,0,686
+mouse,NO RESPONSE,11,0,815
+mouse,NO RESPONSE,11,0,926
+mouse,NO RESPONSE,11,0,1053
+mouse,book,4,0,1168
+mouse,ice tray,8,0,1409
+mouse,NO RESPONSE,11,0,1527
+mouse,not sure,5,0,1653
+mouse,book,4,0,1774
+mouse,NO RESPONSE,11,0,1888
+mouse,NO RESPONSE,11,0,2008
+mouse,book,4,0,2131
+mouse,book,4,0,2249
+mouse,book,4,0,2365
+mouse,NO RESPONSE,11,0,2491
+mouse,glasses,5,0,2612
+mouse,not sure,5,0,2730
+mouse,NO RESPONSE,11,0,2855
+mouse,board eraser,9,0,3085
+mouse,chopper,5,0,3216
+mouse,NO RESPONSE,11,0,3449
+mouse,unsure,4,0,3569
+mouse,phone,4,0,3690
+mouse,book,4,0,3813
+mouse,book,4,0,3931
+mouse,book,4,0,4048
+mouse,light switch,11,0,4168
+mouse,NO RESPONSE,11,0,4292
+mouse trap,paper,8,0,61
+mouse trap,wood,7,0,183
+mouse trap,plank,8,0,310
+mouse trap,wood,7,0,541
+mouse trap,wooded board,8,0,902
+mouse trap,wood,7,0,1150
+mouse trap,plywood,7,0,1391
+mouse trap,NA,Inf,0,1506
+mouse trap,knife,9,0,1748
+mouse trap,cuttung board,10,0,1983
+mouse trap,wood,7,0,2103
+mouse trap,NO RESPONSE,11,0,2226
+mouse trap,NO RESPONSE,11,0,2463
+mouse trap,wood,7,0,2708
+mouse trap,NA,Inf,0,2821
+mouse trap,NO RESPONSE,11,0,2952
+mouse trap,table,9,0,3063
+mouse trap,NO RESPONSE,11,0,3309
+mouse trap,unsure,8,0,3552
+mouse trap,rug,9,0,3661
+mouse trap,tupperware,8,0,3783
+mouse trap,wood,7,0,3912
+mouse trap,NO RESPONSE,11,0,4272
+mug,kettle,6,0,1714
+mug,NO RESPONSE,11,0,2427
+mug,NO RESPONSE,11,0,2789
+mug,cup,2,1,3627
+nail,brush,5,0,193
+nail,NO RESPONSE,11,0,315
+nail,board,4,0,558
+nail,board,4,0,675
+nail,frame,4,0,800
+nail,NO RESPONSE,11,0,923
+nail,NO RESPONSE,11,0,1037
+nail,NO RESPONSE,11,0,1154
+nail,wrench,6,0,1278
+nail,gable roof,8,0,1402
+nail,NO RESPONSE,11,0,1516
+nail,saw,3,0,1762
+nail,NO RESPONSE,11,0,1875
+nail,NO RESPONSE,11,0,2235
+nail,screw,5,0,2354
+nail,NO RESPONSE,11,0,2477
+nail,i dont know,10,0,2597
+nail,NA,Inf,0,2834
+nail,NO RESPONSE,11,0,2960
+nail,NO RESPONSE,11,0,3079
+nail,NO RESPONSE,11,0,3320
+nail,NO RESPONSE,11,0,3435
+nail,unsure,5,0,3561
+nail,axe,3,0,3683
+nail,mobile phone,10,0,3802
+nail,toothbrush,10,0,4044
+nail,shelf,4,0,4154
+nail clippers,wheel,12,0,82
+nail clippers,hairbrush,11,0,198
+nail clippers,watch,11,0,442
+nail clippers,tin can,10,0,559
+nail clippers,watch,11,0,793
+nail clippers,NO RESPONSE,12,0,924
+nail clippers,plastic holder,11,0,1043
+nail clippers,apto,11,0,1156
+nail clippers,spoon,12,0,1273
+nail clippers,finger clippers,5,1,1400
+nail clippers,NO RESPONSE,12,0,1522
+nail clippers,not sure,10,0,1644
+nail clippers,saw,12,0,1759
+nail clippers,NA,Inf,0,2000
+nail clippers,brim,12,0,2117
+nail clippers,strap,12,0,2241
+nail clippers,NO RESPONSE,12,0,2475
+nail clippers,not sure,10,0,2722
+nail clippers,NO RESPONSE,12,0,2835
+nail clippers,NO RESPONSE,12,0,2964
+nail clippers,ey glass,10,0,3084
+nail clippers,nailcutter,6,1,3198
+nail clippers,glasses,10,0,3317
+nail clippers,eye glass,10,0,3443
+nail clippers,unsure,12,0,3554
+nail clippers,glasses,10,0,3679
+nail clippers,nail trimmer,5,1,3798
+nail clippers,tweezers,10,0,3923
+nail clippers,spoon,12,0,4034
+nail clippers,nailcutter,6,1,4163
+nail clippers,nail trimmer,5,1,4284
+necklace,beads,6,0,120
+necklace,bracelet,7,1,237
+necklace,NO RESPONSE,11,0,352
+necklace,bracelet,7,1,596
+necklace,NO RESPONSE,11,0,839
+necklace,bracelet,7,1,951
+necklace,NO RESPONSE,11,0,1070
+necklace,instrument,9,0,1193
+necklace,bracelet,7,1,1314
+necklace,beads,6,0,1432
+necklace,beads,6,0,1549
+necklace,bracelet,7,1,1795
+necklace,bracelet,7,1,1918
+necklace,NA,Inf,0,2031
+necklace,bracelet,7,0,2160
+necklace,bracelet,7,1,2274
+necklace,beads,6,0,2389
+necklace,NO RESPONSE,11,0,2515
+necklace,bracelet,7,1,2639
+necklace,NO RESPONSE,11,0,2869
+necklace,NO RESPONSE,11,0,3120
+necklace,NO RESPONSE,11,0,3229
+necklace,beads,6,0,3355
+necklace,bag,7,0,3474
+necklace,unsure,7,0,3599
+necklace,braclet,7,1,3713
+necklace,bracelate,5,1,3838
+necklace,bracelet,7,1,4080
+necklace,string of beads,13,1,4190
+necklace,bracelet,7,1,4311
+notebook,crowbar,7,0,52
+notebook,crow bar,7,0,175
+notebook,NO RESPONSE,11,0,414
+notebook,key,7,0,531
+notebook,table,6,0,652
+notebook,NO RESPONSE,11,0,778
+notebook,NO RESPONSE,11,0,895
+notebook,briefcase,8,0,1013
+notebook,case,7,0,1134
+notebook,NO RESPONSE,11,0,1257
+notebook,NO RESPONSE,11,0,1500
+notebook,not sure,5,0,1609
+notebook,book,4,0,1732
+notebook,NO RESPONSE,11,0,1852
+notebook,bag,7,0,1971
+notebook,frame,8,0,2089
+notebook,book,4,0,2215
+notebook,umbrella,8,0,2337
+notebook,NO RESPONSE,11,0,2456
+notebook,calculator,9,0,2570
+notebook,not sure,5,0,2698
+notebook,NO RESPONSE,11,0,2810
+notebook,NO RESPONSE,11,0,2938
+notebook,NO RESPONSE,11,0,3292
+notebook,lock,6,0,3412
+notebook,unsure,8,0,3529
+notebook,book,4,0,3651
+notebook,rug,8,0,3772
+notebook,marker,8,0,3889
+notebook,shirt,8,0,4020
+notebook,binder,8,0,4136
+notebook,NO RESPONSE,11,0,4256
+office chair,paper,4,0,102
+office chair,toilet paper,9,0,227
+office chair,NO RESPONSE,11,0,338
+office chair,NO RESPONSE,11,0,460
+office chair,bag,4,0,577
+office chair,lamp,4,0,700
+office chair,NO RESPONSE,11,0,821
+office chair,NO RESPONSE,11,0,937
+office chair,truck,5,0,1058
+office chair,NA,Inf,0,1177
+office chair,NO RESPONSE,11,0,1300
+office chair,cloth,4,0,1425
+office chair,NO RESPONSE,11,0,1544
+office chair,not sure,7,0,1667
+office chair,NO RESPONSE,11,0,1907
+office chair,balloon,7,0,2017
+office chair,NO RESPONSE,11,0,2139
+office chair,lsmp,5,0,2265
+office chair,NO RESPONSE,11,0,2383
+office chair,NO RESPONSE,11,0,2503
+office chair,i dont know,11,0,2625
+office chair,not sure,7,0,2744
+office chair,NA,Inf,0,2868
+office chair,NO RESPONSE,11,0,2985
+office chair,NO RESPONSE,11,0,3097
+office chair,NO RESPONSE,11,0,3347
+office chair,NO RESPONSE,11,0,3457
+office chair,unsure,5,0,3588
+office chair,shirt,3,0,3704
+office chair,mat,4,0,3826
+office chair,NO RESPONSE,11,0,3943
+office chair,balloon,7,0,4065
+office chair,NO RESPONSE,11,0,4187
+office chair,balloon,7,0,4306
+paint brush,table,5,0,12
+paint brush,hanger,6,0,123
+paint brush,NO RESPONSE,11,0,251
+paint brush,NO RESPONSE,11,0,369
+paint brush,roof,4,0,484
+paint brush,clothespin,9,0,604
+paint brush,NO RESPONSE,11,0,724
+paint brush,NO RESPONSE,11,0,850
+paint brush,NO RESPONSE,11,0,965
+paint brush,chest,4,0,1085
+paint brush,NO RESPONSE,11,0,1206
+paint brush,NA,Inf,0,1321
+paint brush,NO RESPONSE,11,0,1449
+paint brush,tree,4,0,1567
+paint brush,vacuum,5,0,1687
+paint brush,NO RESPONSE,11,0,1805
+paint brush,box,4,0,1932
+paint brush,NO RESPONSE,11,0,2044
+paint brush,light,5,0,2170
+paint brush,vacuum,5,0,2285
+paint brush,NO RESPONSE,11,0,2401
+paint brush,i dont know,9,0,2530
+paint brush,toolbox,7,0,2645
+paint brush,NO RESPONSE,11,0,2771
+paint brush,NO RESPONSE,11,0,2883
+paint brush,roofing,7,0,3010
+paint brush,mailbox,7,0,3129
+paint brush,NO RESPONSE,11,0,3243
+paint brush,table,5,0,3371
+paint brush,unsure,5,0,3488
+paint brush,lamp,5,0,3612
+paint brush,a steel pencil case,16,0,3722
+paint brush,NO RESPONSE,11,0,3852
+paint brush,brick,3,0,3969
+paint brush,table,5,0,4083
+paint brush,NO RESPONSE,11,0,4205
+paint tray,grater,8,0,26
+paint tray,sneaker,9,0,147
+paint tray,storage container,14,0,265
+paint tray,NO RESPONSE,11,0,393
+paint tray,car,8,0,509
+paint tray,tray,6,0,631
+paint tray,NO RESPONSE,11,0,872
+paint tray,tray,6,1,985
+paint tray,NO RESPONSE,11,0,1115
+paint tray,grater,8,0,1227
+paint tray,paint roller tin,9,1,1473
+paint tray,not sure,8,0,1596
+paint tray,grater,8,0,1715
+paint tray,container,8,0,1827
+paint tray,idk,9,0,1947
+paint tray,grate,9,0,2065
+paint tray,grill,9,0,2192
+paint tray,shekf,10,0,2305
+paint tray,NA,Inf,0,2425
+paint tray,dish strainer,9,0,2554
+paint tray,grater,8,0,2670
+paint tray,NO RESPONSE,11,0,2787
+paint tray,NO RESPONSE,11,0,2909
+paint tray,organizer,9,0,3035
+paint tray,container,8,0,3156
+paint tray,NO RESPONSE,11,0,3275
+paint tray,organizer,9,0,3390
+paint tray,unsure,8,0,3515
+paint tray,stroller,9,0,3632
+paint tray,telegraph,9,0,3756
+paint tray,NO RESPONSE,11,0,3868
+paint tray,cheese grater,10,0,3987
+paint tray,tray,6,0,4113
+paint tray,NO RESPONSE,11,0,4231
+paper clip,NO RESPONSE,11,0,827
+paper clip,metal,8,0,1187
+paper clip,NO RESPONSE,11,0,2021
+paper clip,pin,8,0,2266
+paper clip,NO RESPONSE,11,0,2507
+paper clip,not sure,9,0,2739
+paper clip,NO RESPONSE,11,0,2864
+paper clip,NO RESPONSE,11,0,3099
+paper clip,mixer,8,0,3222
+paper clip,clipper,9,1,3462
+paper clip,clipper,9,0,3823
+paper towel,paper,6,0,21
+paper towel,mirror,9,0,135
+paper towel,NO RESPONSE,11,0,260
+paper towel,papertowelroll,2,1,380
+paper towel,couch,10,0,493
+paper towel,pillow,8,0,621
+paper towel,NO RESPONSE,11,0,744
+paper towel,NO RESPONSE,11,0,861
+paper towel,cloth,10,0,984
+paper towel,cloth,10,0,1098
+paper towel,NO RESPONSE,11,0,1218
+paper towel,bag,10,0,1339
+paper towel,NO RESPONSE,11,0,1460
+paper towel,not sure,9,0,1584
+paper towel,rug,10,0,1702
+paper towel,NO RESPONSE,11,0,1822
+paper towel,idk,11,0,1942
+paper towel,NA,Inf,0,2064
+paper towel,ribbon,10,0,2174
+paper towel,lamp,10,0,2296
+paper towel,NO RESPONSE,11,0,2420
+paper towel,i dont know,10,0,2533
+paper towel,not sure,9,0,2663
+paper towel,NO RESPONSE,11,0,2777
+paper towel,NO RESPONSE,11,0,2903
+paper towel,scarf,10,0,3013
+paper towel,sock,10,0,3259
+paper towel,bag,10,0,3381
+paper towel,unsure,9,0,3498
+paper towel,recliner,9,0,3615
+paper towel,chiar,10,0,3742
+paper towel,NO RESPONSE,11,0,3864
+paper towel,rug,10,0,3978
+paper towel,NO RESPONSE,11,0,4103
+paper towel,NO RESPONSE,11,0,4215
+pen,NO RESPONSE,11,0,253
+pen,brush,5,0,378
+pen,knife,4,0,615
+pen,umbrella,7,0,742
+pen,umbrella,7,0,975
+pen,kinfe,4,0,2181
+pen,handle,5,0,2295
+pen,NO RESPONSE,11,0,2424
+pen,not sure,8,0,2659
+pen,NO RESPONSE,11,0,2784
+pen,umbrella,7,0,3141
+pen,unsure,5,0,3502
+pen,umbrella,7,0,3853
+pen,toothbrush,10,0,4213
+pfd,radio,4,0,191
+pfd,NO RESPONSE,11,0,301
+pfd,quilt,5,0,551
+pfd,NO RESPONSE,11,0,668
+pfd,NO RESPONSE,11,0,790
+pfd,mousetrap,9,0,909
+pfd,bag,3,0,1026
+pfd,NO RESPONSE,11,0,1148
+pfd,sweater,7,0,1386
+pfd,NO RESPONSE,11,0,1511
+pfd,weights,7,0,1746
+pfd,NO RESPONSE,11,0,1863
+pfd,sweater,7,0,2111
+pfd,NO RESPONSE,11,0,2230
+pfd,yarn,4,0,2342
+pfd,NO RESPONSE,11,0,2462
+pfd,chair,5,0,2589
+pfd,NO RESPONSE,11,0,2822
+pfd,NO RESPONSE,11,0,2950
+pfd,clothing,8,0,3062
+pfd,vest,4,0,3182
+pfd,NO RESPONSE,11,0,3311
+pfd,clothing,8,0,3432
+pfd,unsure,6,0,3543
+pfd,helmet,6,0,3668
+pfd,battery,7,0,3791
+pfd,boxes,5,0,3909
+pfd,vest,4,0,4032
+pfd,barrel,6,0,4145
+pfd,vest,4,0,4261
+pill,telescope lens,9,0,165
+pill,NO RESPONSE,11,0,283
+pill,capsule or pill,8,1,407
+pill,tube,4,0,527
+pill,pipe,2,0,642
+pill,NO RESPONSE,11,0,763
+pill,shingles,6,0,881
+pill,binaculors,8,0,1004
+pill,pipes,3,0,1123
+pill,microscopic hair,13,0,1368
+pill,telescope,7,0,1483
+pill,blanket,7,0,1721
+pill,NO RESPONSE,11,0,1843
+pill,telescope,7,0,2080
+pill,water jug,7,0,2201
+pill,NO RESPONSE,11,0,2439
+pill,i dont know,10,0,2557
+pill,bamboo,6,0,2684
+pill,NO RESPONSE,11,0,2805
+pill,roofing tile,10,0,3040
+pill,roofing tile,10,0,3402
+pill,unsure,4,0,3519
+pill,tissue paper,9,0,3766
+pill,capsule pill,5,1,3884
+pill,telescope,7,0,4121
+pillow,sweater,7,0,109
+pillow,bracelet,7,0,234
+pillow,NO RESPONSE,11,0,357
+pillow,NO RESPONSE,11,0,477
+pillow,coat,6,0,597
+pillow,NO RESPONSE,11,0,840
+pillow,NO RESPONSE,11,0,960
+pillow,cloth,5,0,1069
+pillow,metal,6,0,1190
+pillow,NO RESPONSE,11,0,1316
+pillow,cloth,5,0,1437
 pillow,NO RESPONSE,11,0,1556
-spoon,NO RESPONSE,11,0,1557
-cane,NO RESPONSE,11,0,1558
-ethernet cable,ethernet cable,0,1,1559
-boat,NO RESPONSE,11,0,1560
+pillow,not sure,8,0,1679
+pillow,rug,6,0,1799
+pillow,NO RESPONSE,11,0,1911
+pillow,NO RESPONSE,11,0,2040
+pillow,cloth,5,0,2158
+pillow,NA,Inf,0,2273
+pillow,NO RESPONSE,11,0,2392
+pillow,NO RESPONSE,11,0,2519
+pillow,i dont know,9,0,2636
+pillow,not sure,8,0,2759
+pillow,NO RESPONSE,11,0,2875
+pillow,NO RESPONSE,11,0,2994
+pillow,microphone,8,0,3116
+pillow,NO RESPONSE,11,0,3239
+pillow,NO RESPONSE,11,0,3351
+pillow,NO RESPONSE,11,0,3480
+pillow,unsure,6,0,3598
+pillow,chess game,10,0,3716
+pillow,chessboard,9,0,3837
+pillow,box,5,0,3957
+pillow,cloth,5,0,4075
+pillow,NO RESPONSE,11,0,4316
+plane,scissors,8,0,272
+plane,clothespin,8,0,632
+plane,NO RESPONSE,11,0,986
+plane,fish hook,8,0,1829
+plane,penkive,5,0,2191
+plane,NO RESPONSE,11,0,2431
+plane,NO RESPONSE,11,0,2794
+plane,NO RESPONSE,11,0,3029
+plane,toy,5,0,3394
+plane,unsure,5,0,3516
+plane,skateboard,8,0,3751
+pot,mouse,4,0,89
+pot,flask,5,0,216
+pot,puzzle piece,11,0,330
+pot,puzzle piece,11,0,448
+pot,paddle,5,0,566
+pot,puzzle piece,11,0,685
+pot,NO RESPONSE,11,0,814
+pot,NO RESPONSE,11,0,929
+pot,puzzle,5,0,1047
+pot,NO RESPONSE,11,0,1170
+pot,NO RESPONSE,11,0,1291
+pot,top of a head,11,0,1408
+pot,puzzle piece,11,0,1530
+pot,not sure,6,0,1652
+pot,board,4,0,1775
+pot,NO RESPONSE,11,0,1889
+pot,NO RESPONSE,11,0,2005
+pot,cheese,6,0,2134
+pot,key,3,0,2252
+pot,puzzle piece,11,0,2375
+pot,NO RESPONSE,11,0,2485
+pot,puzzle piece,11,0,2605
+pot,not sure,6,0,2729
+pot,NO RESPONSE,11,0,2848
+pot,NO RESPONSE,11,0,2970
+pot,NO RESPONSE,11,0,3086
+pot,puzzle piece,11,0,3208
+pot,NO RESPONSE,11,0,3336
+pot,NO RESPONSE,11,0,3454
+pot,unsure,6,0,3571
+pot,bag,3,0,3695
+pot,sofa,3,0,3816
+pot,puzzle piece,11,0,3925
+pot,bin,3,0,4046
+pot,puzzle piece,11,0,4172
+pot,NO RESPONSE,11,0,4290
+purse,dental floss,11,0,4
+purse,clothspin,8,0,121
+purse,ribbon,5,0,246
+purse,shoe,4,0,363
+purse,ribbon,5,0,485
+purse,ribbon,5,0,612
+purse,NO RESPONSE,11,0,722
+purse,NO RESPONSE,11,0,843
+purse,ladise purse strap,13,0,972
+purse,NO RESPONSE,11,0,1087
+purse,NO RESPONSE,11,0,1204
+purse,pouring water,9,0,1328
+purse,NO RESPONSE,11,0,1442
+purse,dresser,5,0,1570
+purse,spoon,5,0,1681
+purse,NO RESPONSE,11,0,1806
+purse,glass,4,0,1926
+purse,needle,5,0,2045
+purse,ribbon,5,0,2167
+purse,lamp,3,0,2290
+purse,NO RESPONSE,11,0,2411
+purse,not sure,6,0,2646
+purse,NO RESPONSE,11,0,2762
+purse,NO RESPONSE,11,0,2885
+purse,clothing,7,0,3004
+purse,NO RESPONSE,11,0,3123
+purse,NA,Inf,0,3251
+purse,cloth,5,0,3370
+purse,mailbox,6,0,3491
+purse,shoe,4,0,3601
+purse,a part of cell,11,0,3721
+purse,tweezers,7,0,3850
+purse,tweezers,7,0,3966
+purse,NO RESPONSE,11,0,4207
+radio,table,4,0,34
+radio,airplane,7,0,150
+radio,NA,Inf,0,267
+radio,old radio,4,0,388
+radio,boat,5,0,514
+radio,lamp,4,0,635
+radio,NO RESPONSE,11,0,747
+radio,NO RESPONSE,11,0,871
+radio,NO RESPONSE,11,0,990
+radio,airplane,7,0,1111
+radio,plate,5,0,1349
+radio,NO RESPONSE,11,0,1469
+radio,tape,4,0,1709
+radio,container,8,0,1825
+radio,tray,4,0,2075
+radio,grill,5,0,2189
+radio,record player,11,0,2315
+radio,NO RESPONSE,11,0,2434
+radio,i dont know,9,0,2552
+radio,NO RESPONSE,11,0,2796
+radio,NO RESPONSE,11,0,2916
+radio,NO RESPONSE,11,0,3030
+radio,fish hook,8,0,3266
+radio,table,4,0,3385
+radio,unsure,6,0,3508
+radio,lure,5,0,3626
+radio,sneaker,6,0,3745
+radio,NO RESPONSE,11,0,3874
+radio,tv,5,0,4114
+rake,NO RESPONSE,11,0,819
+rake,leaf collector,12,0,1057
+rake,comb,4,0,1188
+rake,stone rake,6,1,1543
+rake,garden tool,9,0,2026
+rake,gardening tool,12,0,2258
+rake,NO RESPONSE,11,0,2501
+rake,NO RESPONSE,11,0,2862
+rake,space rocket,9,0,3104
+rake,comb,4,0,3223
+rake,garden comb,9,0,3466
+rake,an agricultural tool for softening soil,36,0,3825
+rake,hoe,3,0,4068
+rake,hoe,3,0,4301
+ring,plate,5,0,17
+ring,hole punch,9,0,144
+ring,bowl,4,0,257
+ring,bowl,4,0,384
+ring,mirror,5,0,503
+ring,NO RESPONSE,11,0,737
+ring,NO RESPONSE,11,0,862
+ring,ash tray,8,0,979
+ring,concrete slab,12,0,1100
+ring,plate,5,0,1221
+ring,not sure,8,0,1581
+ring,plate,5,0,1698
+ring,circle object,12,0,1938
+ring,puncher,6,0,2058
+ring,circle,5,0,2298
+ring,NA,Inf,0,2418
+ring,not sure,8,0,2657
+ring,NO RESPONSE,11,0,2776
+ring,NO RESPONSE,11,0,2894
+ring,table,5,0,3140
+ring,disk,3,0,3255
+ring,unsure,6,0,3504
+ring,clock,5,0,3616
+ring,clipper,6,0,3736
+ring,lamp,4,0,3857
+ring,clock,5,0,3981
+ring,cutting board,6,0,4218
+router,mask,4,0,87
+router,push car,7,0,208
+router,key,4,0,452
+router,lawn mower,7,0,568
+router,NO RESPONSE,11,0,816
+router,NO RESPONSE,11,0,930
+router,handel,4,0,1055
+router,handle,5,0,1175
+router,NO RESPONSE,11,0,1290
+router,weigh machine,12,0,1415
+router,wifi router,5,1,1528
+router,dolly,4,0,1651
+router,tire pump,7,0,1771
+router,NO RESPONSE,11,0,2010
+router,knife,5,0,2125
+router,jack in a box,13,0,2372
+router,NO RESPONSE,11,0,2490
+router,wagon,5,0,2616
+router,not sure,5,0,2735
+router,NO RESPONSE,11,0,2853
+router,NO RESPONSE,11,0,2965
+router,NO RESPONSE,11,0,3332
+router,NO RESPONSE,11,0,3455
+router,unsure,5,0,3576
+router,pallet jack,10,0,3685
+router,screw,4,0,3810
+router,computer gadget,10,1,3928
+router,dolley,4,0,4053
+router,wireless router,9,1,4173
+router,NO RESPONSE,11,0,4285
+rug,bridge,4,0,192
+rug,NO RESPONSE,11,0,308
+rug,bag,2,0,421
+rug,NO RESPONSE,11,0,788
+rug,oriental rug,9,1,910
+rug,grill,4,0,1028
+rug,NO RESPONSE,11,0,1143
+rug,carpet,5,0,1388
+rug,NO RESPONSE,11,0,1503
+rug,not sure,7,0,1627
+rug,roof,3,0,1743
+rug,bridge,4,0,1866
+rug,NO RESPONSE,11,0,1986
+rug,mesh,4,0,2105
+rug,NO RESPONSE,11,0,2225
+rug,net,3,0,2341
+rug,NO RESPONSE,11,0,2468
+rug,not sure,7,0,2705
+rug,NO RESPONSE,11,0,2828
+rug,NO RESPONSE,11,0,3061
+rug,eifel tower,11,0,3191
+rug,NO RESPONSE,11,0,3430
+rug,unsure,5,0,3545
+rug,bamboo chair,12,0,3781
+saddle,briefcase,8,0,110
+saddle,spoon,5,0,235
+saddle,NO RESPONSE,11,0,351
+saddle,boot,6,0,592
+saddle,NO RESPONSE,11,0,835
+saddle,NO RESPONSE,11,0,949
+saddle,NO RESPONSE,11,0,1080
+saddle,boots,6,0,1194
+saddle,NO RESPONSE,11,0,1315
+saddle,bike seat,8,0,1429
+saddle,NO RESPONSE,11,0,1551
+saddle,shoe,4,0,1674
+saddle,shoe,4,0,1797
+saddle,NO RESPONSE,11,0,1917
+saddle,cane,4,0,2037
+saddle,spoon,5,0,2153
+saddle,lamp,5,0,2391
+saddle,NO RESPONSE,11,0,2516
+saddle,seat cover,7,0,2637
+saddle,not sure,7,0,2758
+saddle,NO RESPONSE,11,0,2879
+saddle,soup spoon,9,0,2989
+saddle,leather,6,0,3113
+saddle,puddle,2,0,3238
+saddle,NO RESPONSE,11,0,3349
+saddle,NO RESPONSE,11,0,3475
+saddle,unsure,5,0,3591
+saddle,sppo,5,0,3714
+saddle,spoon,5,0,3836
+saddle,shoe,4,0,4077
+saddle,NO RESPONSE,11,0,4312
+satellite,motherboard,9,0,101
+satellite,solar panel,9,0,226
+satellite,solar panel,9,0,458
+satellite,computer chip,11,0,583
+satellite,NO RESPONSE,11,0,820
+satellite,NO RESPONSE,11,0,944
+satellite,panels,6,0,1186
+satellite,computer chip,11,0,1301
+satellite,sattelite,2,1,1537
+satellite,solar panel,9,0,1661
+satellite,solar panel,9,0,1781
+satellite,furnace,8,0,2023
+satellite,panel,6,0,2137
+satellite,chocolate,6,0,2259
+satellite,NO RESPONSE,11,0,2504
+satellite,sattelite,2,1,2743
+satellite,NO RESPONSE,11,0,2858
+satellite,NO RESPONSE,11,0,2987
+satellite,space rocket,8,0,3103
+satellite,sattellie,2,1,3224
+satellite,NO RESPONSE,11,0,3346
+satellite,space rocket,8,0,3468
+satellite,unsure,8,0,3584
+satellite,board,9,0,3700
+satellite,plane,7,0,3940
+satellite,solar panel,9,0,4057
+satellite,solar panel,9,0,4303
+saw,crib,4,0,80
+saw,be,3,0,195
+saw,NO RESPONSE,11,0,317
+saw,NO RESPONSE,11,0,437
+saw,knife,5,0,561
+saw,plate,4,0,680
+saw,NO RESPONSE,11,0,796
+saw,NO RESPONSE,11,0,913
+saw,nail cutter,9,0,1036
+saw,sasaw,2,0,1163
+saw,NO RESPONSE,11,0,1274
+saw,idk,3,0,1393
+saw,NO RESPONSE,11,0,1523
+saw,paper,4,0,1763
+saw,NO RESPONSE,11,0,1879
+saw,NO RESPONSE,11,0,2116
+saw,NO RESPONSE,11,0,2240
+saw,NO RESPONSE,11,0,2364
+saw,NO RESPONSE,11,0,2480
+saw,crib,4,0,2604
+saw,not sure,7,0,2721
+saw,NA,Inf,0,2833
+saw,NO RESPONSE,11,0,2954
+saw,dice,4,0,3078
+saw,NO RESPONSE,11,0,3324
+saw,NO RESPONSE,11,0,3438
+saw,unsure,5,0,3560
+saw,crib,4,0,3678
+saw,knife,5,0,3799
+saw,axe,3,0,4043
+saw,paper,4,0,4162
+saw,NO RESPONSE,11,0,4275
+scarf,NO RESPONSE,11,0,298
+scarf,rag,4,0,419
+scarf,tie,5,0,659
+scarf,coat,4,0,776
+scarf,cloth,5,0,1015
+scarf,suit,4,0,1129
+scarf,blanket,6,0,1498
+scarf,rag,4,0,1611
+scarf,jacket,5,0,1850
+scarf,cloth,5,0,1978
+scarf,dress,5,0,2335
+scarf,NO RESPONSE,11,0,2449
+scarf,curtain,6,0,2695
+scarf,NO RESPONSE,11,0,2809
+scarf,cloth,5,0,2931
+scarf,suit,4,0,3055
+scarf,dress,5,0,3175
+scarf,fabric or clothing,16,0,3411
+scarf,dress,5,0,3540
+scarf,neck tie,7,0,3659
+scarf,coat,4,0,3770
+scarf,dress,5,0,3892
+scarf,jacket,5,0,4140
+scarf,clothes,7,0,4260
+scissors,scizzors,2,1,156
+scissors,hemostat,7,0,750
+scissors,NO RESPONSE,11,0,2433
+scissors,NO RESPONSE,11,0,2786
+scissors,cissor,2,1,3386
+scissors,physician scissor,11,1,3755
+shoe,ice cube tray,10,0,28
+shoe,NO RESPONSE,11,0,268
+shoe,running shoe,8,1,511
+shoe,NO RESPONSE,11,0,754
+shoe,telephone,6,0,874
+shoe,rack,4,0,996
+shoe,airplane,7,0,1108
+shoe,not sure,6,0,1593
+shoe,radio,5,0,1705
+shoe,idk,4,0,1951
+shoe,key,4,0,2072
+shoe,reeboks,6,1,2188
+shoe,typewriter,8,0,2307
+shoe,NO RESPONSE,11,0,2435
+shoe,not sure,6,0,2671
+shoe,NO RESPONSE,11,0,2790
+shoe,running shoe,8,1,2907
+shoe,dont know,7,0,3154
+shoe,unsure,4,0,3510
+shoe,NO RESPONSE,11,0,4233
+speakers,screen,6,0,62
+speakers,tennis raquette,12,0,186
+speakers,boombox,8,0,302
+speakers,microphone,10,0,545
+speakers,NO RESPONSE,11,0,791
+speakers,bass speaker,6,1,1022
+speakers,amp,7,1,1390
+speakers,radio,7,0,1632
+speakers,nry,7,0,1751
+speakers,mesh,7,0,1871
+speakers,NO RESPONSE,11,0,1988
+speakers,net,7,0,2104
+speakers,NO RESPONSE,11,0,2472
+speakers,tennis racket,10,0,2590
+speakers,radio,7,0,2711
+speakers,NO RESPONSE,11,0,2827
+speakers,NO RESPONSE,11,0,2943
+speakers,radio or speaker,10,1,3189
+speakers,window screen,12,0,3301
+speakers,unsure,7,0,3551
+speakers,radio,7,0,3667
+speakers,bag,7,0,3785
+speakers,microphone,10,0,4030
+sponge,cinderblock,10,0,878
+sponge,water,6,0,999
+sponge,dpongr,2,0,2204
+sponge,NO RESPONSE,11,0,2445
+sponge,NO RESPONSE,11,0,2800
+sponge,corkpuller,8,0,3157
+sponge,rug,5,0,3760
+spoon,pill,4,0,112
+spoon,NO RESPONSE,11,0,360
+spoon,NO RESPONSE,11,0,472
+spoon,flat iron,7,0,594
+spoon,pen,3,0,717
+spoon,NO RESPONSE,11,0,832
+spoon,NO RESPONSE,11,0,958
+spoon,knife,5,0,1071
+spoon,NO RESPONSE,11,0,1200
+spoon,magnifine,8,0,1435
+spoon,microphone,7,0,1550
+spoon,not sure,7,0,1675
+spoon,pen,3,0,1793
+spoon,cane,5,0,2034
+spoon,pen,3,0,2159
+spoon,rake,5,0,2395
+spoon,NO RESPONSE,11,0,2509
+spoon,not sure,7,0,2756
+spoon,NO RESPONSE,11,0,2880
+spoon,microphone,7,0,3119
+spoon,NO RESPONSE,11,0,3233
+spoon,NO RESPONSE,11,0,3470
+spoon,unsure,6,0,3600
+spoon,pen,3,0,3840
+spoon,pen,3,0,3949
+spoon,NO RESPONSE,11,0,4317
+steering wheel,crowbar,12,0,59
+steering wheel,crow bar,12,0,176
+steering wheel,NO RESPONSE,14,0,290
+steering wheel,crow bar,12,0,534
+steering wheel,headphones,12,0,656
+steering wheel,NO RESPONSE,14,0,897
+steering wheel,lock,14,0,1009
+steering wheel,lock,14,0,1131
+steering wheel,NA,Inf,0,1253
+steering wheel,cro bar,12,0,1376
+steering wheel,NO RESPONSE,14,0,1491
+steering wheel,not sure,12,0,1616
+steering wheel,suitcase,11,0,1739
+steering wheel,padlock,14,0,1856
+steering wheel,idk,13,0,1973
+steering wheel,bag,13,0,2216
+steering wheel,umbrella,12,0,2336
+steering wheel,NO RESPONSE,14,0,2459
+steering wheel,i dont know,12,0,2575
+steering wheel,NO RESPONSE,14,0,2816
+steering wheel,lock,14,0,3051
+steering wheel,wheel,9,1,3176
+steering wheel,NO RESPONSE,14,0,3300
+steering wheel,NO RESPONSE,14,0,3419
+steering wheel,stroller,10,0,3658
+steering wheel,bike,12,0,3780
+steering wheel,crowbar,12,0,4012
+steering wheel,NO RESPONSE,14,0,4255
+stove,chair,5,0,99
+stove,stand,3,0,223
+stove,NO RESPONSE,11,0,347
+stove,NO RESPONSE,11,0,463
+stove,ladder,5,0,582
+stove,satellite,6,0,699
+stove,NO RESPONSE,11,0,826
+stove,NO RESPONSE,11,0,947
+stove,knife,4,0,1061
+stove,files,5,0,1181
+stove,NO RESPONSE,11,0,1297
+stove,phone,3,0,1422
+stove,NO RESPONSE,11,0,1547
+stove,desk,5,0,1787
+stove,NO RESPONSE,11,0,1897
+stove,furnace,6,0,2024
+stove,tray,4,0,2148
+stove,NO RESPONSE,11,0,2261
+stove,table,4,0,2382
+stove,NO RESPONSE,11,0,2500
+stove,i dont know,9,0,2621
+stove,furnace,6,0,2740
+stove,NO RESPONSE,11,0,2860
+stove,NO RESPONSE,11,0,2978
+stove,hand watch,8,0,3098
+stove,NO RESPONSE,11,0,3345
+stove,table,4,0,3464
+stove,unsure,5,0,3585
+stove,board,5,0,3697
+stove,wallet,5,0,3820
+stove,NO RESPONSE,11,0,3938
+stove,gun,5,0,4064
+stove,NO RESPONSE,11,0,4184
+stove,NO RESPONSE,11,0,4299
+stroller,greenhouse,9,0,23
+stroller,NO RESPONSE,11,0,259
+stroller,lamp,7,0,623
+stroller,NO RESPONSE,11,0,733
+stroller,lamp,7,0,980
+stroller,roof,6,0,1099
+stroller,NA,Inf,0,1462
+stroller,bonnet,6,0,1574
+stroller,idk,7,0,1936
+stroller,pram,6,1,2179
+stroller,hanger,6,0,2297
+stroller,NO RESPONSE,11,0,2416
+stroller,not sure,7,0,2653
+stroller,NO RESPONSE,11,0,2781
+stroller,tent,6,0,3014
+stroller,tent,6,0,3143
+stroller,beach umberella,10,0,3376
+stroller,lamp,7,0,3500
+stroller,babycarrier,6,1,3743
+stroller,NO RESPONSE,11,0,3861
+stroller,tent,6,0,4102
+stroller,NO RESPONSE,11,0,4217
+sundial,chest of drawers,13,0,81
+sundial,shirft,6,0,201
+sundial,pocketwatch,10,0,434
+sundial,wood,6,0,555
+sundial,NO RESPONSE,11,0,803
+sundial,NO RESPONSE,11,0,915
+sundial,clock,7,0,1035
+sundial,wood,6,0,1159
+sundial,NO RESPONSE,11,0,1276
+sundial,compass,7,0,1398
+sundial,not sure,8,0,1643
+sundial,case,7,0,1754
+sundial,NA,Inf,0,2001
+sundial,wood,6,0,2119
+sundial,animal,4,0,2233
+sundial,food,6,0,2363
+sundial,NO RESPONSE,11,0,2473
+sundial,clock,7,0,2596
+sundial,not sure,8,0,2724
+sundial,NO RESPONSE,11,0,2836
+sundial,NO RESPONSE,11,0,2962
+sundial,coin,6,0,3075
+sundial,shoe,6,0,3203
+sundial,NO RESPONSE,11,0,3315
+sundial,solar clock,9,0,3436
+sundial,unsure,5,0,3557
+sundial,tire,6,0,3682
+sundial,mobile phone,12,0,3793
+sundial,sneaker,6,0,3922
+sundial,sneaker,6,0,4041
+sundial,wood,6,0,4157
+sundial,NO RESPONSE,11,0,4281
+sweater,cable knit sweater,11,1,146
+sweater,NO RESPONSE,11,0,271
+sweater,brush,7,0,390
+sweater,shirt,5,0,1592
+sweater,cloth,6,0,1946
+sweater,NO RESPONSE,11,0,2428
+sweater,NO RESPONSE,11,0,2795
+sweater,table cloth,10,0,3026
+sweater,shirt,5,0,3153
+sweater,clothing or scarf,16,0,3391
+thimble,vase,4,0,93
+thimble,glass juar,7,0,207
+thimble,gold ball,7,0,449
+thimble,golf ball,7,0,570
+thimble,statue,4,0,693
+thimble,NO RESPONSE,11,0,812
+thimble,cap,5,0,1048
+thimble,shower,4,0,1169
+thimble,NO RESPONSE,11,0,1289
+thimble,kis,6,0,1413
+thimble,NO RESPONSE,11,0,1534
+thimble,not sure,7,0,1645
+thimble,tentacle,5,0,1768
+thimble,NA,Inf,0,2016
+thimble,disco ball,8,0,2133
+thimble,fancy helmet,10,0,2250
+thimble,ball,5,0,2368
+thimble,NO RESPONSE,11,0,2496
+thimble,faucet,5,0,2609
+thimble,not sure,7,0,2731
+thimble,NO RESPONSE,11,0,2850
+thimble,NO RESPONSE,11,0,2967
+thimble,sth for decoration,12,0,3092
+thimble,chopper,5,0,3205
+thimble,NO RESPONSE,11,0,3328
+thimble,decorative object,13,0,3450
+thimble,unsure,5,0,3568
+thimble,shower,4,0,3809
+thimble,vase,4,0,3934
+thimble,golf ball,7,0,4052
+toothbrush,baby toy,10,0,71
+toothbrush,ad,10,0,189
+toothbrush,NO RESPONSE,11,0,307
+toothbrush,toy,8,0,548
+toothbrush,toy,8,0,665
+toothbrush,NO RESPONSE,11,0,906
+toothbrush,rope,9,0,1024
+toothbrush,NO RESPONSE,11,0,1149
+toothbrush,NO RESPONSE,11,0,1265
+toothbrush,princess monioke,16,0,1389
+toothbrush,NO RESPONSE,11,0,1512
+toothbrush,scoop,9,0,1742
+toothbrush,NO RESPONSE,11,0,1869
+toothbrush,iron,9,0,2112
+toothbrush,NA,Inf,0,2232
+toothbrush,mouse trap,9,0,2349
+toothbrush,NO RESPONSE,11,0,2467
+toothbrush,i dont know,10,0,2584
+toothbrush,NO RESPONSE,11,0,2831
+toothbrush,NO RESPONSE,11,0,3069
+toothbrush,NO RESPONSE,11,0,3427
+toothbrush,toy,8,0,3664
+toothbrush,paper art,10,0,3789
+toothbrush,toy,8,0,4023
+toothbrush,microorganism,10,0,4143
+truck,camera,5,0,53
+truck,ice tray,7,0,91
+truck,gun,4,0,177
+truck,ice tray,7,0,212
+truck,NO RESPONSE,11,0,289
+truck,NO RESPONSE,11,0,413
+truck,NO RESPONSE,11,0,445
+truck,camera,5,0,535
+truck,box,5,0,571
+truck,NO RESPONSE,11,0,773
+truck,NO RESPONSE,11,0,808
+truck,camera,5,0,892
+truck,NO RESPONSE,11,0,932
+truck,NO RESPONSE,11,0,1056
+truck,grenade,6,0,1137
+truck,ceramic,6,0,1167
+truck,NO RESPONSE,11,0,1259
+truck,NO RESPONSE,11,0,1293
+truck,NO RESPONSE,11,0,1490
+truck,semi truck,5,1,1525
+truck,not sure,6,0,1615
+truck,gun,4,0,1735
+truck,desk,4,0,1772
+truck,NO RESPONSE,11,0,1849
+truck,NO RESPONSE,11,0,1887
+truck,idk,4,0,1979
+truck,NO RESPONSE,11,0,2009
+truck,gun,4,0,2092
+truck,NO RESPONSE,11,0,2135
+truck,boat,5,0,2245
+truck,fishing pole,11,0,2339
+truck,headboard,9,0,2369
+truck,NO RESPONSE,11,0,2451
+truck,NO RESPONSE,11,0,2486
+truck,gun,4,0,2580
+truck,ice cube tray,12,0,2608
+truck,not sure,6,0,2699
+truck,not sure,6,0,2732
+truck,NO RESPONSE,11,0,2813
+truck,NO RESPONSE,11,0,2845
+truck,NO RESPONSE,11,0,2939
+truck,NO RESPONSE,11,0,2969
+truck,camera,5,0,3057
+truck,chimney edge,12,0,3088
+truck,bucket,4,0,3210
+truck,NO RESPONSE,11,0,3299
+truck,icecube tray,11,0,3325
+truck,camera,5,0,3417
+truck,big truk,5,1,3453
+truck,unsure,5,0,3537
+truck,unsure,5,0,3565
+truck,gun,4,0,3650
+truck,clock,3,0,3692
+truck,gun,4,0,3769
+truck,puzzle piece,11,0,3808
+truck,gun,4,0,3894
+truck,gun,4,0,4009
+truck,ice cube tray,12,0,4051
+truck,engine,5,0,4139
+truck,NO RESPONSE,11,0,4251
+truck,NO RESPONSE,11,0,4291
+tub,NO RESPONSE,11,0,340
+tub,NO RESPONSE,11,0,468
+tub,NO RESPONSE,11,0,823
+tub,NO RESPONSE,11,0,942
+tub,NO RESPONSE,11,0,1067
+tub,NA,Inf,0,1179
+tub,tray,3,0,1419
+tub,NO RESPONSE,11,0,1548
+tub,balloon,5,0,1665
+tub,board,5,0,1783
+tub,NO RESPONSE,11,0,1899
+tub,NA,Inf,0,2022
+tub,NO RESPONSE,11,0,2147
+tub,NO RESPONSE,11,0,2268
+tub,light,5,0,2386
+tub,NO RESPONSE,11,0,2498
+tub,ball,4,0,2628
+tub,not sure,6,0,2745
+tub,NO RESPONSE,11,0,2859
+tub,NO RESPONSE,11,0,2982
+tub,NO RESPONSE,11,0,3102
+tub,NO RESPONSE,11,0,3227
+tub,NO RESPONSE,11,0,3339
+tub,clothing,6,0,3467
+tub,unsure,5,0,3582
+tub,light,5,0,3699
+tub,toilet,5,0,3828
+tub,NO RESPONSE,11,0,3947
+tub,NO RESPONSE,11,0,4181
+tub,NO RESPONSE,11,0,4308
+umbrella,book,7,0,24
+umbrella,NO RESPONSE,11,0,740
+umbrella,book,7,0,1703
+umbrella,NO RESPONSE,11,0,2057
+umbrella,book,7,0,2176
+umbrella,book,7,0,2299
+umbrella,NO RESPONSE,11,0,2415
+umbrella,book,7,0,2661
+umbrella,NO RESPONSE,11,0,2774
+umbrella,NO RESPONSE,11,0,2901
+umbrella,book,7,0,3739
+vase,NO RESPONSE,11,0,331
+vase,soccer ball,10,0,455
+vase,pot,4,0,1052
+vase,football,7,0,1176
+vase,thimble,6,0,1295
+vase,NO RESPONSE,11,0,1533
+vase,thimble,6,0,1895
+vase,NA,Inf,0,2013
+vase,salt shaker,8,0,2136
+vase,fancy helmet,10,0,2247
+vase,NO RESPONSE,11,0,2492
+vase,facuet,4,0,2613
+vase,not sure,6,0,2727
+vase,NO RESPONSE,11,0,2852
+vase,decoration,9,0,3093
+vase,chopper,6,0,3207
+vase,flower pot,9,0,3448
+vase,unsure,4,0,3572
+vase,bowl,4,0,3933
+vase,NO RESPONSE,11,0,4287
+wallet,flask,5,0,94
+wallet,flask,5,0,215
+wallet,NO RESPONSE,11,0,336
+wallet,NO RESPONSE,11,0,451
+wallet,leather bag,9,0,572
+wallet,shirt,5,0,687
+wallet,NO RESPONSE,11,0,805
+wallet,NA,Inf,0,933
+wallet,truck,6,0,1045
+wallet,NO RESPONSE,11,0,1172
+wallet,NO RESPONSE,11,0,1288
+wallet,patch,5,0,1411
+wallet,couch,6,0,1536
+wallet,rug,6,0,1766
+wallet,NO RESPONSE,11,0,1894
+wallet,NO RESPONSE,11,0,2012
+wallet,material,7,0,2127
+wallet,cloth,5,0,2251
+wallet,rug,6,0,2366
+wallet,NO RESPONSE,11,0,2489
+wallet,pants,5,0,2611
+wallet,NO RESPONSE,11,0,2856
+wallet,NO RESPONSE,11,0,2975
+wallet,clothing,8,0,3094
+wallet,NO RESPONSE,11,0,3334
+wallet,NA,Inf,0,3456
+wallet,shirt,5,0,3696
+wallet,bag,5,0,3807
+wallet,cloth,5,0,4056
+wallet,flask,5,0,4167
+wallet,NO RESPONSE,11,0,4294
+watch,clock,4,0,46
+watch,clock,4,0,168
+watch,clock,4,0,286
+watch,scale or alarm clock,18,0,398
+watch,clock,4,0,521
+watch,clock,4,0,645
+watch,clock,4,0,762
+watch,clock,4,0,888
+watch,NO RESPONSE,11,0,1005
+watch,clock,4,0,1126
+watch,clock,4,0,1243
+watch,clcok,5,0,1366
+watch,clock,4,0,1482
+watch,clock,4,0,1601
+watch,clock,4,0,1722
+watch,clock,4,0,1838
+watch,clock,4,0,1961
+watch,clock,4,0,2085
+watch,clock,4,0,2207
+watch,clock,4,0,2319
+watch,NO RESPONSE,11,0,2437
+watch,clock,4,0,2686
+watch,NO RESPONSE,11,0,2797
+watch,clock,4,0,3046
+watch,clock,4,0,3162
+watch,clock,4,0,3280
+watch,clock,4,0,3408
+watch,clock,4,0,3528
+watch,clock,4,0,3758
+watch,clock,4,0,3882
+watch,clock,4,0,4002
+watch,clock,4,0,4128
+watch,clock,4,0,4242
+watering pot,spoon,9,0,45
+watering pot,clock,9,0,164
+watering pot,ladle,8,0,400
+watering pot,pen,8,0,526
+watering pot,axe,7,0,638
+watering pot,NO RESPONSE,11,0,768
+watering pot,NO RESPONSE,11,0,886
+watering pot,glass,9,0,1002
+watering pot,spoon,9,0,1119
+watering pot,NO RESPONSE,11,0,1241
+watering pot,clock,9,0,1363
+watering pot,NO RESPONSE,11,0,1485
+watering pot,not sure,7,0,1603
+watering pot,crayon,8,0,1727
+watering pot,idk,9,0,1962
+watering pot,iron,8,0,2083
+watering pot,handle,8,0,2321
+watering pot,NO RESPONSE,11,0,2438
+watering pot,not sure,7,0,2687
+watering pot,NO RESPONSE,11,0,2798
+watering pot,NO RESPONSE,11,0,2918
+watering pot,NO RESPONSE,11,0,3039
+watering pot,waterdispenser,8,1,3166
+watering pot,NO RESPONSE,11,0,3278
+watering pot,table,8,0,3400
+watering pot,ladle,8,0,3521
+watering pot,watch,6,0,3646
+watering pot,screw,8,0,3761
+watering pot,NA,Inf,0,3879
+watering pot,needle,8,0,4003
+watering pot,NO RESPONSE,11,0,4246
+wheel,auto wheel,5,1,1519
+wheel,car wheel,4,1,2003
+wheel,chair,4,0,2123
+wheel,NO RESPONSE,11,0,2483
+wheel,NO RESPONSE,11,0,2839
+wheel,car ring,7,0,3437
+wheel,unsure,4,0,3555
+wheel,rim,3,0,3681
+wheel,car wheel,4,1,3803
+wheel,bike,2,0,4273
