@@ -23,7 +23,7 @@ switch expt
     otherwise
         where_mask = [];
         where_stim = window.imagePlace;
-        alpha.tex = [repelem(0, jitter), 0:(1/expParams.mondrianHertz):maxAlpha];
+%         alpha.tex = [repelem(0, jitter), 0:(1/expParams.mondrianHertz)/expParams.noiseFadeInDur:maxAlpha];
 end
 
 % transparency of texture increases at constant rate, up to a given trial's

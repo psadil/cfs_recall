@@ -35,36 +35,33 @@ try
     HideCursor;
     
     if input.experiments(1)
+        expt = 'occularDominance';
         %% assess occular dominance
         [data, tInfo, expParams, input] = runOccularDominance(input, constants, window, responseHandler, mondrians);
         domEye = checkOccularDominanceData(data);
         % save data
         % end of the experiment
-        expt = 'occularDominance';
-        structureCleanup(expt, input.subject, data, constants, tInfo, expParams);
+        structureCleanup(expt, input.subject, data, constants, tInfo, expParams, window);
     else
         domEye = input.dominantEye;
     end
     
-    %% calibrate appropriate contrast for this participant
-    expt = 'staircase';
+    %% provide practice study + test
     if input.experiments(2)
-        [data, tInfo, expParams, input, sa] =...
-            runStaircase( input, constants, window, responseHandler, mondrians, domEye);
+        expt = 'practice';
+        [data, tInfo, expParams, input] =...
+            runCFSgonogo(input, constants, window, responseHandler, mondrians, domEye, expt);
         % save data
-        structureCleanup(expt, input.subject, data, constants, tInfo, expParams, input, sa);
-    else
-        expParams = setupExpParams(120, input.debugLevel, expt);
-        sa = setupSAParams(expParams, expt, struct);
+        structureCleanup(expt, input.subject, data, constants, tInfo, expParams, input, window);
     end
     
     %% run main experiment
     if input.experiments(3)
-        [data, tInfo, expParams, input, sa] =...
-            runCFSgonogo(input, constants, window, responseHandler, mondrians, domEye, sa);
-        % save data
         expt = 'CFSgonogo';
-        structureCleanup(expt, input.subject, data, constants, tInfo, expParams, input, sa);
+        [data, tInfo, expParams, input] =...
+            runCFSgonogo(input, constants, window, responseHandler, mondrians, domEye, expt);
+        % save data
+        structureCleanup(expt, input.subject, data, constants, tInfo, expParams, input, window);
     end
     
     mondrians = struct2array(mondrians);
