@@ -55,8 +55,7 @@ files <- list.files(path=file.path(params$data_dir, s_dirs, params$expt), patter
 files <- files[!grepl(glue::glue('subject_{params$exclude}_'), files)]
 d <- lapply(files, read_csv, col_types=cols(pas_1=col_character(),pas_2=col_character(), pas = col_character())) %>% 
   bind_rows() %>%
-  select(subject, pas, list, trial_test, item_test, tType_test, name_test, gonogo_answer, response_cue, rt_cue, response_noise, rt_noise) %>%
-  # select(subject, pas_1, pas_2, list, trial_test, item_test, tType_test, name_test, gonogo_answer, response_cue, rt_cue, response_noise, rt_noise) %>%
+  select(subject, pas_1, pas_2, list, trial_test, item_test, tType_test, name_test, gonogo_answer, response_cue, rt_cue, response_noise, rt_noise) %>%
   mutate(noise_correct = if_else((gonogo_answer=='go' & response_noise=='Return') |
                                    (gonogo_answer=='nogo' & response_noise!='Return'), 1, 0)) %>%
   mutate(subject=factor(subject)) %>%
@@ -67,12 +66,12 @@ d <- lapply(files, read_csv, col_types=cols(pas_1=col_character(),pas_2=col_char
   mutate(cue_correct = if_else(minDist < params$cutoff, 1, 0)) %>%
   rename(Condition = tType_test) %>%
   mutate(Condition = factor(Condition, levels = c("Not Studied","CFS","Binocular"))) %>%
-  mutate(pas = as.numeric(substring(pas,1,1))) %>%
-  mutate(pas = if_else(is.na(pas),0,pas)) %>%
-  mutate(pas = factor(pas)) %>%
-  # mutate(pas_2 = as.numeric(substring(pas_2,1,1))) %>%
-  # mutate(pas_2 = if_else(is.na(pas_2),0,pas_2)) %>%
-  # mutate(pas_2 = factor(pas_2)) %>%
+  mutate(pas_1 = as.numeric(substring(pas_1,1,1))) %>%
+  mutate(pas_1 = if_else(is.na(pas_1),0,pas_1)) %>%
+  mutate(pas_1 = factor(pas_1)) %>%
+  mutate(pas_2 = as.numeric(substring(pas_2,1,1))) %>%
+  mutate(pas_2 = if_else(is.na(pas_2),0,pas_2)) %>%
+  mutate(pas_2 = factor(pas_2)) %>%
   mutate(id = 1:n()) %>%
   mutate(cue_correct_fct = factor(cue_correct))
 
@@ -136,7 +135,7 @@ d %>%
 # +
 #   ggsave('name_accuracy_sub.png', height = params$fig_size[2], width = params$fig_size[1])
 
-d %<>% filter(!(subject %in% params$low_name)) %>% mutate(subject = forcats::fct_drop(subject))
+# d %<>% filter(!(subject %in% params$low_name)) %>% mutate(subject = forcats::fct_drop(subject))
 
 d %>%
   group_by(subject, Condition) %>%
