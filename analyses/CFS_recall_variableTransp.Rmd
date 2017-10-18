@@ -1,15 +1,15 @@
 ---
-title: "CFS Recall (Master's Expt 2), 2 Apertures"
+title: "CFS Recall (Master's Expt 2), Variable Opacity"
 author: "pss"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: html_document
 params:
-  data_dir: data
+  data_dir: data_variableTransp
   expt: CFSgonogo
   cutoff: 1
   percentiles: 5
-  exclude: !r c(1)
-  # low_name: !r c()
+  exclude: !r c(NA)
+  low_name: !r c(28, 30, 45)
 ---
 
 ```{r setup, include=FALSE, warning=FALSE}
@@ -111,30 +111,14 @@ d <- lapply(files, read_csv, col_types=cols(pas_1=col_character(),pas_2=col_char
 ``` 
 
 
-7 participants worth of data. They were recruited through SONA or were RAs. 120 items per participant, encountered in lists of 12 items. With three conditions (binocular, cfs, not-studied), there were four items in each condition in each list. Of those four items, three were encountered in a “go” test trial, and one was in a “no-go” test trial. So, 1/4 of test-trials were no-go. This leaves up to 30 items in go trials per condition, per participant. 
-
-New in this version of the experiment 
-  
- * During naming trial, participants were cued with two apertures instead of one. These two aperatures were the same two that participants would have encounterd in Master's experiment 1, during the 2AFC. Specifically, these are the matching parts that participants would be trying to select.
- 
- * The object emerging from noise in the go/no-go test trials  had 2 bullet-holes removed from the whole (instead of two), one in the place of each aperature.
-
-Previous updates
-  
- * Binocular objects were studied for up to 5 seconds (rather than up to 4 seconds)
-  
- * All objects that were studied (CFS or Binocular) reached 100% opacity after 2.5 seconds
-  
- * The above point means that there was no variability / calibration of opacity to each participant
-
-The primary goal of these modification was in improve naming performance for items that were studied binocularly. However, there was a bug in the code when labelling the condition of the items. So, these modifications was not necessary as Naming performance was already okay for binocularly studied objects.
 
 ## Figures
-
 
 The following plot shows the proportion of items that participants named correctly. The first plot shows each participant invididually to see which ones didn't try during the naming condition. These ones were excluded from the group-level plot and all further plots.
 
 Note that in this group-level plot (and all other following), each participants' average performance is calculated separetely and then averaged together. Error bars reflect the bootstrapped 95% CI of the averaging across participant averages.
+
+The three participants that appear not to have tried to name any objects (28, 30, 45), are excluded from all further figures
 
 
 ```{r naming}
@@ -151,7 +135,7 @@ d %>%
 # +
 #   ggsave('name_accuracy_sub.png', height = params$fig_size[2], width = params$fig_size[1])
 
-# d %<>% filter(!(subject %in% params$low_name)) %>% mutate(subject = forcats::fct_drop(subject))
+d %<>% filter(!(subject %in% params$low_name)) %>% mutate(subject = forcats::fct_drop(subject))
 
 d %>%
   group_by(subject, Condition) %>%
@@ -302,7 +286,8 @@ d[rep(seq(from=1, to=dim(d)[1]),times=length(p)),] %>%
   scale_x_continuous(limits = c(0,4.5), name = "RT on (Correct) go", expand = c(0, 0)) +
   scale_y_discrete(name = NULL, label = element_blank(), expand = c(0.01, 0)) +
   scale_color_manual(values=colmap, name= "Condition") +
-  theme(panel.grid.major.x = element_line(color = "gray", size = .5))
+  theme(panel.grid.major.x = element_line(color = "gray", size = .5),
+        panel.grid.minor.x = element_line(color = "gray", size = .5))
 # +
 #   ggsave('noise_violin_group.png') 
 ```
@@ -319,7 +304,8 @@ d[rep(seq(from=1, to=dim(d)[1]),times=length(p)),] %>%
   scale_y_discrete(name = NULL, label = element_blank(), expand = c(0.01, 0)) +
   scale_color_manual(values=colmap, name= "Condition") +
   facet_wrap(~subject, nrow = 10) +
-  theme(panel.grid.major.x = element_line(color = "gray", size = .5))
+  theme(panel.grid.major.x = element_line(color = "gray", size = .5),
+        panel.grid.minor.x = element_line(color = "gray", size = .5))
 # +
 #   ggsave('noise_violin_noname_sub.png', height = params$fig_size[2], width = params$fig_size[1]) 
 
