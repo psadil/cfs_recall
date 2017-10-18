@@ -1,19 +1,10 @@
-function [data, tInfo, expParams, input, sa] =...
-    runCFSgonogo( input, constants, window, responseHandler, mondrians, domEye, sa )
+function [data, tInfo, expParams, input] =...
+    runCFSgonogo( input, constants, window, responseHandler, mondrians, domEye, expt, expParams, sa )
 
-expt = 'CFSgonogo';
-
-expParams = setupExpParams(input.refreshRate, input.debugLevel, expt);
 tInfo = setupTInfo(expParams, input.debugLevel, expt);
-sa = setupSAParams(expParams, expt, sa);
 
 data = setupDataTable(expParams, input, expt, domEye);
 keys = setupKeys(expt);
-% responseHandler = makeInputHandlerFcn(input.responder);
-
-
-% res = repelem(noiseRect(3) - noiseRect(1),2);
-% noisetex = CreateProceduralNoise(window.pointer, res(1), res(2), 'ClassicPerlin', [0.5 0.5 0.5 1]);
 
 %% main experimental loop
 for list = 1:expParams.nLists
@@ -50,7 +41,8 @@ for list = 1:expParams.nLists
                         keys_response = keys.escape;
                         nTicks = expParams.nTicks_bino;
                     case {'CFS', 'Not Studied'}
-                        showPromptAndWaitForResp(window, 'Press ''j'' if you see an object, or ''f'' if you think none will appear',...
+                        showPromptAndWaitForResp(window, ['Press ''j'' if you see an object.\n',...
+                            'If you haven''t seen an objet and think that one won''t appear, press ''f'''],...
                             keys, constants, responseHandler);
                         keys_response = keys.bCFS+keys.escape;
                         nTicks = expParams.nTicks;
@@ -66,12 +58,12 @@ for list = 1:expParams.nLists
                     keys_response, mondrians, expParams,...
                     constants, data.RoboRT{trial}(rep),...
                     data.transparency{trial}(rep), data.jitter{trial}(rep), data.roboBCFS{trial,rep}, ...
-                    expt, domEye, nTicks, []);
+                    expt, domEye, nTicks + data.jitter{trial}(rep), []);
                 Screen('Close', stims.tex);
                 
                 % handle exitFlag, based on responses given
-                [data.pas(trial,rep), sa, esc] = wrapper_bCFS_exitFlag(data.exitFlag{trial,rep}, data.tType_study{trial}, data.rt{trial}(rep),...
-                    data.response{trial,rep}, sa, window, keys, constants, responseHandler);
+                [data.pas(trial,rep), esc] = wrapper_bCFS_exitFlag(data.exitFlag{trial,rep}, data.tType_study{trial},...
+                    data.response{trial,rep}, window, keys, constants, responseHandler);
                 if esc
                     return;
                 end
@@ -113,7 +105,6 @@ for list = 1:expParams.nLists
                 return;
         end
         
-        
         showPromptAndWaitForResp(window, 'Press Enter only if you see an object',...
             keys, constants, responseHandler);
         
@@ -139,18 +130,10 @@ for list = 1:expParams.nLists
             keys_response, noiseTexes, expParams,...
             constants, data.RoboRT_noise{trial},...
             maxAlpha, data.jitter_noise(trial), answer, ...
-            'noise', domEye, expParams.nTicks_noise,...
+            'noise', domEye, expParams.nTicks_noise + data.jitter_noise(trial),...
             'Press Enter only if you see an object');
         Screen('Close', stims.tex);
-        
-        %         [data.response_noise(trial), data.rt_noise(trial),...
-        %             data.tStart_noise(trial), data.tEnd_noise(trial),...
-        %             ~, ~,...
-        %             data.exitFlag_noise(trial)] = elicitNoise2(window, ...
-        %             responseHandler, stims.tex, keys_response, expParams,...
-        %             constants, data.RoboRT_noise{trial}, 1, data.jitter_noise(trial), answer, noisetex,...
-        %             'Press Enter only if you see an object');
-        
+                
         % handle exitFlag, based on responses given
         switch data.exitFlag_noise{trial}
             case 'ESCAPE'
@@ -187,14 +170,24 @@ for list = 1:expParams.nLists
     Screen('Close', noiseTexes);
 end
 
-for eye = 1:2
-    Screen('SelectStereoDrawBuffer',window.pointer,eye-1);
-    % prompt participant to respond
-    DrawFormattedText(window.pointer, ['That is the end of the experiment.\n',...
-        'Thanks for participating!'], 'center', 'center');
-end
-Screen('Flip', window.pointer);
+switch expt
+    case 'practice'
+        % prompt participant to respond and wait
+        showPromptAndWaitForResp(window,['That is the end of the practice.\n',...
+            'Before each of the next study and test cycle, you will be given a reminder of the instructions.'],...
+            keys,constants,responseHandler);
+        
+    case 'CFSgonogo'
+        for eye = 0:1
+            Screen('SelectStereoDrawBuffer',window.pointer,eye);
+            % send participant away
+            DrawFormattedText(window.pointer, ['That is the end of the experiment.\n',...
+                'Thanks for participating! Please find the experimenter.'], 'center', 'center');
+        end
+        Screen('Flip', window.pointer);
+        WaitSecs(10);
 
-WaitSecs(2);
+end
+
 
 end

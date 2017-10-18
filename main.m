@@ -35,36 +35,37 @@ try
     HideCursor;
     
     if input.experiments(1)
+        expt = 'occularDominance';
         %% assess occular dominance
         [data, tInfo, expParams, input] = runOccularDominance(input, constants, window, responseHandler, mondrians);
         domEye = checkOccularDominanceData(data);
         % save data
         % end of the experiment
-        expt = 'occularDominance';
-        structureCleanup(expt, input.subject, data, constants, tInfo, expParams);
+        structureCleanup(expt, input.subject, data, constants, tInfo, expParams, window);
     else
         domEye = input.dominantEye;
     end
     
-    %% calibrate appropriate contrast for this participant
-    expt = 'staircase';
+    %% provide practice study + test
+    expt = 'practice';
+    expParams = setupExpParams(input.refreshRate, input.debugLevel, expt);
+    sa = setupSAParams(expParams, expt, struct);
     if input.experiments(2)
         [data, tInfo, expParams, input, sa] =...
-            runStaircase( input, constants, window, responseHandler, mondrians, domEye);
+            runCFSgonogo(input, constants, window, responseHandler, mondrians, domEye, expt, expParams, sa);
         % save data
-        structureCleanup(expt, input.subject, data, constants, tInfo, expParams, input, sa);
-    else
-        expParams = setupExpParams(120, input.debugLevel, expt);
-        sa = setupSAParams(expParams, expt, struct);
+        structureCleanup(expt, input.subject, data, constants, tInfo, expParams, input, window, sa);
     end
     
     %% run main experiment
+    expt = 'CFSgonogo';
+    expParams = setupExpParams(input.refreshRate, input.debugLevel, expt);
+    sa = setupSAParams(expParams, expt, sa);
     if input.experiments(3)
         [data, tInfo, expParams, input, sa] =...
-            runCFSgonogo(input, constants, window, responseHandler, mondrians, domEye, sa);
+            runCFSgonogo(input, constants, window, responseHandler, mondrians, domEye, expt, expParams, sa);
         % save data
-        expt = 'CFSgonogo';
-        structureCleanup(expt, input.subject, data, constants, tInfo, expParams, input, sa);
+        structureCleanup(expt, input.subject, data, constants, tInfo, expParams, input, window, sa);
     end
     
     mondrians = struct2array(mondrians);
@@ -78,4 +79,3 @@ end
 
 
 end
-

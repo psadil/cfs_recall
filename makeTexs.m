@@ -42,19 +42,6 @@ switch type
                 tipTopX, toY + offset_tip, ...
                 toX, toY, penWidth);
         end
-    case 'staircase'
-        stims = struct('id', item);
-        % grab all images
-        [im, ~, alpha] = arrayfun(@(x) imread(fullfile(pwd,...
-            'stims', 'staircase', ['Object', num2str(x.id)]), 'png'), ...
-            stims, 'UniformOutput', 0);
-        im_lowRes = cellfun(@(x) im2uint8(x), im, 'UniformOutput', false);
-        alpha_lowRes = cellfun(@(x) im2uint8(x), alpha, 'UniformOutput', false);
-        stims.image = cellfun(@(x, y) cat(3,x,y), im_lowRes, alpha_lowRes, 'UniformOutput', false);
-        
-        % make textures of images
-        stims.tex = arrayfun(@(x) Screen('MakeTexture',window.pointer,x.image{:}), stims);
-        
     case 'STUDY'
         stims = struct('id', item);
         % grab all images
@@ -67,13 +54,18 @@ switch type
         stims.tex = arrayfun(@(x) Screen('MakeTexture',window.pointer,x.image{:}), stims);
     case 'NAME'
         stims = struct('id', item);
+%         stims2 = struct('id', item);
         stims.pair = varargin{1};
         
         % grab all images
-        [im, ~, alpha] = arrayfun(@(x) imread(fullfile(pwd,...
-            'stims', 'expt', 'apertures', ['object', num2str(x.id), '_paired', num2str(x.pair),'_ap1']), 'png'), ...
+        [im1, ~, alpha1] = arrayfun(@(x) imread(fullfile(pwd,...
+            'stims', 'expt', 'apertures_double', ['object', num2str(x.id), '_paired', num2str(x.pair),'_ap1']), 'png'), ...
             stims, 'UniformOutput', 0);
-        stims.image = cellfun(@(x, y) cat(3,x,y), im, alpha, 'UniformOutput', false);
+%         [im2, ~, alpha2] = arrayfun(@(x) imread(fullfile(pwd,...
+%             'stims', 'expt', 'apertures_double', ['object', num2str(x.id), '_paired', num2str(x.pair),'_ap2']), 'png'), ...
+%             stims, 'UniformOutput', 0);
+        stims.image = cellfun(@(x, y) cat(3,x,y), im1, alpha1, 'UniformOutput', false);
+%         stims2.image = cellfun(@(x, y) cat(3,x,y), im2, alpha2, 'UniformOutput', false);
         
         for tex = 1:length(stims)
             
@@ -89,10 +81,16 @@ switch type
             
             % make a texture out of the image to draw to this window
             texture = Screen('MakeTexture', window.pointer, stims.image{tex});
+
+%             % make second texture of other aperature
+%             texture2 = Screen('MakeTexture', window.pointer, stims2.image{tex});
             
             % draw actual aperture, which appears appears mostly occluded
             % by paper
             Screen('DrawTexture', stims(tex).tex, texture, [], window.imagePlace);
+%             Screen('DrawTexture', stims(tex).tex, texture2, [],window.imagePlace);
+            Screen('Close', texture);
+%             Screen('Close', texture2)
         end
         
     case 'NOISE'
