@@ -111,6 +111,7 @@ for sub = 1:input.nSubs
     
     % useful index for mapping between study and test orders, within a
     % given list
+    % this should be a find statement involving index and trial_study
     testIndex = arrayfun(@(x,y) x{1}-y, trial_test, nItemsPerList*(0:nLists-1), 'UniformOutput',false);
     
     % NOTE: this may appear to put the same order of conditions in each
