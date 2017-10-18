@@ -15,7 +15,7 @@ sa.params.delta = 2.5; % initial amount by which to change maximum transparency
 
 
 switch expt
-    case 'staircase'
+    case 'practice'
         sa.values.nShifts = NaN(expParams.nTrials,1);
         sa.values.Yn = NaN(expParams.nTrials,1);
         sa.values.trial = 1;

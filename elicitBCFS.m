@@ -15,11 +15,11 @@ switch expt
     case 'occularDominance'
         where_stim=[];
         where_mask = [];
-        alpha.tex = [repelem(0, jitter), 0:(1/expParams.mondrianHertz):maxAlpha];
+%         alpha.tex = [repelem(0, jitter), 0:(1/expParams.mondrianHertz):maxAlpha];
     case 'noise'
         where_stim = window.imagePlace;
         where_mask = window.noiseTexesRect;
-        alpha.tex = [repelem(0, jitter), 0:(1/expParams.mondrianHertz)/expParams.noiseFadeInDur:maxAlpha];
+%         alpha.tex = [repelem(0, jitter), 0:(1/expParams.mondrianHertz)/expParams.noiseFadeInDur:maxAlpha];
     otherwise
         where_mask = [];
         where_stim = window.imagePlace;

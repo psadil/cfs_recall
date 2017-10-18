@@ -30,7 +30,7 @@ switch expt
             'n','o','p','q','r','s','t','u','v','w','x','y','z'})) = 1;
         keys.bkspace = codes;
         keys.bkspace(KbName({'BackSpace'})) = 1;
-    case 'CFSgonogo'
+    case {'CFSgonogo', 'practice'}
         keys.enter = codes;
         keys.enter(KbName({'return'})) = 1;
         keys.pas = codes;

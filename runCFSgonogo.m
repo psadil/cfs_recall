@@ -1,4 +1,4 @@
-function [data, tInfo, expParams, input] =...
+function [data, tInfo, expParams, input, sa] =...
     runCFSgonogo( input, constants, window, responseHandler, mondrians, domEye, expt, expParams, sa )
 
 tInfo = setupTInfo(expParams, input.debugLevel, expt);
@@ -62,8 +62,8 @@ for list = 1:expParams.nLists
                 Screen('Close', stims.tex);
                 
                 % handle exitFlag, based on responses given
-                [data.pas(trial,rep), esc] = wrapper_bCFS_exitFlag(data.exitFlag{trial,rep}, data.tType_study{trial},...
-                    data.response{trial,rep}, window, keys, constants, responseHandler);
+                [data.pas(trial,rep), sa, esc] = wrapper_bCFS_exitFlag(data.exitFlag{trial,rep}, data.tType_study{trial},...
+                    data.rt{trial}(rep), data.response{trial,rep}, sa, window, keys, constants, responseHandler);
                 if esc
                     return;
                 end
