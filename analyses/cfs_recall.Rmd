@@ -1,0 +1,396 @@
+---
+title: "CFS Recall (Master's Expt 2), variable transparency"
+author: "pss"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: html_document
+params:
+  data_dir: data
+  expt: CFSgonogo
+  cutoff: 1
+  percentiles: 4
+  exclude: !r c(NaN)
+  low_name: !r c(28, 30, 45, 54)
+---
+
+```{r setup, include=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, fig.path = paste0(file.path('output','figures',params$expt),.Platform$file.sep), cache = FALSE, message = FALSE, fig.width = 14, fig.asp = 1)
+
+library(tidyverse)
+library(magrittr)
+library(stringdist)
+library(Hmisc)
+library(ggridges)
+
+source(file.path('utils.R'))
+targets <- read_csv('objectNames_2afc.csv') 
+
+out <- list()
+for (i in 1:dim(targets[1])){
+  out[i] = list(c(targets[i,]$name1, targets[i,]$name2, targets[i,]$name3, targets[i,]$name4, targets[i,]$name5, targets[i,]$name6, targets[i,]$name7, targets[i,]$name8, targets[i,]$name9, targets[i,]$name10, targets[i,]$name11, targets[i,]$name12, targets[i,]$name13, targets[i,]$name14, targets[i,]$name15))
+}
+
+cbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
+Conditions = c('Not Studied','CFS, Image', 'Binocular, Image')
+
+colmap <- c('Not Studied'=cbPalette[7]
+            ,'Word'=cbPalette[2]
+            ,'CFS'=cbPalette[3]
+            ,'Binocular'=cbPalette[4])
+
+old_theme <- theme_set(theme_classic(base_size = 12)) +
+  theme_update(
+    axis.ticks = element_blank()
+    , axis.line = element_line(size=1)
+    , plot.margin=margin(rep(0,4))
+  )
+
+```
+
+
+```{r loadData, message=FALSE}
+
+s_dirs <- list.files(path=params$data_dir)
+files <- list.files(path=file.path(params$data_dir, s_dirs, params$expt), pattern = ".csv", full.names = TRUE)
+files <- files[!grepl(glue::glue('subject_{params$exclude}_'), files)]
+d <- lapply(files, read_csv, col_types=cols(pas_1=col_character(),pas_2=col_character(), pas = col_character())) %>% 
+  bind_rows() %>%
+  select(subject, pas_1, pas_2, item_test, tType_study, item, name_test, gonogo_answer, response_cue, response_noise, rt_noise) %>%
+  group_by(subject) %>%
+  nest() %>%
+  mutate(data = map(data, . %>% mutate(test_in_study = match(item_test, item)))) %>%
+  mutate(data = map(data, . %>% mutate(Condition = tType_study[test_in_study]))) %>%
+  mutate(data = map(data, . %>% mutate(pas_1 = pas_1[test_in_study]))) %>%
+  mutate(data = map(data, . %>% mutate(pas_2 = pas_2[test_in_study]))) %>%
+  unnest() %>%
+  mutate(Condition = factor(Condition, levels = c("Not Studied","CFS","Binocular"))) %>%
+  select(-item, -tType_study, -test_in_study) %>%
+  mutate(noise_correct = if_else((gonogo_answer=='go' & response_noise=='Return') |
+                                   (gonogo_answer=='nogo' & response_noise!='Return'), 1, 0)) %>%
+  mutate(subject=factor(subject)) %>%
+  mutate(targets = out[item_test]) %>%
+  mutate(firstTarget=sapply(X=targets, FUN=function(x) extract2(x,1))) %>%
+  mutate(dl = Map(function(x,y) stringdist(x, y, method="dl"), targets, response_cue)) %>%
+  mutate(minDist = sapply(X=dl, FUN=function(x) min(x, na.rm=TRUE))) %>%
+  mutate(cue_correct = if_else(minDist < params$cutoff, 1, 0)) %>%
+  # rename(Condition = tType_test) %>%
+  # mutate(Condition = factor(Condition, levels = c("Not Studied","CFS","Binocular"))) %>%
+  mutate(pas_1 = as.numeric(substring(pas_1,1,1))) %>%
+  mutate(pas_1 = if_else(is.na(pas_1),0,pas_1)) %>%
+  mutate(pas_1 = factor(pas_1)) %>%
+  mutate(pas_2 = as.numeric(substring(pas_2,1,1))) %>%
+  mutate(pas_2 = if_else(is.na(pas_2),0,pas_2)) %>%
+  mutate(pas_2 = factor(pas_2)) %>%
+  mutate(id = 1:n()) %>%
+  mutate(cue_correct_fct = factor(cue_correct))
+
+  
+
+# This method relies on saving the data and looking at each response to each cue individually. A response may have been marked as incorrect automatically, but could still be semantically related to the target. Those need to be corrected manually, and then the targets need to be updated.
+
+# d %>%
+#   mutate(id = 1:n()) %>%
+#   select(firstTarget, response_cue, minDist, cue_correct, id) %>%
+#   filter(cue_correct == 0) %>%
+#   write_csv(x=., path = file.path("tmp.csv"))
+
+```
+
+
+
+
+7 participants worth of data. They were recruited through SONA or were RAs. 120 items per participant, encountered in lists of 12 items. With three conditions (binocular, cfs, not-studied), there were four items in each condition in each list. Of those four items, three were encountered in a “go” test trial, and one was in a “no-go” test trial. So, 1/4 of test-trials were no-go. This leaves up to 30 items in go trials per condition, per participant. 
+
+New in this version of the experiment 
+  
+ * During naming trial, participants were cued with two apertures instead of one. These two aperatures were the same two that participants would have encounterd in Master's experiment 1, during the 2AFC. Specifically, these are the matching parts that participants would be trying to select.
+ 
+ * The object emerging from noise in the go/no-go test trials  had 2 bullet-holes removed from the whole (instead of two), one in the place of each aperature.
+
+Previous updates
+  
+ * Binocular objects were studied for up to 5 seconds (rather than up to 4 seconds)
+  
+ * All objects that were studied (CFS or Binocular) reached 100% opacity after 2.5 seconds
+  
+ * The above point means that there was no variability / calibration of opacity to each participant
+
+The primary goal of these modification was in improve naming performance for items that were studied binocularly. However, there was a bug in the code when labelling the condition of the items. So, these modifications was not necessary as Naming performance was already okay for binocularly studied objects.
+
+## Figures
+
+Here are the PAS ratings provided to the first and second encounter of items in the study phase. Only items studied in the CFS condition are shown, because these are the only trials in which participants were asked to provide a PAS rating.
+
+Most participants gave ratings of 2 or 3 on most CFS trials. A few were better at stopping the trial before being able to identify the object (provided mostly PAS 2 ratings), but I wouldn't rule out that those participants were simply pressing 2 because they thought that was the 'correct' response.
+
+```{r pas}
+
+d %>%
+  gather(key = rating, value = PAS, pas_1:pas_2) %>%
+  filter(Condition  == "CFS") %>%
+  ggplot(aes(x = PAS, fill = PAS)) +
+  facet_grid( Condition ~ rating) +
+  geom_bar()
+  
+d %>%
+  gather(key = rating, value = PAS, pas_1:pas_2) %>%
+  filter(Condition=="CFS") %>%
+  ggplot(aes(x = PAS, fill = PAS)) +
+  geom_bar() +
+  facet_wrap(~subject, nrow = 6)
+
+
+
+``` 
+
+
+
+The following plot shows the proportion of items that participants named correctly. The first plot shows each participant invididually to see which ones didn't try during the naming condition. These ones were excluded from the group-level plot and all further plots.
+
+Note that in this group-level plot (and all other following), each participants' average performance is calculated separetely and then averaged together. Error bars reflect the bootstrapped 95% CI of the averaging across participant averages.
+
+
+```{r naming}
+
+d %>%
+  ggplot(aes(x=Condition, y=cue_correct, color = Condition)) +
+  stat_summary(fun.data="mean_cl_boot") +
+  scale_color_manual(values=colmap, name= "Condition") +  
+  facet_wrap(~subject, nrow = 3) +
+  geom_hline(yintercept = 0) +
+  geom_hline(yintercept = .3, linetype = "dashed") +
+  scale_y_continuous(limits = c(0,1), breaks = c(0,.5,1), name = "Naming Accuracy") +
+  scale_x_discrete(name = NULL, label = element_blank()) 
+# +
+#   ggsave('name_accuracy_sub.png', height = params$fig_size[2], width = params$fig_size[1])
+
+d %<>% filter(!(subject %in% params$low_name)) %>% mutate(subject = forcats::fct_drop(subject))
+
+d %>%
+  group_by(subject, Condition) %>%
+  summarise(cue_correct = mean(cue_correct)) %>%
+  ggplot(aes(x=Condition, y=cue_correct, color = Condition)) +
+  stat_summary(fun.data="mean_cl_boot") +
+  scale_y_continuous(limits = c(0,1), name = "Naming Accuracy") +
+  scale_x_discrete(name = NULL, label = element_blank()) +
+  scale_color_manual(values=colmap, name= "Condition") +
+  geom_hline(yintercept = .3, linetype = "dashed")
+# +
+#   ggsave('name_accuracy_group.png')
+
+
+
+```
+
+
+The following plot shows proportion correct on the no/no-go trials (whether participants either said an item was appearing, or correctly waited). Raw accuracy is high. I didn't calculate anything like d' given that performance was basically at ceiling for all participants, and so d' would be infinity.
+
+```{r noise_correct}
+
+d %>%
+  group_by(subject, Condition) %>%
+  summarise(noise_correct = mean(noise_correct)) %>%
+  ggplot(aes(x=Condition, y=noise_correct, color = Condition)) +
+  stat_summary(fun.data="mean_cl_boot") +
+  scale_y_continuous(limits = c(0,1), name = "Go/No-Go Accuracy") +
+  scale_x_discrete(name = NULL, label = element_blank()) +
+  scale_color_manual(values=colmap, name= "Condition") 
+# +
+#   ggsave('noise_accuracy_group.png')
+
+d %>%
+  ggplot(aes(x=Condition, y=noise_correct, color = Condition)) +
+  stat_summary(fun.data="mean_cl_boot") +
+  scale_x_discrete(name = NULL, label = element_blank()) +
+  scale_color_manual(values=colmap, name= "Condition") +
+  facet_wrap(~subject, nrow = 3) +
+  geom_hline(yintercept = 0) +
+  geom_hline(yintercept = 1, linetype = "dashed") +
+  scale_y_continuous(limits = c(0,1), breaks = c(0,.5,1), name = "Naming Accuracy") 
+# +
+#   ggsave('noise_accuracy_sub.png', height = params$fig_size[2], width = params$fig_size[1]) 
+
+```
+
+
+Percentiles are first calculated within participants, then averaged across participants. Points correspond to the .2, .4, .6, .8, and 1 quintiles. 
+
+Note that because these lines are conditioned on accurately naming the cue item, there are different numbers of trial in each condition. 
+
+There is one thing I'm somewhat worried about. In the previous experiment (topic of current CFS paper), we showed that CFS reveals dissociable learning processes (lateral vs. vertical connections). Here, we're trying to show that a visual recollection-like process can occur. In particular, we're trying to demonstrate that, when given just one part of an object, participants pattern-complete other parts -- that they not only have lateral links between parts of objects but that they are actually able to generate the parts on the nodes of those lateral links. But, how important is it for this experiment that participants have access to a qualitatively different kind of information when the objects were studied under CFS as compared to when they were studied binocularly? 
+
+I had initially been viewing the binocular trials as a kind of positive control; if RT didn't increase when participants were fully aware at study, then there would be little hope of RT increasing for objects that were studied under CFS. But, what out of these data shows that the objects studied under CFS are different than the objects studied binocularly? To what extent are we sure that the lateral connections we dissociated in Experiment 1 are the same ones driving RT speed up in the CFS condition here? Put another way, given that there is an RT speed up for objects that weren't named but were studied binocularly, does the CFS condition buy us anything other than more trials where participants weren't likely to have been able to name the objects?
+
+```{r percentiles}
+
+# p <- seq(from=.2, to=1, length.out = 5)
+
+p <- seq(from=.2, to=1, length.out = params$percentiles)
+
+tmp <- d %>%
+  filter(gonogo_answer == "go" 
+         & noise_correct==1)
+
+# d[rep(seq(from=1, to=dim(d)[1]),times=length(p)),] %>%
+#   filter(gonogo_answer == "go" 
+#          & noise_correect==1) %>%
+#   mutate(Percentile = rep(p, each=dim(tmp)[1])) %>%
+#   group_by(Condition, Percentile, cue_correct_fct) %>%
+#   summarise(RT = quantile(rt_noise, mean(Percentile), na.rm=TRUE)) %>%
+#   # mutate(Percentile = factor(Percentile)) %>%
+#   ggplot(aes(x=RT, y=Percentile, color=Condition, linetype = cue_correct_fct)) +
+#   geom(fun.data = 'mean_cl_boot') +
+#   geom_line() +
+#   scale_y_continuous(limits = c(0,1), breaks = p, name = "CDF") +
+#   scale_x_continuous(limits = c(0,4.5), name = "RT on (Correct) go trials") +
+#   scale_color_manual(values=colmap, name= "Condition") 
+# +
+#   ggsave('noise_percentiles_group.png') 
+
+
+d[rep(seq(from=1, to=dim(d)[1]),times=length(p)),] %>%
+  filter(gonogo_answer == "go" 
+         & noise_correct==1) %>%
+  select(rt_noise, Condition, cue_correct_fct, subject) %>%
+  mutate(Percentile = rep(p, each=dim(tmp)[1])) %>%
+  group_by(Condition, Percentile, cue_correct_fct, subject) %>%
+  summarise(RT = quantile(rt_noise, mean(Percentile), na.rm=TRUE)) %>%
+  ggplot(aes(x=Percentile, y=RT, color=Condition, linetype = cue_correct_fct)) +
+  stat_summary(fun.data = 'mean_cl_boot') +
+  stat_summary(fun.y = 'mean', geom="line") +
+  scale_x_continuous(limits = c(0,1), breaks = p, name = "Percentile") +
+  scale_y_continuous(limits = c(0,4.5), name = "RT on (Correct) go trials") +
+  scale_color_manual(values=colmap, name= "Condition") 
+# +
+#   ggsave('noise_percentilesT_group.png') 
+
+
+
+```
+
+These cdf plots are shown for each participant, once with Percentile on the x-axis and once with the axes swapped
+
+```{r percentiles_sub}
+
+# d[rep(seq(from=1, to=dim(d)[1]),times=length(p)),] %>%
+#   filter(gonogo_answer == "go" 
+#          & noise_correct == 1) %>%
+#   mutate(Percentile = rep(p, each=dim(tmp)[1])) %>%
+#   group_by(Condition, Percentile, subject, cue_correct_fct) %>%
+#   summarise(RT = quantile(rt_noise, mean(Percentile), na.rm=TRUE)) %>%
+#   ggplot(aes(x=RT, y=Percentile, color=Condition, linetype=cue_correct_fct)) +
+#   geom_line() +
+#   scale_y_continuous(limits = c(0,1), breaks = p, name = "CDF") +
+#   scale_x_continuous(limits = c(0,4.5), name = "RT on (Correct) go trials") +
+#   scale_color_manual(values=colmap, name= "Condition") +
+#   facet_wrap(~subject, nrow=10) 
+# +
+#   ggsave('noise_percentiles_sub.png', height = params$fig_size[2], width = params$fig_size[1]) 
+
+
+d[rep(seq(from=1, to = dim(d)[1]),times=length(p)),] %>%
+  filter(gonogo_answer == "go" 
+         & noise_correct == 1) %>%
+  select(rt_noise, Condition, subject, cue_correct_fct) %>%
+  mutate(Percentile = rep(p, each=dim(tmp)[1])) %>%
+  group_by(Condition, Percentile, subject, cue_correct_fct) %>%
+  summarise(RT = quantile(rt_noise, mean(Percentile), na.rm=TRUE)) %>%
+  ggplot(aes(x=Percentile, y=RT, color=Condition, linetype=cue_correct_fct)) +
+  geom_line() +
+  scale_x_continuous(limits = c(0,1), breaks = p[seq.int(from=1,to=length(p), length.out = 3)], name = "CDF") +
+  scale_y_continuous(limits = c(0,4.5), name = "RT on (Correct) go trials") +
+  scale_color_manual(values=colmap, name= "Condition")+
+  facet_wrap(~subject, nrow=6) 
+# +
+#   ggsave('noise_percentilesT_sub.png', height = params$fig_size[2], width = params$fig_size[1])
+
+
+```
+
+
+
+```{r rt_distributions}
+#Here is a bit more detail about each participant's reaction time.
+
+# 
+# d[rep(seq(from=1, to=dim(d)[1]),times=length(p)),] %>%
+#   filter(gonogo_answer == "go" 
+#          & noise_correct == 1) %>%
+#   ggplot(aes(x = rt_noise, y=Condition, fill = Condition, height = ..density.., alpha = cue_correct_fct)) +
+#   scale_alpha_discrete(range = c(.75, .25)) +
+#   geom_density_ridges(stat = "density") +
+#   scale_x_continuous(limits = c(0,4.5), name = "RT on (Correct) go", expand = c(0, 0)) +
+#   scale_y_discrete(name = NULL, label = element_blank(), expand = c(0.01, 0)) +
+#   scale_color_manual(values=colmap, name= "Condition") +
+#   theme(panel.grid.major.x = element_line(color = "gray", size = .5))
+# +
+#   ggsave('noise_violin_group.png') 
+```
+
+```{r rt_distributions_sub}
+
+# d[rep(seq(from=1, to=dim(d)[1]),times=length(p)),] %>%
+#   filter(gonogo_answer == "go" 
+#          & noise_correct==1) %>%
+#   ggplot(aes(x = rt_noise, y=Condition, fill = Condition, height = ..density.., alpha = cue_correct_fct)) +
+#   geom_density_ridges(stat = "density") +
+#   scale_alpha_discrete(range = c(.75, .25)) +
+#   scale_x_continuous(limits = c(0,4.5), name = "RT on (Correct) go trials", expand = c(0, 0)) +
+#   scale_y_discrete(name = NULL, label = element_blank(), expand = c(0.01, 0)) +
+#   scale_color_manual(values=colmap, name= "Condition") +
+#   facet_wrap(~subject, nrow = 10) +
+#   theme(panel.grid.major.x = element_line(color = "gray", size = .5))
+# +
+#   ggsave('noise_violin_noname_sub.png', height = params$fig_size[2], width = params$fig_size[1]) 
+
+
+```
+
+
+
+```{r ecdf}
+#Finally, here are the empirical cdfs. In these plots, there is no collapsing across quintiles. The RTs are just ordered. Here, it's a little easier to see where an effect might be emerging in the data. 
+
+
+# d %>%
+#   filter(gonogo_answer == "go" 
+#          & noise_correct==1) %>%
+#   ggplot(aes(x=rt_noise, color=Condition, linetype = cue_correct_fct)) +
+#   scale_y_continuous(limits = c(0,1), name = "eCDF") +
+#   scale_x_continuous(name = "RT on (Correct) go trials") +
+#   scale_color_manual(values=colmap, name= "Condition") +
+#   stat_ecdf() +
+#   theme(panel.grid.major.x = element_line(color = "gray", size = .5))
+# +
+#   ggsave('noise_ecdf_group.png')
+
+# d %>%
+#   filter(gonogo_answer == "go" 
+#          & noise_correct==1) %>%
+#   group_by(Condition, subject, cue_correct_fct) %>%
+#   ggplot(aes(x=rt_noise, color=Condition, linetype = cue_correct_fct)) +
+#   scale_y_continuous(limits = c(0,1), name = "eCDF") +
+#   scale_x_continuous(name = "RT on (Correct) go trials") +
+#   scale_color_manual(values=colmap, name= "Condition") +
+#   stat_ecdf() +
+#   theme(panel.grid.major.x = element_line(color = "gray", size = .5))
+
+
+# d %>%
+#   filter(gonogo_answer == "go" 
+#          & noise_correct==1) %>%
+#   ggplot(aes(x=rt_noise, color=Condition, linetype = cue_correct_fct)) +
+#   scale_x_continuous(name = "RT on (Correct) go trials") +
+#   scale_color_manual(values=colmap, name= "Condition") +
+#   stat_ecdf() +
+#   facet_wrap(~subject, nrow = 10) +
+#   geom_hline(yintercept = 0) +
+#   geom_hline(yintercept = .5, linetype = "dashed") +
+#   scale_y_continuous(limits = c(0,1), breaks = c(0,.5,1), name = "eCDF") +
+#   theme(panel.grid.major.x = element_line(color = "gray", size = .5))
+# +
+#   ggsave('noise_ecdf_sub.png', height = params$fig_size[2], width = params$fig_size[1])
+  
+
+
+```
