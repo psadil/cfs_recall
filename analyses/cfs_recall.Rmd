@@ -20,6 +20,9 @@ library(magrittr)
 library(stringdist)
 library(Hmisc)
 library(ggridges)
+library(modelr)
+library(broom)
+library(lme4)
 
 source(file.path('utils.R'))
 targets <- read_csv('objectNames_2afc.csv') 
@@ -73,8 +76,6 @@ d <- lapply(files, read_csv, col_types=cols(pas_1=col_character(),pas_2=col_char
   mutate(dl = Map(function(x,y) stringdist(x, y, method="dl"), targets, response_cue)) %>%
   mutate(minDist = sapply(X=dl, FUN=function(x) min(x, na.rm=TRUE))) %>%
   mutate(cue_correct = if_else(minDist < params$cutoff, 1, 0)) %>%
-  # rename(Condition = tType_test) %>%
-  # mutate(Condition = factor(Condition, levels = c("Not Studied","CFS","Binocular"))) %>%
   mutate(pas_1 = as.numeric(substring(pas_1,1,1))) %>%
   mutate(pas_1 = if_else(is.na(pas_1),0,pas_1)) %>%
   mutate(pas_1 = factor(pas_1)) %>%
@@ -97,27 +98,48 @@ d <- lapply(files, read_csv, col_types=cols(pas_1=col_character(),pas_2=col_char
 ```
 
 
+57 participants worth of data usable data (`r n_distinct(d$subject)` finished the experiment in total, but `r length(params$low_name)` have about 0% correct on naming trials. Note that the participant IDs don't quite match up to the total nunber of participants. The mismatch is because the RAs accidentally skipped a couple of numbers), recruited during the summer and through SONA. We're aiming for 60, so this is close. Hopefully there will be enough as of Monday, October 23.
 
-
-7 participants worth of data. They were recruited through SONA or were RAs. 120 items per participant, encountered in lists of 12 items. With three conditions (binocular, cfs, not-studied), there were four items in each condition in each list. Of those four items, three were encountered in a “go” test trial, and one was in a “no-go” test trial. So, 1/4 of test-trials were no-go. This leaves up to 30 items in go trials per condition, per participant. 
-
-New in this version of the experiment 
-  
- * During naming trial, participants were cued with two apertures instead of one. These two aperatures were the same two that participants would have encounterd in Master's experiment 1, during the 2AFC. Specifically, these are the matching parts that participants would be trying to select.
- 
- * The object emerging from noise in the go/no-go test trials  had 2 bullet-holes removed from the whole (instead of two), one in the place of each aperature.
-
-Previous updates
-  
- * Binocular objects were studied for up to 5 seconds (rather than up to 4 seconds)
-  
- * All objects that were studied (CFS or Binocular) reached 100% opacity after 2.5 seconds
-  
- * The above point means that there was no variability / calibration of opacity to each participant
-
-The primary goal of these modification was in improve naming performance for items that were studied binocularly. However, there was a bug in the code when labelling the condition of the items. So, these modifications was not necessary as Naming performance was already okay for binocularly studied objects.
+`r n_distinct(d$item_test)` items per participant, encountered in lists of 12 items. With three conditions (binocular, cfs, not-studied), there were four items in each condition in each list. Of those four items, three were encountered in a “go” test trial, and one was in a “no-go” test trial. So, 1/4 of test-trials were no-go. This leaves up to 30 items in go trials per condition, per participant. 
 
 ## Figures
+
+### Naming Accuracy
+
+The following plot shows the proportion of items that participants named correctly. The first plot shows each participant invididually to see which ones didn't try during the naming condition. These ones were excluded from the group-level plot and all further plots.
+
+Note that in this group-level plot (and all other following), each participants' average performance is calculated separetely and then averaged together. Error bars reflect the bootstrapped 95% CI of the averaging across participant averages.
+
+
+```{r naming}
+
+d %>%
+  ggplot(aes(x=Condition, y=cue_correct, color = Condition)) +
+  stat_summary(fun.data="mean_cl_boot") +
+  scale_color_manual(values=colmap, name= "Condition") +  
+  facet_wrap(~subject, nrow = 3) +
+  geom_hline(yintercept = 0) +
+  geom_hline(yintercept = .3, linetype = "dashed") +
+  scale_y_continuous(limits = c(0,1), breaks = c(0,.5,1), name = "Naming Accuracy") +
+  scale_x_discrete(name = NULL, label = element_blank()) 
+
+d %<>% filter(!(subject %in% params$low_name)) %>% mutate(subject = forcats::fct_drop(subject))
+
+d %>%
+  group_by(subject, Condition) %>%
+  summarise(cue_correct = mean(cue_correct)) %>%
+  ggplot(aes(x=Condition, y=cue_correct, color = Condition)) +
+  stat_summary(fun.data="mean_cl_boot") +
+  scale_y_continuous(limits = c(0,1), name = "Naming Accuracy") +
+  scale_x_discrete(name = NULL, label = element_blank()) +
+  scale_color_manual(values=colmap, name= "Condition") +
+  geom_hline(yintercept = .3, linetype = "dashed")
+
+
+
+```
+
+### PAS
 
 Here are the PAS ratings provided to the first and second encounter of items in the study phase. Only items studied in the CFS condition are shown, because these are the only trials in which participants were asked to provide a PAS rating.
 
@@ -143,45 +165,7 @@ d %>%
 
 ``` 
 
-
-
-The following plot shows the proportion of items that participants named correctly. The first plot shows each participant invididually to see which ones didn't try during the naming condition. These ones were excluded from the group-level plot and all further plots.
-
-Note that in this group-level plot (and all other following), each participants' average performance is calculated separetely and then averaged together. Error bars reflect the bootstrapped 95% CI of the averaging across participant averages.
-
-
-```{r naming}
-
-d %>%
-  ggplot(aes(x=Condition, y=cue_correct, color = Condition)) +
-  stat_summary(fun.data="mean_cl_boot") +
-  scale_color_manual(values=colmap, name= "Condition") +  
-  facet_wrap(~subject, nrow = 3) +
-  geom_hline(yintercept = 0) +
-  geom_hline(yintercept = .3, linetype = "dashed") +
-  scale_y_continuous(limits = c(0,1), breaks = c(0,.5,1), name = "Naming Accuracy") +
-  scale_x_discrete(name = NULL, label = element_blank()) 
-# +
-#   ggsave('name_accuracy_sub.png', height = params$fig_size[2], width = params$fig_size[1])
-
-d %<>% filter(!(subject %in% params$low_name)) %>% mutate(subject = forcats::fct_drop(subject))
-
-d %>%
-  group_by(subject, Condition) %>%
-  summarise(cue_correct = mean(cue_correct)) %>%
-  ggplot(aes(x=Condition, y=cue_correct, color = Condition)) +
-  stat_summary(fun.data="mean_cl_boot") +
-  scale_y_continuous(limits = c(0,1), name = "Naming Accuracy") +
-  scale_x_discrete(name = NULL, label = element_blank()) +
-  scale_color_manual(values=colmap, name= "Condition") +
-  geom_hline(yintercept = .3, linetype = "dashed")
-# +
-#   ggsave('name_accuracy_group.png')
-
-
-
-```
-
+### Go/No-go accuracy
 
 The following plot shows proportion correct on the no/no-go trials (whether participants either said an item was appearing, or correctly waited). Raw accuracy is high. I didn't calculate anything like d' given that performance was basically at ceiling for all participants, and so d' would be infinity.
 
@@ -212,8 +196,9 @@ d %>%
 
 ```
 
+### Percentiles
 
-Percentiles are first calculated within participants, then averaged across participants. Points correspond to the .2, .4, .6, .8, and 1 quintiles. 
+Percentiles are first calculated within participants, then averaged across participants.
 
 Note that because these lines are conditioned on accurately naming the cue item, there are different numbers of trial in each condition. 
 
@@ -223,91 +208,142 @@ I had initially been viewing the binocular trials as a kind of positive control;
 
 ```{r percentiles}
 
-# p <- seq(from=.2, to=1, length.out = 5)
+p <- seq(from = 1 / params$percentiles, to = 1, length.out = params$percentiles)
 
-p <- seq(from=.2, to=1, length.out = params$percentiles)
-
-tmp <- d %>%
-  filter(gonogo_answer == "go" 
-         & noise_correct==1)
-
-# d[rep(seq(from=1, to=dim(d)[1]),times=length(p)),] %>%
-#   filter(gonogo_answer == "go" 
-#          & noise_correect==1) %>%
-#   mutate(Percentile = rep(p, each=dim(tmp)[1])) %>%
-#   group_by(Condition, Percentile, cue_correct_fct) %>%
-#   summarise(RT = quantile(rt_noise, mean(Percentile), na.rm=TRUE)) %>%
-#   # mutate(Percentile = factor(Percentile)) %>%
-#   ggplot(aes(x=RT, y=Percentile, color=Condition, linetype = cue_correct_fct)) +
-#   geom(fun.data = 'mean_cl_boot') +
-#   geom_line() +
-#   scale_y_continuous(limits = c(0,1), breaks = p, name = "CDF") +
-#   scale_x_continuous(limits = c(0,4.5), name = "RT on (Correct) go trials") +
-#   scale_color_manual(values=colmap, name= "Condition") 
-# +
-#   ggsave('noise_percentiles_group.png') 
-
-
-d[rep(seq(from=1, to=dim(d)[1]),times=length(p)),] %>%
-  filter(gonogo_answer == "go" 
-         & noise_correct==1) %>%
-  select(rt_noise, Condition, cue_correct_fct, subject) %>%
-  mutate(Percentile = rep(p, each=dim(tmp)[1])) %>%
-  group_by(Condition, Percentile, cue_correct_fct, subject) %>%
-  summarise(RT = quantile(rt_noise, mean(Percentile), na.rm=TRUE)) %>%
+d %>% filter(gonogo_answer == "go" 
+                         & noise_correct==1) %>%
+  group_by(Condition, cue_correct_fct, subject) %>%
+  summarise(Percentile = list(p), 
+            RT = list(quantile(rt_noise, probs = p, na.rm = TRUE))) %>%
+  unnest() %>%
   ggplot(aes(x=Percentile, y=RT, color=Condition, linetype = cue_correct_fct)) +
   stat_summary(fun.data = 'mean_cl_boot') +
   stat_summary(fun.y = 'mean', geom="line") +
   scale_x_continuous(limits = c(0,1), breaks = p, name = "Percentile") +
-  scale_y_continuous(limits = c(0,4.5), name = "RT on (Correct) go trials") +
+  scale_y_continuous(limits = c(0,4), name = "RT (seconds) on (Correct) go trials") +
   scale_color_manual(values=colmap, name= "Condition") 
-# +
-#   ggsave('noise_percentilesT_group.png') 
 
 
 
 ```
 
-These cdf plots are shown for each participant, once with Percentile on the x-axis and once with the axes swapped
+These cdf plots are shown for each participant
 
 ```{r percentiles_sub}
 
-# d[rep(seq(from=1, to=dim(d)[1]),times=length(p)),] %>%
-#   filter(gonogo_answer == "go" 
-#          & noise_correct == 1) %>%
-#   mutate(Percentile = rep(p, each=dim(tmp)[1])) %>%
-#   group_by(Condition, Percentile, subject, cue_correct_fct) %>%
-#   summarise(RT = quantile(rt_noise, mean(Percentile), na.rm=TRUE)) %>%
-#   ggplot(aes(x=RT, y=Percentile, color=Condition, linetype=cue_correct_fct)) +
-#   geom_line() +
-#   scale_y_continuous(limits = c(0,1), breaks = p, name = "CDF") +
-#   scale_x_continuous(limits = c(0,4.5), name = "RT on (Correct) go trials") +
-#   scale_color_manual(values=colmap, name= "Condition") +
-#   facet_wrap(~subject, nrow=10) 
-# +
-#   ggsave('noise_percentiles_sub.png', height = params$fig_size[2], width = params$fig_size[1]) 
-
-
-d[rep(seq(from=1, to = dim(d)[1]),times=length(p)),] %>%
-  filter(gonogo_answer == "go" 
-         & noise_correct == 1) %>%
-  select(rt_noise, Condition, subject, cue_correct_fct) %>%
-  mutate(Percentile = rep(p, each=dim(tmp)[1])) %>%
-  group_by(Condition, Percentile, subject, cue_correct_fct) %>%
-  summarise(RT = quantile(rt_noise, mean(Percentile), na.rm=TRUE)) %>%
+d %>% filter(gonogo_answer == "go" 
+                         & noise_correct==1) %>%
+  group_by(Condition, cue_correct_fct, subject) %>%
+  summarise(Percentile = list(p), 
+            RT = list(quantile(rt_noise, probs = p, na.rm = TRUE))) %>%
+  unnest() %>%
   ggplot(aes(x=Percentile, y=RT, color=Condition, linetype=cue_correct_fct)) +
   geom_line() +
   scale_x_continuous(limits = c(0,1), breaks = p[seq.int(from=1,to=length(p), length.out = 3)], name = "CDF") +
-  scale_y_continuous(limits = c(0,4.5), name = "RT on (Correct) go trials") +
+  scale_y_continuous(limits = c(0,4), name = "RT (seconds) on (Correct) go trials") +
   scale_color_manual(values=colmap, name= "Condition")+
   facet_wrap(~subject, nrow=6) 
-# +
-#   ggsave('noise_percentilesT_sub.png', height = params$fig_size[2], width = params$fig_size[1])
 
 
 ```
 
+These next plots contain similar information as the ones above, but now conditions are shown as different from Not-Studied.
 
+Note that in these participant-level plots, it's a little easier to see that this grouping of naming accuracy x condition -- combined with excluding trials where participants were incorrect in go-nogo trials -- leaves some participants without any data in some of the conditions. For example, participant 5 didn't name any of the objects in the Not Studied condition, so participant 5's graph doesn't have any 'cue_correct_fct' difference lines (there were no Not Studied items to use as a baseline).
+
+
+```{r percentiles-diff}
+
+d %>% filter(gonogo_answer == "go" 
+                         & noise_correct==1) %>%
+  group_by(Condition, cue_correct_fct, subject) %>%
+  summarise(Percentile = list(p), 
+            RT = list(quantile(rt_noise, probs = p, na.rm = TRUE))) %>%
+  unnest() %>%
+  ungroup() %>%
+  spread(key = Condition, value = RT ) %>%
+  mutate(CFS = `Not Studied` - CFS,
+         Binocular = `Not Studied` - Binocular) %>%
+  select(-`Not Studied`) %>%
+  gather(key = Condition, value = RT, CFS:Binocular) %>%
+  ggplot(aes(x=Percentile, y=RT, color=Condition, linetype = cue_correct_fct)) +
+  stat_summary(fun.data = 'mean_cl_boot') +
+  stat_summary(fun.y = 'mean', geom="line") +
+  scale_x_continuous(limits = c(0,1), breaks = p, name = "Percentile") +
+  scale_y_continuous(limits = c(-.5,.5), name = "RT (seconds) Speed-up (Not Studied - Condition) on (Correct) go trials") +
+  scale_color_manual(values=colmap, name= "Condition") 
+
+
+d %>% filter(gonogo_answer == "go" 
+                         & noise_correct==1) %>%
+  group_by(Condition, cue_correct_fct, subject) %>%
+  summarise(Percentile = list(p), 
+            RT = list(quantile(rt_noise, probs = p, na.rm = TRUE))) %>%
+  unnest() %>%
+  ungroup() %>%
+  spread(key = Condition, value = RT ) %>%
+  mutate(CFS = `Not Studied` - CFS,
+         Binocular = `Not Studied` - Binocular) %>%
+  select(-`Not Studied`) %>%
+  gather(key = Condition, value = RT, CFS:Binocular) %>%
+  ggplot(aes(x=Percentile, y=RT, color=Condition, linetype = cue_correct_fct)) +
+  scale_x_continuous(limits = c(0,1), breaks = p, name = "Percentile") +
+  scale_y_continuous(name = "RT (seconds) Speed-up (Not Studied - Condition) on (Correct) go trials") +
+  scale_color_manual(values=colmap, name= "Condition") +
+  facet_wrap(~subject, nrow=6) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  geom_line()
+
+
+```
+
+The above plots have just 4 percentiles, because that was how many were used in a paper Dave sent me. Previously, I had been grouping the data into 5 percentiles. Below are the different plots with 5 percentiles.
+
+```{r percentiles-5}
+
+p <- seq(from = 1 / params$percentiles, to = 1, length.out = 5)
+
+d %>% filter(gonogo_answer == "go" 
+                         & noise_correct==1) %>%
+  group_by(Condition, cue_correct_fct, subject) %>%
+  summarise(Percentile = list(p), 
+            RT = list(quantile(rt_noise, probs = p, na.rm = TRUE))) %>%
+  unnest() %>%
+  ungroup() %>%
+  spread(key = Condition, value = RT ) %>%
+  mutate(CFS = `Not Studied` - CFS,
+         Binocular = `Not Studied` - Binocular) %>%
+  select(-`Not Studied`) %>%
+  gather(key = Condition, value = RT, CFS:Binocular) %>%
+  ggplot(aes(x=Percentile, y=RT, color=Condition, linetype = cue_correct_fct)) +
+  stat_summary(fun.data = 'mean_cl_boot') +
+  stat_summary(fun.y = 'mean', geom="line") +
+  scale_x_continuous(limits = c(0,1), breaks = p, name = "Percentile") +
+  scale_y_continuous(limits = c(-.5,.5), name = "RT (seconds) Speed-up (Not Studied - Condition) on (Correct) go trials") +
+  scale_color_manual(values=colmap, name= "Condition") 
+
+
+d %>% filter(gonogo_answer == "go" 
+                         & noise_correct==1) %>%
+  group_by(Condition, cue_correct_fct, subject) %>%
+  summarise(Percentile = list(p), 
+            RT = list(quantile(rt_noise, probs = p, na.rm = TRUE))) %>%
+  unnest() %>%
+  ungroup() %>%
+  spread(key = Condition, value = RT ) %>%
+  mutate(CFS = `Not Studied` - CFS,
+         Binocular = `Not Studied` - Binocular) %>%
+  select(-`Not Studied`) %>%
+  gather(key = Condition, value = RT, CFS:Binocular) %>%
+  ggplot(aes(x=Percentile, y=RT, color=Condition, linetype = cue_correct_fct)) +
+  scale_x_continuous(limits = c(0,1), breaks = p, name = "Percentile") +
+  scale_y_continuous(name = "RT (seconds) Speed-up (Not Studied - Condition) on (Correct) go trials") +
+  scale_color_manual(values=colmap, name= "Condition") +
+  facet_wrap(~subject, nrow=6) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  geom_line()
+
+```
 
 ```{r rt_distributions}
 #Here is a bit more detail about each participant's reaction time.
@@ -394,3 +430,43 @@ d[rep(seq(from=1, to = dim(d)[1]),times=length(p)),] %>%
 
 
 ```
+
+
+```{r}
+# p <- seq(from=.2, to=1, length.out = params$percentiles)
+# 
+# rt_quant <- d %>% filter(gonogo_answer == "go" 
+#                          & noise_correct==1) %>%
+#   group_by(Condition, cue_correct_fct, subject) %>%
+#   summarise(Percentile = list(p), RT = list(quantile(rt_noise, probs = p, na.rm = TRUE))) %>%
+#   unnest()
+# 
+# rt_mod <- lme4::lmer(RT ~ Condition*Percentile*cue_correct_fct + (Condition | subject:Percentile) , data = rt_quant)
+# 
+# grid <- rt_quant %>%
+#   modelr::data_grid(Condition, Percentile = seq_range(Percentile, 4), cue_correct_fct, .model = rt_mod) %>%
+#   modelr::add_predictions(rt_mod, var = "RT")
+# 
+# rt_quant %>%
+#   ggplot(aes(x=Percentile, y=RT, color=Condition, linetype = cue_correct_fct)) +
+#   stat_summary(fun.data = 'mean_cl_boot') +
+#   stat_summary(fun.y = 'mean', geom="line") +
+#   scale_x_continuous(limits = c(0,1), breaks = p, name = "Percentile") +
+#   scale_y_continuous(limits = c(0,4.5), name = "RT on (Correct) go trials") +
+#   scale_color_manual(values=colmap, name= "Condition")+
+#   geom_point(data = grid, aes(y = RT), colour = "red", size = 2)
+# 
+# ggplot(rt_quant, aes(x = Percentile, color = Condition)) +
+#   facet_wrap(~cue_correct_fct) +
+#   geom_point(aes(y = RT)) +
+#   
+# 
+# rt_quant %>% modelr::add_residuals(rt_mod) %>%
+#   ggplot(aes(x = Percentile, y = resid, color = Condition)) +
+#   geom_point() +
+#   facet_wrap(~cue_correct_fct)
+# 
+
+```
+
+
