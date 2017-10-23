@@ -432,40 +432,19 @@ d %>% filter(gonogo_answer == "go"
 ```
 
 
-```{r}
-# p <- seq(from=.2, to=1, length.out = params$percentiles)
-# 
-# rt_quant <- d %>% filter(gonogo_answer == "go" 
-#                          & noise_correct==1) %>%
-#   group_by(Condition, cue_correct_fct, subject) %>%
-#   summarise(Percentile = list(p), RT = list(quantile(rt_noise, probs = p, na.rm = TRUE))) %>%
-#   unnest()
-# 
-# rt_mod <- lme4::lmer(RT ~ Condition*Percentile*cue_correct_fct + (Condition | subject:Percentile) , data = rt_quant)
-# 
-# grid <- rt_quant %>%
-#   modelr::data_grid(Condition, Percentile = seq_range(Percentile, 4), cue_correct_fct, .model = rt_mod) %>%
-#   modelr::add_predictions(rt_mod, var = "RT")
-# 
-# rt_quant %>%
-#   ggplot(aes(x=Percentile, y=RT, color=Condition, linetype = cue_correct_fct)) +
-#   stat_summary(fun.data = 'mean_cl_boot') +
-#   stat_summary(fun.y = 'mean', geom="line") +
-#   scale_x_continuous(limits = c(0,1), breaks = p, name = "Percentile") +
-#   scale_y_continuous(limits = c(0,4.5), name = "RT on (Correct) go trials") +
-#   scale_color_manual(values=colmap, name= "Condition")+
-#   geom_point(data = grid, aes(y = RT), colour = "red", size = 2)
-# 
-# ggplot(rt_quant, aes(x = Percentile, color = Condition)) +
-#   facet_wrap(~cue_correct_fct) +
-#   geom_point(aes(y = RT)) +
-#   
-# 
-# rt_quant %>% modelr::add_residuals(rt_mod) %>%
-#   ggplot(aes(x = Percentile, y = resid, color = Condition)) +
-#   geom_point() +
-#   facet_wrap(~cue_correct_fct)
-# 
+```{r lmer}
+p <- seq(from=1 / params$percentiles, to=1, length.out = params$percentiles)
+
+rt_quant <- d %>% filter(gonogo_answer == "go"
+                         & noise_correct==1) %>%
+  group_by(Condition, cue_correct_fct, subject) %>%
+  summarise(Percentile = list(p), RT = list(quantile(rt_noise, probs = p, na.rm = TRUE))) %>%
+  unnest()
+
+rt_mod <- lme4::lmer(RT ~ Condition*Percentile*cue_correct_fct + (Condition | subject:Percentile) , data = rt_quant)
+
+
+
 
 ```
 
