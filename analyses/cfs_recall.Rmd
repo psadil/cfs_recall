@@ -366,23 +366,11 @@ rt_quant0 <- d %>% filter(gonogo_answer == "go"
   select(-`Not Studied`) %>%
   gather(key = Condition, value = RT, CFS:Binocular)
 
-# rt_quant <- d %>% filter(gonogo_answer == "go"
-#                          & noise_correct==1) %>%
-#   group_by(Condition, cue_correct_fct, subject) %>%
-#   summarise(Percentile = list(p), RT = list(quantile(rt_noise, probs = p, na.rm = TRUE))) %>%
-#   unnest() %>%
-#   ungroup() %>%
-#   mutate(Percentile = ordered(Percentile),
-#          Condition = factor(Condition))
-  
+
 rt_mod0 <- afex::mixed(RT ~ Condition*Percentile*cue_correct_fct + (1 | subject), data = rt_quant0, type = 3)
-# rt_mod <- afex::mixed(RT ~ Condition*Percentile*cue_correct_fct + (1 | subject), data = rt_quant, type = 2)
 
 m0 <- lsmeans::lsmeans(rt_mod0, ~Condition|cue_correct_fct, weights = "proportional")
 m2 <- lsmeans::lsmeans(rt_mod0, ~Condition|cue_correct_fct:Percentile, at = list(Percentile = "0.25"), weights = "proportional")
-
-# m <- lsmeans::lsmeans(rt_mod, ~Condition|cue_correct_fct)
-# m1 <- lsmeans::lsmeans(rt_mod, ~Condition+Percentile|cue_correct_fct)
 ```
 
 For the actual stats, I ran a linear-mixed effects model to test for 1) an interaction between study condition x percentile when object isn't named, 2) a post-hoc contrast to test for an effect of CFS when object isn't named, and 3) a test for an effect of CFS when object isn't named, at the first quantile. 
