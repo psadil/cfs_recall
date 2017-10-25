@@ -13,7 +13,7 @@ params:
 ---
 
 ```{r setup, include=FALSE, warning=FALSE}
-knitr::opts_chunk$set(echo = FALSE, warning = FALSE, fig.path = paste0(file.path('output','figures',params$expt),.Platform$file.sep), cache = FALSE, message = FALSE, fig.width = 14, fig.asp = 1)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, fig.path = paste0(file.path('output','figures',params$expt),.Platform$file.sep), cache = TRUE, message = FALSE, fig.width = 14, fig.asp = 1)
 
 library(tidyverse)
 library(magrittr)
@@ -23,6 +23,7 @@ library(ggridges)
 library(modelr)
 library(broom)
 library(lme4)
+library(lsmeans)
 
 source(file.path('utils.R'))
 targets <- read_csv('objectNames_2afc.csv') 
@@ -98,9 +99,9 @@ d <- lapply(files, read_csv, col_types=cols(pas_1=col_character(),pas_2=col_char
 ```
 
 
-57 participants worth of data usable data (`r n_distinct(d$subject)` finished the experiment in total, but `r length(params$low_name)` have about 0% correct on naming trials. Note that the participant IDs don't quite match up to the total nunber of participants. The mismatch is because the RAs accidentally skipped a couple of numbers), recruited during the summer and through SONA. We're aiming for 60, so this is close. Hopefully there will be enough as of Monday, October 23.
+`r n_distinct(d$subject) - length(params$low_name)` participants worth of data usable data (`r n_distinct(d$subject)` finished the experiment in total, but `r length(params$low_name)` have about 0% correct on naming trials. Note that the participant IDs don't quite match up to the total nunber of participants. The mismatch is because the RAs accidentally skipped a couple of numbers), recruited during the summer and through SONA. We're had been aiming for 60.
 
-`r n_distinct(d$item_test)` items per participant, encountered in lists of 12 items. With three conditions (binocular, cfs, not-studied), there were four items in each condition in each list. Of those four items, three were encountered in a “go” test trial, and one was in a “no-go” test trial. So, 1/4 of test-trials were no-go. This leaves up to 30 items in go trials per condition, per participant. 
+`r n_distinct(d$item_test)` items per participant, encountered in lists of 12 items. With three conditions (binocular, cfs, not-studied), there were four items in each condition in each list. Of those four items, three were encountered in a “go” test trial, and one was in a “no-go” test trial. So, 1/4 of test-trials were no-go. This leaves up to 30 items in go trials per condition, per participant (but the actual numer will be different, depending on how many objects were correctly named). 
 
 ## Figures
 
@@ -108,14 +109,14 @@ d <- lapply(files, read_csv, col_types=cols(pas_1=col_character(),pas_2=col_char
 
 The following plot shows the proportion of items that participants named correctly. The first plot shows each participant invididually to see which ones didn't try during the naming condition. These ones were excluded from the group-level plot and all further plots.
 
-Note that in this group-level plot (and all other following), each participants' average performance is calculated separetely and then averaged together. Error bars reflect the bootstrapped 95% CI of the averaging across participant averages.
+Note that in this group-level plot (and all other following), each participants' average performance is calculated separetely and then averaged together. Error bars reflect the standard error of the mean, averaging across participant averages (note that I had previously been showing 95% CI).
 
 
 ```{r naming}
 
 d %>%
   ggplot(aes(x=Condition, y=cue_correct, color = Condition)) +
-  stat_summary(fun.data="mean_cl_boot") +
+  stat_summary(fun.data="mean_se") +
   scale_color_manual(values=colmap, name= "Condition") +  
   facet_wrap(~subject, nrow = 3) +
   geom_hline(yintercept = 0) +
@@ -129,7 +130,7 @@ d %>%
   group_by(subject, Condition) %>%
   summarise(cue_correct = mean(cue_correct)) %>%
   ggplot(aes(x=Condition, y=cue_correct, color = Condition)) +
-  stat_summary(fun.data="mean_cl_boot") +
+  stat_summary(fun.data="mean_se") +
   scale_y_continuous(limits = c(0,1), name = "Naming Accuracy") +
   scale_x_discrete(name = NULL, label = element_blank()) +
   scale_color_manual(values=colmap, name= "Condition") +
@@ -175,7 +176,7 @@ d %>%
   group_by(subject, Condition) %>%
   summarise(noise_correct = mean(noise_correct)) %>%
   ggplot(aes(x=Condition, y=noise_correct, color = Condition)) +
-  stat_summary(fun.data="mean_cl_boot") +
+  stat_summary(fun.data="mean_se") +
   scale_y_continuous(limits = c(0,1), name = "Go/No-Go Accuracy") +
   scale_x_discrete(name = NULL, label = element_blank()) +
   scale_color_manual(values=colmap, name= "Condition") 
@@ -184,7 +185,7 @@ d %>%
 
 d %>%
   ggplot(aes(x=Condition, y=noise_correct, color = Condition)) +
-  stat_summary(fun.data="mean_cl_boot") +
+  stat_summary(fun.data="mean_se") +
   scale_x_discrete(name = NULL, label = element_blank()) +
   scale_color_manual(values=colmap, name= "Condition") +
   facet_wrap(~subject, nrow = 3) +
@@ -217,7 +218,7 @@ d %>% filter(gonogo_answer == "go"
             RT = list(quantile(rt_noise, probs = p, na.rm = TRUE))) %>%
   unnest() %>%
   ggplot(aes(x=Percentile, y=RT, color=Condition, linetype = cue_correct_fct)) +
-  stat_summary(fun.data = 'mean_cl_boot') +
+  stat_summary(fun.data = 'mean_se') +
   stat_summary(fun.y = 'mean', geom="line") +
   scale_x_continuous(limits = c(0,1), breaks = p, name = "Percentile") +
   scale_y_continuous(limits = c(0,4), name = "RT (seconds) on (Correct) go trials") +
@@ -267,11 +268,12 @@ d %>% filter(gonogo_answer == "go"
   select(-`Not Studied`) %>%
   gather(key = Condition, value = RT, CFS:Binocular) %>%
   ggplot(aes(x=Percentile, y=RT, color=Condition, linetype = cue_correct_fct)) +
-  stat_summary(fun.data = 'mean_cl_boot') +
+  stat_summary(fun.data = 'mean_se') +
   stat_summary(fun.y = 'mean', geom="line") +
   scale_x_continuous(limits = c(0,1), breaks = p, name = "Percentile") +
   scale_y_continuous(limits = c(-.5,.5), name = "RT (seconds) Speed-up (Not Studied - Condition) on (Correct) go trials") +
-  scale_color_manual(values=colmap, name= "Condition") 
+  scale_color_manual(values=colmap, name= "Condition") +
+  geom_hline(yintercept = 0, linetype = "dashed")
 
 
 d %>% filter(gonogo_answer == "go" 
@@ -316,11 +318,12 @@ d %>% filter(gonogo_answer == "go"
   select(-`Not Studied`) %>%
   gather(key = Condition, value = RT, CFS:Binocular) %>%
   ggplot(aes(x=Percentile, y=RT, color=Condition, linetype = cue_correct_fct)) +
-  stat_summary(fun.data = 'mean_cl_boot') +
+  stat_summary(fun.data = 'mean_se') +
   stat_summary(fun.y = 'mean', geom="line") +
   scale_x_continuous(limits = c(0,1), breaks = p, name = "Percentile") +
   scale_y_continuous(limits = c(-.5,.5), name = "RT (seconds) Speed-up (Not Studied - Condition) on (Correct) go trials") +
-  scale_color_manual(values=colmap, name= "Condition") 
+  scale_color_manual(values=colmap, name= "Condition")  +
+  geom_hline(yintercept = 0, linetype = "dashed")
 
 
 d %>% filter(gonogo_answer == "go" 
@@ -345,107 +348,66 @@ d %>% filter(gonogo_answer == "go"
 
 ```
 
-```{r rt_distributions}
-#Here is a bit more detail about each participant's reaction time.
-
-# 
-# d[rep(seq(from=1, to=dim(d)[1]),times=length(p)),] %>%
-#   filter(gonogo_answer == "go" 
-#          & noise_correct == 1) %>%
-#   ggplot(aes(x = rt_noise, y=Condition, fill = Condition, height = ..density.., alpha = cue_correct_fct)) +
-#   scale_alpha_discrete(range = c(.75, .25)) +
-#   geom_density_ridges(stat = "density") +
-#   scale_x_continuous(limits = c(0,4.5), name = "RT on (Correct) go", expand = c(0, 0)) +
-#   scale_y_discrete(name = NULL, label = element_blank(), expand = c(0.01, 0)) +
-#   scale_color_manual(values=colmap, name= "Condition") +
-#   theme(panel.grid.major.x = element_line(color = "gray", size = .5))
-# +
-#   ggsave('noise_violin_group.png') 
-```
-
-```{r rt_distributions_sub}
-
-# d[rep(seq(from=1, to=dim(d)[1]),times=length(p)),] %>%
-#   filter(gonogo_answer == "go" 
-#          & noise_correct==1) %>%
-#   ggplot(aes(x = rt_noise, y=Condition, fill = Condition, height = ..density.., alpha = cue_correct_fct)) +
-#   geom_density_ridges(stat = "density") +
-#   scale_alpha_discrete(range = c(.75, .25)) +
-#   scale_x_continuous(limits = c(0,4.5), name = "RT on (Correct) go trials", expand = c(0, 0)) +
-#   scale_y_discrete(name = NULL, label = element_blank(), expand = c(0.01, 0)) +
-#   scale_color_manual(values=colmap, name= "Condition") +
-#   facet_wrap(~subject, nrow = 10) +
-#   theme(panel.grid.major.x = element_line(color = "gray", size = .5))
-# +
-#   ggsave('noise_violin_noname_sub.png', height = params$fig_size[2], width = params$fig_size[1]) 
-
-
-```
-
-
-
-```{r ecdf}
-#Finally, here are the empirical cdfs. In these plots, there is no collapsing across quintiles. The RTs are just ordered. Here, it's a little easier to see where an effect might be emerging in the data. 
-
-
-# d %>%
-#   filter(gonogo_answer == "go" 
-#          & noise_correct==1) %>%
-#   ggplot(aes(x=rt_noise, color=Condition, linetype = cue_correct_fct)) +
-#   scale_y_continuous(limits = c(0,1), name = "eCDF") +
-#   scale_x_continuous(name = "RT on (Correct) go trials") +
-#   scale_color_manual(values=colmap, name= "Condition") +
-#   stat_ecdf() +
-#   theme(panel.grid.major.x = element_line(color = "gray", size = .5))
-# +
-#   ggsave('noise_ecdf_group.png')
-
-# d %>%
-#   filter(gonogo_answer == "go" 
-#          & noise_correct==1) %>%
-#   group_by(Condition, subject, cue_correct_fct) %>%
-#   ggplot(aes(x=rt_noise, color=Condition, linetype = cue_correct_fct)) +
-#   scale_y_continuous(limits = c(0,1), name = "eCDF") +
-#   scale_x_continuous(name = "RT on (Correct) go trials") +
-#   scale_color_manual(values=colmap, name= "Condition") +
-#   stat_ecdf() +
-#   theme(panel.grid.major.x = element_line(color = "gray", size = .5))
-
-
-# d %>%
-#   filter(gonogo_answer == "go" 
-#          & noise_correct==1) %>%
-#   ggplot(aes(x=rt_noise, color=Condition, linetype = cue_correct_fct)) +
-#   scale_x_continuous(name = "RT on (Correct) go trials") +
-#   scale_color_manual(values=colmap, name= "Condition") +
-#   stat_ecdf() +
-#   facet_wrap(~subject, nrow = 10) +
-#   geom_hline(yintercept = 0) +
-#   geom_hline(yintercept = .5, linetype = "dashed") +
-#   scale_y_continuous(limits = c(0,1), breaks = c(0,.5,1), name = "eCDF") +
-#   theme(panel.grid.major.x = element_line(color = "gray", size = .5))
-# +
-#   ggsave('noise_ecdf_sub.png', height = params$fig_size[2], width = params$fig_size[1])
-  
-
-
-```
-
 
 ```{r lmer}
 p <- seq(from=1 / params$percentiles, to=1, length.out = params$percentiles)
 
-rt_quant <- d %>% filter(gonogo_answer == "go"
+rt_quant0 <- d %>% filter(gonogo_answer == "go"
                          & noise_correct==1) %>%
   group_by(Condition, cue_correct_fct, subject) %>%
   summarise(Percentile = list(p), RT = list(quantile(rt_noise, probs = p, na.rm = TRUE))) %>%
-  unnest()
+  unnest() %>%
+  ungroup() %>%
+  mutate(Percentile = factor(Percentile),
+         Condition = factor(Condition)) %>%
+  spread(key = Condition, value = RT ) %>%
+  mutate(CFS = `Not Studied` - CFS,
+         Binocular = `Not Studied` - Binocular) %>%
+  select(-`Not Studied`) %>%
+  gather(key = Condition, value = RT, CFS:Binocular)
 
-rt_mod <- lme4::lmer(RT ~ Condition*Percentile*cue_correct_fct + (Condition | subject:Percentile) , data = rt_quant)
+# rt_quant <- d %>% filter(gonogo_answer == "go"
+#                          & noise_correct==1) %>%
+#   group_by(Condition, cue_correct_fct, subject) %>%
+#   summarise(Percentile = list(p), RT = list(quantile(rt_noise, probs = p, na.rm = TRUE))) %>%
+#   unnest() %>%
+#   ungroup() %>%
+#   mutate(Percentile = ordered(Percentile),
+#          Condition = factor(Condition))
+  
+rt_mod0 <- afex::mixed(RT ~ Condition*Percentile*cue_correct_fct + (1 | subject), data = rt_quant0, type = 3)
+# rt_mod <- afex::mixed(RT ~ Condition*Percentile*cue_correct_fct + (1 | subject), data = rt_quant, type = 2)
 
+m0 <- lsmeans::lsmeans(rt_mod0, ~Condition|cue_correct_fct, weights = "proportional")
+m2 <- lsmeans::lsmeans(rt_mod0, ~Condition|cue_correct_fct:Percentile, at = list(Percentile = "0.25"), weights = "proportional")
 
-
-
+# m <- lsmeans::lsmeans(rt_mod, ~Condition|cue_correct_fct)
+# m1 <- lsmeans::lsmeans(rt_mod, ~Condition+Percentile|cue_correct_fct)
 ```
+
+For the actual stats, I ran a linear-mixed effects model to test for 1) an interaction between study condition x percentile when object isn't named, 2) a post-hoc contrast to test for an effect of CFS when object isn't named, and 3) a test for an effect of CFS when object isn't named, at the first quantile. 
+
+These ended up being as we wanted them. There was no interaction between condition x percentile, but there was an effect of study under CFS (collapsing across percentiles), and that includes an effect os study at the first percentile.
+
+```{r overall}
+print(rt_mod0)
+```
+
+
+```{r table1}
+summary(m0, infer = c(TRUE, TRUE), adjust = "scheffe")
+```
+
+```{r table2 }
+summary(m2, infer = c(TRUE, TRUE), adjust = "scheffe")
+```
+
+
+### Extra details about mixed-model
+
+Here are a couple of details about how I specified the mixed-effects model. I fit the model with the R package lme4 (I think we had a lab meeting dedicated to fitting mixed-effects model with this package a while ago). I assumed fixed effects for the Condition, Percentile, and naming accuracy. Percentiles were treated as a categorical (not continuous) variable. The model I fit included interactions for all of these terms. Additionally, I included a random intercept for participants. However, I did not include any random slopes (i.e., no interaction between participant and the other predictors). Finally, following Kevin's advice, I fit the model to differences of quantiles, rather than the quantiles directly. 
+
+
+
 
 
