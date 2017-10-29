@@ -20,3 +20,5 @@ lme4
 estimability
 lsmeans
 bindrcpp
+Rcpp
+brms

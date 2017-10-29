@@ -203,9 +203,6 @@ Percentiles are first calculated within participants, then averaged across parti
 
 Note that because these lines are conditioned on accurately naming the cue item, there are different numbers of trial in each condition. 
 
-There is one thing I'm somewhat worried about. In the previous experiment (topic of current CFS paper), we showed that CFS reveals dissociable learning processes (lateral vs. vertical connections). Here, we're trying to show that a visual recollection-like process can occur. In particular, we're trying to demonstrate that, when given just one part of an object, participants pattern-complete other parts -- that they not only have lateral links between parts of objects but that they are actually able to generate the parts on the nodes of those lateral links. But, how important is it for this experiment that participants have access to a qualitatively different kind of information when the objects were studied under CFS as compared to when they were studied binocularly? 
-
-I had initially been viewing the binocular trials as a kind of positive control; if RT didn't increase when participants were fully aware at study, then there would be little hope of RT increasing for objects that were studied under CFS. But, what out of these data shows that the objects studied under CFS are different than the objects studied binocularly? To what extent are we sure that the lateral connections we dissociated in Experiment 1 are the same ones driving RT speed up in the CFS condition here? Put another way, given that there is an RT speed up for objects that weren't named but were studied binocularly, does the CFS condition buy us anything other than more trials where participants weren't likely to have been able to name the objects?
 
 ```{r percentiles}
 
@@ -397,5 +394,136 @@ Here are a couple of details about how I specified the mixed-effects model. I fi
 
 
 
+## Fitting exponentially modified Gaussian distribution
+
+This next section contains some preliminary results from fitting an exponentially modified gaussian distribution to the RTs. As above, I only looked at 'go' trials in which participants correctly responded go. The three parameters of the exgaussian were fit using a Bayesian Heirarchical framework. As with the mixed-model above, I always coded participants as random effects (i.e., each participant had their own unique intercept, and these intercept were drawn from a single hyperprior distribution which was normally distributed and whose variance was itself estimated). I then considered just a few different combinations of model parameters. The model with the most parameters that I looked at allowed the location and variance of the guassian part of the exgaussian -- as well as the rate parameter of the exponential -- to vary by Condition, whether the aperature was named correctly, and an interaction between the two. I fit two reduced models, one in which the Condition did not affect the mean of the exgaussian and another in which the Condition did not affect either the rate or variance parameters.
+
+```{r, brms_init}
+library(brms)
+options(mc.cores = 2)
+
+exg_brms_d <- d %>% filter(gonogo_answer == "go"
+                        & noise_correct==1)
+
+# exg_brms_prior <-  brms::brm(bf(rt_noise ~ cue_correct_fct*Condition + (1 | subject), sigma ~ cue_correct_fct*Condition, beta ~ cue_correct_fct*Condition
+#                           , family = exgaussian() ),
+#                        data = exg_brms_d,
+#                        prior = c(prior(student_t(3,0,1), class = "b"),
+#                                  prior(student_t(3,0,1), class = "Intercept"),
+#                                  prior(gamma(2,1), class = "sd", group = "subject"),
+#                                  prior(student_t(3,0,1), class = "b", dpar = "sigma"),
+#                                  prior(student_t(3,0,1), class = "Intercept", dpar = "sigma"),
+#                                  prior(student_t(3,0,1), class = "b", dpar = "beta"),
+#                                  prior(student_t(3,0,1), class = "Intercept", dpar = "beta")),
+#                        chains = 2,
+#                        save_model = "prior.stan",
+#                        sample_prior = "only")
+# 
+# tmp <- plot(marginal_effects(exg_brms_prior), points = FALSE, ask = FALSE)
+# 
+# tmp$`cue_correct_fct:Condition` +
+#   coord_cartesian(ylim=c(0, 4))
+
+```
 
 
+```{r, brms}
+
+exg_brms_full <-  brms::brm(bf(rt_noise ~ cue_correct_fct*Condition + (1 | subject), sigma ~ cue_correct_fct*Condition, beta ~ cue_correct_fct*Condition
+                               , family = exgaussian() ),
+                            data = exg_brms_d,
+                            prior = c(prior(student_t(3,0,1), class = "b"),
+                                      prior(student_t(3,0,1), class = "Intercept"),
+                                      prior(gamma(2,1), class = "sd", group = "subject"),
+                                      prior(student_t(3,0,1), class = "b", dpar = "sigma"),
+                                      prior(student_t(3,0,1), class = "Intercept", dpar = "sigma"),
+                                      prior(student_t(3,0,1), class = "b", dpar = "beta"),
+                                      prior(student_t(3,0,1), class = "Intercept", dpar = "beta")),
+                            chains = 2,
+                            save_model = "test1.stan")
+
+exg_brms_full_noCond <-  brms::brm(bf(rt_noise ~ cue_correct_fct + (1 | subject), sigma ~ cue_correct_fct*Condition, beta ~ cue_correct_fct*Condition
+                               , family = exgaussian() ),
+                            prior = c(prior(student_t(3,0,1), class = "b"),
+                                      prior(student_t(3,0,1), class = "Intercept"),
+                                      prior(gamma(2,1), class = "sd", group = "subject"),
+                                      prior(student_t(3,0,1), class = "b", dpar = "sigma"),
+                                      prior(student_t(3,0,1), class = "Intercept", dpar = "sigma"),
+                                      prior(student_t(3,0,1), class = "b", dpar = "beta"),
+                                      prior(student_t(3,0,1), class = "Intercept", dpar = "beta")),
+                            data = exg_brms_d,
+                            chains = 2,
+                            save_model = "test3.stan")
+
+
+exg_brms_reduced <-  brms::brm(bf(rt_noise ~ cue_correct_fct*Condition + (1 | subject), sigma ~ cue_correct_fct, beta ~ cue_correct_fct
+                                  , family = exgaussian() ),
+                               data = exg_brms_d,
+                               prior = c(prior(student_t(3,0,1), class = "b"),
+                                         prior(student_t(3,0,1), class = "Intercept"),
+                                         prior(gamma(2,1), class = "sd", group = "subject"),
+                                         prior(student_t(3,0,1), class = "b", dpar = "sigma"),
+                                         prior(student_t(3,0,1), class = "Intercept", dpar = "sigma"),
+                                         prior(student_t(3,0,1), class = "b", dpar = "beta"),
+                                         prior(student_t(3,0,1), class = "Intercept", dpar = "beta")),
+                               chains = 2,
+                               save_model = "test_red.stan")
+
+
+```
+
+```{r, waic}
+
+waic_full <- brms::WAIC(exg_brms_full, exg_brms_reduced, exg_brms_full_noCond)
+
+```
+
+### WAIC for model comparison
+
+As a first pass to see the affect of condition, I tried a model comparison approach to see whether study condition affected either the location parameter or one of the other two parameters. This revealed that the addition of parameters to allow a study condition-dependent shift in RT meaningfully increased the fit of the model. However, allowing the rate parameter in the exponential component or the variance of the normal component to vary did not meaningfully increase the model fit. 
+
+There are many combinations of parameters that I haven't looked at (e.g., allowing just one of either the rate or the variance to shift by condition). How many of these do you think it's important to look at? For example, I could consider looking closer at the rate of the exponential.
+
+
+### Posterior Predictive Check Summaries
+
+Here are three plots to assess the fit of the model. The first plot is a histogram of the residual error of the data as compared to 12 iterations of sampling from the posterior distribution of the model. That is, the posterior distribution of parameter fits were used to generate 12 different datasets, each with the same number of observations as the original data. Each of the 12 histograms show the results of subtracting one of these simulated datasets from the original data. If the model is capturing all major trends, the histograms should be approximately normally distributed, centered at 0. If the model wasn't capturing major trends in the data, the histograms would appear systematically non-normal or shifted  (e.g., if they were centered on a value larger than 1, it would suggest that the model consistently predicted too low of RTs).
+
+The second and third plots are much like the first, but the plots are broken into the relevant fixed effects, the interpretation is the same as the first plot, but this is just a check to make sure that all groups were being fit equally well. 
+
+Note that the third plot breaks the data into whether or not the aperture was named correctly (named == 1). When collapsed across conditions, most objects weren't named, so those bars on the right are much smaller than those on the left.
+
+```{r pp_check}
+
+brms::pp_check(exg_brms_reduced, type = "error_hist", nsamples = 12, binwidth = 10/30)
+
+brms::pp_check(exg_brms_reduced, type = "error_hist_grouped", nsamples = 3, group = "Condition", binwidth = 10/30)
+
+brms::pp_check(exg_brms_reduced, type = "error_hist_grouped", nsamples = 3, group = "cue_correct_fct", binwidth = 10/30)
+```
+
+### Posterior Distribution
+
+Here is a quick summary of the posterior distribution of the effect of study on RT (using the model where Condition only affected the average RT). This shows the median of the posterior, with error bars extending to from the 2.5 to 97.5 quantiles of the posterior. These distributions being below 0 indicates a significant speed-up.
+
+```{r marginals}
+
+### Plots of posterior of fixed-effects
+
+# Here are 3 plots to look at the posterior distribution of the two fixed effects' location parameters, as well as their interaction's effect on location. On each plot, the dot indicates a median, and the error bars extend to the 2.5 and 97.5 percent highest density interval. Only the winning model is shown (Condition effected location of the exgaussian, but not variance or rate parameters). The relevant comparison is 
+# 
+# 
+# plot(marginal_effects(exg_brms_reduced), points = FALSE, ask = FALSE)
+
+post <- as_tibble(as.data.frame(exg_brms_reduced)) %>%
+  select(b_ConditionCFS, b_ConditionBinocular) %>%
+  gather(key = Condition, value = Posterior, b_ConditionCFS:b_ConditionBinocular) %>%
+  mutate(Condition = plyr::mapvalues(Condition, from = c("b_ConditionCFS", "b_ConditionBinocular"), to = c("CFS", "Binocular"))) %>%
+  mutate(Condition = factor(Condition, levels = c("Not Studied","CFS","Binocular")))
+
+post %>%
+  ggplot(aes(x = Condition, y = Posterior)) +
+  stat_summary(fun.data = "median_hilow") +
+  scale_y_continuous(limits = c(-.5,.5), name = "Posterior of effect on RT") +
+  geom_hline(yintercept = 0, linetype = "dashed")
+```

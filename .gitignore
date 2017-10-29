@@ -40,3 +40,5 @@ vignettes/*.pdf
 # Matlab files
 *.asv
 .Rproj.user
+
+analyses/*_cache/
