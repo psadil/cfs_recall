@@ -487,7 +487,7 @@ There are many combinations of parameters that I haven't looked at (e.g., allowi
 
 ### Posterior Predictive Check Summaries
 
-Here are three plots to assess the fit of the model. The first plot is a histogram of the residual error of the data as compared to 12 iterations of sampling from the posterior distribution of the model. That is, the posterior distribution of parameter fits were used to generate 12 different datasets, each with the same number of observations as the original data. Each of the 12 histograms show the results of subtracting one of these simulated datasets from the original data. If the model is capturing all major trends, the histograms should be approximately normally distributed, centered at 0. If the model wasn't capturing major trends in the data, the histograms would appear systematically non-normal or shifted  (e.g., if they were centered on a value larger than 1, it would suggest that the model consistently predicted too low of RTs).
+Here are three plots to assess the fit of the model (given the WAIC of the models, I'm only using a model where study condition affects the location of the exgaussian, but doesn't affect the variance or rate parameters). The first plot is a histogram of the residual error of the data as compared to 12 iterations of sampling from the posterior distribution of the model. That is, the posterior distribution of parameter fits were used to generate 12 different datasets, each with the same number of observations as the original data. Each of the 12 histograms show the results of subtracting one of these simulated datasets from the original data. If the model is capturing all major trends, the histograms should be approximately normally distributed, centered at 0. If the model wasn't capturing major trends in the data, the histograms would appear systematically non-normal or shifted  (e.g., if they were centered on a value larger than 1, it would suggest that the model consistently predicted too low of RTs).
 
 The second and third plots are much like the first, but the plots are broken into the relevant fixed effects, the interpretation is the same as the first plot, but this is just a check to make sure that all groups were being fit equally well. 
 
@@ -504,7 +504,7 @@ brms::pp_check(exg_brms_reduced, type = "error_hist_grouped", nsamples = 3, grou
 
 ### Posterior Distribution
 
-Here is a quick summary of the posterior distribution of the effect of study on RT (using the model where Condition only affected the average RT). This shows the median of the posterior, with error bars extending to from the 2.5 to 97.5 quantiles of the posterior. These distributions being below 0 indicates a significant speed-up.
+Here is a quick summary of the posterior distribution of the effect of study on RT (using the model where Condition only affected the location of the exgaussian). This shows the median of the posterior, with error bars extending to from the 2.5 to 97.5 quantiles of the posterior. These distributions being below 0 indicates a significant speed-up.
 
 ```{r marginals}
 
