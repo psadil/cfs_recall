@@ -429,7 +429,7 @@ exg_brms_d <- d %>% filter(gonogo_answer == "go"
 
 ```{r, brms}
 
-exg_brms_full <-  brms::brm(bf(rt_noise ~ cue_correct_fct*Condition + (1 | subject), sigma ~ cue_correct_fct*Condition, beta ~ cue_correct_fct*Condition
+exg_brms_full <-  brms::brm(bf(rt_noise | trunc(lb = 0) ~ cue_correct_fct*Condition + (1 | subject), sigma ~ cue_correct_fct*Condition, beta ~ cue_correct_fct*Condition
                                , family = exgaussian() ),
                             data = exg_brms_d,
                             prior = c(prior(student_t(3,0,1), class = "b"),
@@ -440,7 +440,7 @@ exg_brms_full <-  brms::brm(bf(rt_noise ~ cue_correct_fct*Condition + (1 | subje
                                       prior(student_t(3,0,1), class = "b", dpar = "beta"),
                                       prior(student_t(3,0,1), class = "Intercept", dpar = "beta")),
                             chains = 2,
-                            save_model = "test1.stan")
+                            save_model = "exg_full.stan")
 
 exg_brms_full_noCond <-  brms::brm(bf(rt_noise ~ cue_correct_fct + (1 | subject), sigma ~ cue_correct_fct*Condition, beta ~ cue_correct_fct*Condition
                                , family = exgaussian() ),
@@ -526,4 +526,64 @@ post %>%
   stat_summary(fun.data = "median_hilow") +
   scale_y_continuous(limits = c(-.5,.5), name = "Posterior of effect on RT") +
   geom_hline(yintercept = 0, linetype = "dashed")
+```
+
+
+```{r weibull1}
+# 
+# get_prior(bf(rt_noise ~ cue_correct_fct*Condition + (1 | subject), shape ~ cue_correct_fct*Condition), family = weibull(), data = exg_brms_d)
+# 
+# form <- bf(rt_noise - thresh ~ eff, thresh ~ 1, nl = TRUE) +
+#   lf(eff ~ cue_correct_fct*Condition + (1 | subject))
+#   
+#   nlf(rt_noise ~ cue + cond + int + sub - thresh, cue ~ , thresh~Condition, sub ~ (1 | subject), cond ~ Condition, int ~ cue_correct_fct:Condition, shape ~ cue_correct_fct*Condition, family = weibull(), dpar = "shape")
+# 
+# weibull_full <-  brms::brm(form, 
+#                            data = exg_brms_d,
+#                            prior = c(prior(student_t(3,0,1), class = "b"),
+#                                      prior(student_t(3,0,1), class = "Intercept"),
+#                                      prior(gamma(2,1), class = "sd", group = "subject"),
+#                                      prior(student_t(3,0,1), class = "b", dpar = "shape"),
+#                                      prior(student_t(3,0,1), class = "Intercept", dpar = "shape")),
+#                            chains = 2,
+#                            save_model = "weibull_full.stan")
+# 
+# 
+# ```
+# 
+# 
+# 
+# ```{r wiener1}
+# library(brms)
+# 
+# d_process <- d %>% 
+#   mutate(response_noise_num = 
+#            plyr::mapvalues(response_noise, from = c("NO RESPONSE", "Return"), to = c("lower","upper")),
+#          gonogo_true = 
+#            plyr::mapvalues(gonogo_answer, from = c("nogo", "go"), to = c("lower","upper"))) %>%
+#   # mutate(response_noise_num = factor(response_noise_num),
+#   #        gonogo_true = factor(gonogo_true)) %>%
+#   filter(gonogo_true == "upper" & response_noise_num == "upper")
+# 
+# 
+# form <- brms::bf(rt_noise | dec(response_noise_num) ~ cue_correct_fct*Condition + (1 | subject)) +
+#   wiener() +
+#   lf(bias = .5, bs = 2, ndt ~ cue_correct_fct*Condition)
+# 
+# brms::get_prior(form, data = d_process)
+# 
+# weibull_full <-  brms::brm(form, 
+#                            family = wiener(),
+#                            data = d_process,
+#                            prior = c(prior(student_t(3,0,1), class = "b"),
+#                                      prior(student_t(3,0,1), class = "Intercept"),
+#                                      prior(gamma(2,1), class = "sd", group = "subject"),
+#                                      prior(normal(-2,2), class = "b", dpar = "ndt"),
+#                                      prior(normal(-2,2), class = "Intercept", dpar = "ndt")
+#                                      ),
+#                            chains = 2,
+#                            inits = list(rep(list(b_ndt = rep(-10, times=5), temp_ndt_Intercept =-10), times = 2)),
+#                            save_model = "wiener_full.stan")
+
+
 ```
