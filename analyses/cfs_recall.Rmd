@@ -10,6 +10,10 @@ params:
   percentiles: 4
   exclude: !r c(NaN)
   low_name: !r c(28, 30, 45, 54)
+  chains: 2
+  alg: "sampling"
+  iter: 1000
+  warmup: 1000
 ---
 
 ```{r setup, include=FALSE, warning=FALSE}
@@ -24,6 +28,10 @@ library(modelr)
 library(broom)
 library(lme4)
 library(lsmeans)
+library(brms)
+
+options(mc.cores = params$chains)
+
 
 source(file.path('utils.R'))
 targets <- read_csv('objectNames_2afc.csv') 
@@ -399,9 +407,6 @@ Here are a couple of details about how I specified the mixed-effects model. I fi
 This next section contains some preliminary results from fitting an exponentially modified gaussian distribution to the RTs. As above, I only looked at 'go' trials in which participants correctly responded go. The three parameters of the exgaussian were fit using a Bayesian Heirarchical framework. As with the mixed-model above, I always coded participants as random effects (i.e., each participant had their own unique intercept, and these intercept were drawn from a single hyperprior distribution which was normally distributed and whose variance was itself estimated). I then considered just a few different combinations of model parameters. The model with the most parameters that I looked at allowed the location and variance of the guassian part of the exgaussian -- as well as the rate parameter of the exponential -- to vary by Condition, whether the aperature was named correctly, and an interaction between the two. I fit two reduced models, one in which the Condition did not affect the mean of the exgaussian and another in which the Condition did not affect either the rate or variance parameters.
 
 ```{r, brms_init}
-library(brms)
-options(mc.cores = 2)
-
 exg_brms_d <- d %>% filter(gonogo_answer == "go"
                         & noise_correct==1)
 
@@ -429,7 +434,54 @@ exg_brms_d <- d %>% filter(gonogo_answer == "go"
 
 ```{r, brms}
 
-exg_brms_full <-  brms::brm(bf(rt_noise | trunc(lb = 0) ~ cue_correct_fct*Condition + (1 | subject), sigma ~ cue_correct_fct*Condition, beta ~ cue_correct_fct*Condition
+exg_reduced <-  brms::brm(bf(rt_noise | trunc(lb = 0) ~ cue_correct_fct + (1 | subject), sigma ~ cue_correct_fct, beta ~ cue_correct_fct
+                             , family = exgaussian() ),
+                          prior = c(prior(student_t(3,0,1), class = "b"),
+                                    prior(student_t(3,0,1), class = "Intercept"),
+                                    prior(gamma(2,1), class = "sd", group = "subject"),
+                                    prior(student_t(3,0,1), class = "b", dpar = "sigma"),
+                                    prior(student_t(3,0,1), class = "Intercept", dpar = "sigma"),
+                                    prior(student_t(3,0,1), class = "b", dpar = "beta"),
+                                    prior(student_t(3,0,1), class = "Intercept", dpar = "beta")),
+                          data = exg_brms_d,
+                          chains = params$chains,
+                          algorithm = params$alg,
+                          warmup = params$warmup,
+                          iter = params$warmup + params$iter,
+                          save_model = file.path("stan","exg_reduced.stan")
+)
+
+exg_muCond <-  brms::brm(bf(rt_noise | trunc(lb = 0) ~ cue_correct_fct*Condition + (1 | subject), sigma ~ cue_correct_fct, beta ~ cue_correct_fct
+                             , family = exgaussian() ),
+                          prior = c(prior(student_t(3,0,1), class = "b"),
+                                    prior(student_t(3,0,1), class = "Intercept"),
+                                    prior(gamma(2,1), class = "sd", group = "subject"),
+                                    prior(student_t(3,0,1), class = "b", dpar = "sigma"),
+                                    prior(student_t(3,0,1), class = "Intercept", dpar = "sigma"),
+                                    prior(student_t(3,0,1), class = "b", dpar = "beta"),
+                                    prior(student_t(3,0,1), class = "Intercept", dpar = "beta")),
+                          data = exg_brms_d,
+                          chains = params$chains,
+                          algorithm = params$alg,
+                          warmup = params$warmup,
+                          iter = params$warmup + params$iter,
+                          save_model = file.path("stan","exg_muCond.stan")
+)
+
+exg_betaCond <- brms::brm(bf(rt_noise | trunc(lb = 0) ~ cue_correct_fct*Condition + (1 | subject), sigma ~ cue_correct_fct, beta ~ cue_correct_fct*Condition
+                             , family = exgaussian() ),
+                          data = exg_brms_d,
+                          prior = c(prior(student_t(3,0,1), class = "b"),
+                                    prior(student_t(3,0,1), class = "Intercept"),
+                                    prior(gamma(2,1), class = "sd", group = "subject"),
+                                    prior(student_t(3,0,1), class = "b", dpar = "sigma"),
+                                    prior(student_t(3,0,1), class = "Intercept", dpar = "sigma"),
+                                    prior(student_t(3,0,1), class = "b", dpar = "beta"),
+                                    prior(student_t(3,0,1), class = "Intercept", dpar = "beta")),
+                          chains = params$chains,
+                          save_model = "exg_betaCond.stan")
+
+exg_sigmaCond <-  brms::brm(bf(rt_noise | trunc(lb = 0) ~ cue_correct_fct*Condition + (1 | subject), sigma ~ cue_correct_fct*Condition, beta ~ cue_correct_fct
                                , family = exgaussian() ),
                             data = exg_brms_d,
                             prior = c(prior(student_t(3,0,1), class = "b"),
@@ -439,67 +491,50 @@ exg_brms_full <-  brms::brm(bf(rt_noise | trunc(lb = 0) ~ cue_correct_fct*Condit
                                       prior(student_t(3,0,1), class = "Intercept", dpar = "sigma"),
                                       prior(student_t(3,0,1), class = "b", dpar = "beta"),
                                       prior(student_t(3,0,1), class = "Intercept", dpar = "beta")),
-                            chains = 2,
-                            save_model = "exg_full.stan")
-
-exg_brms_full_noCond <-  brms::brm(bf(rt_noise ~ cue_correct_fct + (1 | subject), sigma ~ cue_correct_fct*Condition, beta ~ cue_correct_fct*Condition
-                               , family = exgaussian() ),
-                            prior = c(prior(student_t(3,0,1), class = "b"),
-                                      prior(student_t(3,0,1), class = "Intercept"),
-                                      prior(gamma(2,1), class = "sd", group = "subject"),
-                                      prior(student_t(3,0,1), class = "b", dpar = "sigma"),
-                                      prior(student_t(3,0,1), class = "Intercept", dpar = "sigma"),
-                                      prior(student_t(3,0,1), class = "b", dpar = "beta"),
-                                      prior(student_t(3,0,1), class = "Intercept", dpar = "beta")),
-                            data = exg_brms_d,
-                            chains = 2,
-                            save_model = "test3.stan")
+                            chains = params$chains,
+                            save_model = "exg_sigmaCond.stan")
 
 
-exg_brms_reduced <-  brms::brm(bf(rt_noise ~ cue_correct_fct*Condition + (1 | subject), sigma ~ cue_correct_fct, beta ~ cue_correct_fct
-                                  , family = exgaussian() ),
-                               data = exg_brms_d,
-                               prior = c(prior(student_t(3,0,1), class = "b"),
-                                         prior(student_t(3,0,1), class = "Intercept"),
-                                         prior(gamma(2,1), class = "sd", group = "subject"),
-                                         prior(student_t(3,0,1), class = "b", dpar = "sigma"),
-                                         prior(student_t(3,0,1), class = "Intercept", dpar = "sigma"),
-                                         prior(student_t(3,0,1), class = "b", dpar = "beta"),
-                                         prior(student_t(3,0,1), class = "Intercept", dpar = "beta")),
-                               chains = 2,
-                               save_model = "test_red.stan")
-
+exg_full <-  brms::brm(bf(rt_noise | trunc(lb = 0) ~ cue_correct_fct*Condition + (1 | subject), sigma ~ cue_correct_fct*Condition, beta ~ cue_correct_fct*Condition
+                          , family = exgaussian() ),
+                       data = exg_brms_d,
+                       prior = c(prior(student_t(3,0,1), class = "b"),
+                                 prior(student_t(3,0,1), class = "Intercept"),
+                                 prior(gamma(2,1), class = "sd", group = "subject"),
+                                 prior(student_t(3,0,1), class = "b", dpar = "sigma"),
+                                 prior(student_t(3,0,1), class = "Intercept", dpar = "sigma"),
+                                 prior(student_t(3,0,1), class = "b", dpar = "beta"),
+                                 prior(student_t(3,0,1), class = "Intercept", dpar = "beta")),
+                       chains = params$chains,
+                       algorithm = params$alg,
+                       save_model = "exg_full.stan")
 
 ```
 
 ```{r, waic}
-
-waic_full <- brms::WAIC(exg_brms_full, exg_brms_reduced, exg_brms_full_noCond)
+  
+brms::WAIC(exg_reduced, exg_muCond, exg_sigmaCond, exg_betaCond, exg_full)
 
 ```
 
 ### WAIC for model comparison
 
-As a first pass to see the affect of condition, I tried a model comparison approach to see whether study condition affected either the location parameter or one of the other two parameters. This revealed that the addition of parameters to allow a study condition-dependent shift in RT meaningfully increased the fit of the model. However, allowing the rate parameter in the exponential component or the variance of the normal component to vary did not meaningfully increase the model fit. 
-
-There are many combinations of parameters that I haven't looked at (e.g., allowing just one of either the rate or the variance to shift by condition). How many of these do you think it's important to look at? For example, I could consider looking closer at the rate of the exponential.
-
+WAIC still prefers just the model where Condition affects the location of the gaussian component, but not either the rate or the standard deviation.
 
 ### Posterior Predictive Check Summaries
 
-Here are three plots to assess the fit of the model (given the WAIC of the models, I'm only using a model where study condition affects the location of the exgaussian, but doesn't affect the variance or rate parameters). The first plot is a histogram of the residual error of the data as compared to 12 iterations of sampling from the posterior distribution of the model. That is, the posterior distribution of parameter fits were used to generate 12 different datasets, each with the same number of observations as the original data. Each of the 12 histograms show the results of subtracting one of these simulated datasets from the original data. If the model is capturing all major trends, the histograms should be approximately normally distributed, centered at 0. If the model wasn't capturing major trends in the data, the histograms would appear systematically non-normal or shifted  (e.g., if they were centered on a value larger than 1, it would suggest that the model consistently predicted too low of RTs).
+Here are three plots to assess the fit of the winning model. The first plot is a histogram of the residual error of the data as compared to 12 iterations of sampling from the posterior distribution of the model. That is, the posterior distribution of parameter fits were used to generate 12 different datasets, each with the same number of observations as the original data. Each of the 12 histograms show the results of subtracting one of these simulated datasets from the original data. If the model is capturing all major trends, the histograms should be approximately normally distributed, centered at 0. If the model wasn't capturing major trends in the data, the histograms would appear systematically non-normal or shifted  (e.g., if they were centered on a value larger than 1, it would suggest that the model consistently predicted too low of RTs).
 
 The second and third plots are much like the first, but the plots are broken into the relevant fixed effects, the interpretation is the same as the first plot, but this is just a check to make sure that all groups were being fit equally well. 
 
 Note that the third plot breaks the data into whether or not the aperture was named correctly (named == 1). When collapsed across conditions, most objects weren't named, so those bars on the right are much smaller than those on the left.
 
 ```{r pp_check}
+brms::pp_check(exg_muCond, type = "error_hist", nsamples = 12, binwidth = 10/30)
 
-brms::pp_check(exg_brms_reduced, type = "error_hist", nsamples = 12, binwidth = 10/30)
+brms::pp_check(exg_muCond, type = "error_hist_grouped", nsamples = 3, group = "Condition", binwidth = 10/30)
 
-brms::pp_check(exg_brms_reduced, type = "error_hist_grouped", nsamples = 3, group = "Condition", binwidth = 10/30)
-
-brms::pp_check(exg_brms_reduced, type = "error_hist_grouped", nsamples = 3, group = "cue_correct_fct", binwidth = 10/30)
+brms::pp_check(exg_muCond, type = "error_hist_grouped", nsamples = 3, group = "cue_correct_fct", binwidth = 10/30)
 ```
 
 ### Posterior Distribution
@@ -508,14 +543,7 @@ Here is a quick summary of the posterior distribution of the effect of study on 
 
 ```{r marginals}
 
-### Plots of posterior of fixed-effects
-
-# Here are 3 plots to look at the posterior distribution of the two fixed effects' location parameters, as well as their interaction's effect on location. On each plot, the dot indicates a median, and the error bars extend to the 2.5 and 97.5 percent highest density interval. Only the winning model is shown (Condition effected location of the exgaussian, but not variance or rate parameters). The relevant comparison is 
-# 
-# 
-# plot(marginal_effects(exg_brms_reduced), points = FALSE, ask = FALSE)
-
-post <- as_tibble(as.data.frame(exg_brms_reduced)) %>%
+post <- as_tibble(as.data.frame(exg_muCond)) %>%
   select(b_ConditionCFS, b_ConditionBinocular) %>%
   gather(key = Condition, value = Posterior, b_ConditionCFS:b_ConditionBinocular) %>%
   mutate(Condition = plyr::mapvalues(Condition, from = c("b_ConditionCFS", "b_ConditionBinocular"), to = c("CFS", "Binocular"))) %>%

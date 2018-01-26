@@ -22,3 +22,5 @@ lsmeans
 bindrcpp
 Rcpp
 brms
+stringr
+forcats

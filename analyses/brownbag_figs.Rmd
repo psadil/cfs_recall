@@ -1,0 +1,899 @@
+---
+title: "CFS Recall (Master's Expt 2), variable transparency"
+author: "pss"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: html_document
+params:
+  data_dir: data
+  expt: CFSgonogo
+  cutoff: 1
+  percentiles: 5
+  exclude: !r c(NaN)
+  low_name: !r c(28, 30, 45, 54)
+  chains: 2
+  alg: "sampling"
+  iter: 1000
+  warmup: 1000
+---
+
+```{r setup, include=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, fig.path = paste0(file.path('output','figures',params$expt),.Platform$file.sep), cache = TRUE, message = FALSE, fig.width = 6, fig.asp = 1)
+
+library(tidyverse)
+library(magrittr)
+library(stringdist)
+library(Hmisc)
+library(ggridges)
+library(modelr)
+library(broom)
+library(lme4)
+library(lsmeans)
+library(brms)
+
+options(mc.cores = params$chains)
+
+
+source(file.path('utils.R'))
+targets <- read_csv('objectNames_2afc.csv') 
+
+out <- list()
+for (i in 1:dim(targets[1])){
+  out[i] = list(c(targets[i,]$name1, targets[i,]$name2, targets[i,]$name3, targets[i,]$name4, targets[i,]$name5, targets[i,]$name6, targets[i,]$name7, targets[i,]$name8, targets[i,]$name9, targets[i,]$name10, targets[i,]$name11, targets[i,]$name12, targets[i,]$name13, targets[i,]$name14, targets[i,]$name15))
+}
+
+cbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
+Conditions = c('Not Studied','CFS, Image', 'Binocular, Image')
+
+colmap <- c('Not Studied'=cbPalette[7]
+            ,'Word'=cbPalette[2]
+            ,'CFS'=cbPalette[3]
+            ,'Binocular'=cbPalette[4])
+
+# old_theme <- theme_set(theme_classic(base_size = 12)) +
+#   theme_update(
+#     axis.ticks = element_blank()
+#     , axis.line = element_line(size=1)
+#     , plot.margin=margin(rep(0,4))
+#   )
+
+theme_set(theme_grey())
+
+## Gives count, mean, standard deviation, standard error of the mean, and confidence interval (default 95%).
+##   data: a data frame.
+##   measurevar: the name of a column that contains the variable to be summariezed
+##   groupvars: a vector containing names of columns that contain grouping variables
+##   na.rm: a boolean that indicates whether to ignore NA's
+##   conf.interval: the percent range of the confidence interval (default is 95%)
+summarySE <- function(data=NULL, measurevar, groupvars=NULL, na.rm=FALSE,
+                      conf.interval=.95, .drop=TRUE) {
+    # library(plyr)
+
+    # New version of length which can handle NA's: if na.rm==T, don't count them
+    length2 <- function (x, na.rm=FALSE) {
+        if (na.rm) sum(!is.na(x))
+        else       length(x)
+    }
+
+    # This does the summary. For each group's data frame, return a vector with
+    # N, mean, and sd
+    datac <- plyr::ddply(data, groupvars, .drop=.drop,
+      .fun = function(xx, col) {
+        c(N    = length2(xx[[col]], na.rm=na.rm),
+          mean = mean   (xx[[col]], na.rm=na.rm),
+          sd   = sd     (xx[[col]], na.rm=na.rm)
+        )
+      },
+      measurevar
+    )
+
+    # Rename the "mean" column    
+    datac <- plyr::rename(datac, c("mean" = measurevar))
+
+    datac$se <- datac$sd / sqrt(datac$N)  # Calculate standard error of the mean
+
+    # Confidence interval multiplier for standard error
+    # Calculate t-statistic for confidence interval: 
+    # e.g., if conf.interval is .95, use .975 (above/below), and use df=N-1
+    ciMult <- qt(conf.interval/2 + .5, datac$N-1)
+    datac$ci <- datac$se * ciMult
+
+    return(datac)
+}
+
+## Norms the data within specified groups in a data frame; it normalizes each
+## subject (identified by idvar) so that they have the same mean, within each group
+## specified by betweenvars.
+##   data: a data frame.
+##   idvar: the name of a column that identifies each subject (or matched subjects)
+##   measurevar: the name of a column that contains the variable to be summariezed
+##   betweenvars: a vector containing names of columns that are between-subjects variables
+##   na.rm: a boolean that indicates whether to ignore NA's
+normDataWithin <- function(data=NULL, idvar, measurevar, betweenvars=NULL,
+                           na.rm=FALSE, .drop=TRUE) {
+    # library(plyr)
+
+    # Measure var on left, idvar + between vars on right of formula.
+    data.subjMean <- plyr::ddply(data, c(idvar, betweenvars), .drop=.drop,
+     .fun = function(xx, col, na.rm) {
+        c(subjMean = mean(xx[,col], na.rm=na.rm))
+      },
+      measurevar,
+      na.rm
+    )
+
+    # Put the subject means with original data
+    data <- merge(data, data.subjMean)
+
+    # Get the normalized data in a new column
+    measureNormedVar <- paste(measurevar, "_norm", sep="")
+    data[,measureNormedVar] <- data[,measurevar] - data[,"subjMean"] +
+                               mean(data[,measurevar], na.rm=na.rm)
+
+    # Remove this subject mean column
+    data$subjMean <- NULL
+
+    return(data)
+}
+
+## Summarizes data, handling within-subjects variables by removing inter-subject variability.
+## It will still work if there are no within-S variables.
+## Gives count, un-normed mean, normed mean (with same between-group mean),
+##   standard deviation, standard error of the mean, and confidence interval.
+## If there are within-subject variables, calculate adjusted values using method from Morey (2008).
+##   data: a data frame.
+##   measurevar: the name of a column that contains the variable to be summariezed
+##   betweenvars: a vector containing names of columns that are between-subjects variables
+##   withinvars: a vector containing names of columns that are within-subjects variables
+##   idvar: the name of a column that identifies each subject (or matched subjects)
+##   na.rm: a boolean that indicates whether to ignore NA's
+##   conf.interval: the percent range of the confidence interval (default is 95%)
+summarySEwithin <- function(data=NULL, measurevar, betweenvars=NULL, withinvars=NULL,
+                            idvar=NULL, na.rm=FALSE, conf.interval=.95, .drop=TRUE) {
+
+  # Ensure that the betweenvars and withinvars are factors
+  factorvars <- vapply(data[, c(betweenvars, withinvars), drop=FALSE],
+    FUN=is.factor, FUN.VALUE=logical(1))
+
+  if (!all(factorvars)) {
+    nonfactorvars <- names(factorvars)[!factorvars]
+    message("Automatically converting the following non-factors to factors: ",
+            paste(nonfactorvars, collapse = ", "))
+    data[nonfactorvars] <- lapply(data[nonfactorvars], factor)
+  }
+
+  # Get the means from the un-normed data
+  datac <- summarySE(data, measurevar, groupvars=c(betweenvars, withinvars),
+                     na.rm=na.rm, conf.interval=conf.interval, .drop=.drop)
+
+  # Drop all the unused columns (these will be calculated with normed data)
+  datac$sd <- NULL
+  datac$se <- NULL
+  datac$ci <- NULL
+
+  # Norm each subject's data
+  ndata <- normDataWithin(data, idvar, measurevar, betweenvars, na.rm, .drop=.drop)
+
+  # This is the name of the new column
+  measurevar_n <- paste(measurevar, "_norm", sep="")
+
+  # Collapse the normed data - now we can treat between and within vars the same
+  ndatac <- summarySE(ndata, measurevar_n, groupvars=c(betweenvars, withinvars),
+                      na.rm=na.rm, conf.interval=conf.interval, .drop=.drop)
+
+  # Apply correction from Morey (2008) to the standard error and confidence interval
+  #  Get the product of the number of conditions of within-S variables
+  nWithinGroups    <- prod(vapply(ndatac[,withinvars, drop=FALSE], FUN=nlevels,
+                           FUN.VALUE=numeric(1)))
+  correctionFactor <- sqrt( nWithinGroups / (nWithinGroups-1) )
+
+  # Apply the correction factor
+  ndatac$sd <- ndatac$sd * correctionFactor
+  ndatac$se <- ndatac$se * correctionFactor
+  ndatac$ci <- ndatac$ci * correctionFactor
+
+  # Combine the un-normed means with the normed results
+  merge(datac, ndatac)
+}
+
+```
+
+
+```{r loadData, message=FALSE}
+
+s_dirs <- list.files(path=params$data_dir)
+files <- list.files(path=file.path(params$data_dir, s_dirs, params$expt), pattern = ".csv", full.names = TRUE)
+files <- files[!grepl(glue::glue('subject_{params$exclude}_'), files)]
+d <- lapply(files, read_csv, col_types=cols(pas_1=col_character(),pas_2=col_character(), pas = col_character())) %>% 
+  bind_rows() %>%
+  select(subject, pas_1, pas_2, item_test, tType_study, item, name_test, gonogo_answer, response_cue, response_noise, rt_noise) %>%
+  group_by(subject) %>%
+  nest() %>%
+  mutate(data = map(data, . %>% mutate(test_in_study = match(item_test, item)))) %>%
+  mutate(data = map(data, . %>% mutate(Condition = tType_study[test_in_study]))) %>%
+  mutate(data = map(data, . %>% mutate(pas_1 = pas_1[test_in_study]))) %>%
+  mutate(data = map(data, . %>% mutate(pas_2 = pas_2[test_in_study]))) %>%
+  unnest() %>%
+  mutate(Condition = factor(Condition, levels = c("Not Studied","CFS","Binocular"))) %>%
+  select(-item, -tType_study, -test_in_study) %>%
+  mutate(noise_correct = if_else((gonogo_answer=='go' & response_noise=='Return') |
+                                   (gonogo_answer=='nogo' & response_noise!='Return'), 1, 0)) %>%
+  mutate(subject=factor(subject)) %>%
+  mutate(targets = out[item_test]) %>%
+  mutate(firstTarget=sapply(X=targets, FUN=function(x) extract2(x,1))) %>%
+  mutate(dl = Map(function(x,y) stringdist(x, y, method="dl"), targets, response_cue)) %>%
+  mutate(minDist = sapply(X=dl, FUN=function(x) min(x, na.rm=TRUE))) %>%
+  mutate(cue_correct = if_else(minDist < params$cutoff, 1, 0)) %>%
+  mutate(pas_1 = as.numeric(substring(pas_1,1,1))) %>%
+  mutate(pas_1 = if_else(is.na(pas_1),0,pas_1)) %>%
+  mutate(pas_1 = factor(pas_1)) %>%
+  mutate(pas_2 = as.numeric(substring(pas_2,1,1))) %>%
+  mutate(pas_2 = if_else(is.na(pas_2),0,pas_2)) %>%
+  mutate(pas_2 = factor(pas_2)) %>%
+  mutate(id = 1:n()) %>%
+  mutate(cue_correct_fct = factor(cue_correct))
+
+  
+
+# This method relies on saving the data and looking at each response to each cue individually. A response may have been marked as incorrect automatically, but could still be semantically related to the target. Those need to be corrected manually, and then the targets need to be updated.
+
+# d %>%
+#   mutate(id = 1:n()) %>%
+#   select(firstTarget, response_cue, minDist, cue_correct, id) %>%
+#   filter(cue_correct == 0) %>%
+#   write_csv(x=., path = file.path("tmp.csv"))
+
+```
+
+
+`r n_distinct(d$subject) - length(params$low_name)` participants worth of data usable data (`r n_distinct(d$subject)` finished the experiment in total, but `r length(params$low_name)` have about 0% correct on naming trials. Note that the participant IDs don't quite match up to the total nunber of participants. The mismatch is because the RAs accidentally skipped a couple of numbers), recruited during the summer and through SONA. We're had been aiming for 60.
+
+`r n_distinct(d$item_test)` items per participant, encountered in lists of 12 items. With three conditions (binocular, cfs, not-studied), there were four items in each condition in each list. Of those four items, three were encountered in a “go” test trial, and one was in a “no-go” test trial. So, 1/4 of test-trials were no-go. This leaves up to 30 items in go trials per condition, per participant (but the actual numer will be different, depending on how many objects were correctly named). 
+
+## Figures
+
+
+```{r pas}
+
+d %>%
+  dplyr::rename(First = pas_1, Second = pas_2) %>%
+  gather(key = `PAS Rating`, value = PAS, First:Second) %>%
+  filter(Condition  == "CFS") %>%
+  ggplot() +
+  facet_wrap( ~ `PAS Rating`, labeller = "label_both") +
+  stat_count(aes(x = PAS, y = ..prop.., group=1), fill = colmap[3]) +
+  scale_y_continuous(labels = scales::percent, name = "Proportion of Responses", breaks = c(0,.25,.5,.75,1) ) +
+  coord_cartesian(ylim = c(0,1)) +
+  theme_classic(base_size = 18) +
+  theme(strip.background = element_blank(),
+        axis.ticks = element_blank()
+    , axis.line = element_line(size=1)
+    , plot.margin=margin(rep(0,4))
+    , panel.grid.major.x = element_blank()
+    # , axis.line.x = element_blank()
+    )
+ggsave("figs/pas_avg.tiff", width = 8, height = 6)
+  
+d %>%
+  dplyr::rename(First = pas_1, Second = pas_2) %>%
+  gather(key = `PAS Rating`, value = PAS, First:Second) %>%
+  filter(Condition  == "CFS") %>%
+  filter(`PAS Rating` == "Second") %>%
+  ggplot() +
+  facet_wrap( ~ subject, nrow = 4) +
+  stat_count(aes(x = PAS, y = ..prop.., group=1), fill = colmap[3]) +
+  scale_y_continuous(labels = scales::percent, name = "Proportion of Responses", breaks = c(0,.5,1) ) +
+  coord_cartesian(ylim = c(0,1)) +
+  theme_grey(base_size = 18) +
+  theme(strip.background = element_blank(),
+        axis.ticks = element_blank()
+    , axis.line = element_line(size=1)
+    , plot.margin=margin(rep(0,4))
+    , panel.grid.major.x = element_blank()
+    # , axis.line.x = element_blank()
+    )
+ggsave("figs/pas_sub.tiff", width = 12, height = 6)
+
+
+``` 
+
+
+### Naming Accuracy
+
+The following plot shows the proportion of items that participants named correctly. The first plot shows each participant invididually to see which ones didn't try during the naming condition. These ones were excluded from the group-level plot and all further plots.
+
+Note that in this group-level plot (and all other following), each participants' average performance is calculated separetely and then averaged together. Error bars reflect the standard error of the mean, averaging across participant averages (note that I had previously been showing 95% CI).
+
+
+```{r}
+library(emmeans)
+library(afex)
+
+# afex_options(lmer_function = "lme4")
+# gm1 <- d %>%
+#   mutate(item_test = factor(item_test)) %>%
+#   afex::mixed(cue_correct ~ Condition + (1|subject) + (1|item_test), data = ., family = binomial, method = "LRT",
+#               control = lmerControl(optCtrl = list(maxfun = 1e6))
+#               )
+
+gm0 <-  d %>%
+  mutate(item_test = factor(item_test)) %>%
+  lme4::glmer(cue_correct ~ Condition + (1|subject) + (1|item_test), data = ., family = binomial, nAQ = 9)
+gm1 <-  d %>%
+  mutate(item_test = factor(item_test)) %>%
+  lme4::glmer(cue_correct ~ Condition + (Condition|subject) + (Condition|item_test), data = ., family = binomial, nAQ = 9)
+
+emmeans::emmeans(gm0, ~Condition, type = "response", lmer.df = "Kenward") %>%
+  tibble::as_tibble()
+emmeans::emmeans(gm1, ~Condition, type = "response") %>%
+  tibble::as_tibble()
+
+```
+
+
+
+```{r naming}
+
+d %>%
+  ggplot(aes(x=Condition, y=cue_correct, color = Condition)) +
+  stat_summary(fun.data="mean_se") +
+  scale_color_manual(values=colmap, name= "Condition") +  
+  facet_wrap(~subject, nrow = 3) +
+  geom_hline(yintercept = 0) +
+  scale_y_continuous(limits = c(0,1), breaks = c(0,.5,1), name = "Naming Accuracy") +
+  scale_x_discrete(name = NULL, label = element_blank()) +
+  theme_gray(base_size = 18) +
+  theme(strip.background = element_blank(),
+        axis.ticks = element_blank()
+    , axis.line = element_line(size=1)
+    , plot.margin=margin(rep(0,4))
+    , panel.grid.major.x = element_blank()
+    , axis.line.x = element_blank()
+    , legend.position = "bottom")
+ggsave("figs/naming_accuracy_sub.tiff", width = 12, height = 6)
+
+d %<>% filter(!(subject %in% params$low_name)) %>% mutate(subject = forcats::fct_drop(subject))
+
+d %>%
+  summarySEwithin(., measurevar = "cue_correct", withinvars = "Condition", idvar = "subject", na.rm = TRUE, conf.interval = .95) %>%
+  ggplot(aes(x=Condition, y=cue_correct, color = Condition)) +
+  geom_errorbar(width=.1, aes(ymin=cue_correct-ci, ymax=cue_correct+ci)) +
+  geom_point() +
+  scale_y_continuous(limits = c(0,1), name = "Naming Accuracy") +
+  scale_x_discrete(name = NULL, label = element_blank()) +
+  scale_color_manual(values=colmap, name= "Condition") +
+  theme_classic(base_size = 18) +
+  theme(strip.background = element_blank(),
+        axis.ticks = element_blank()
+    , axis.line = element_line(size=1)
+    , plot.margin=margin(rep(0,4))
+    , legend.position = c(.25,.75))
+ggsave("figs/naming_accuracy_avg.tiff", width = 8, height = 6)
+
+
+
+```
+
+### Go/No-go accuracy
+
+The following plot shows proportion correct on the no/no-go trials (whether participants either said an item was appearing, or correctly waited). Raw accuracy is high. I didn't calculate anything like d' given that performance was basically at ceiling for all participants, and so d' would be infinity.
+
+```{r noise_correct}
+
+# d %>%
+#   mutate(gonogo_answer = factor(gonogo_answer),
+#          response_type = case_when(
+#            gonogo_answer == "go" & noise_correct ~ "Hit",
+#            gonogo_answer == "nogo" & !noise_correct ~ "False Alarm",
+#            gonogo_answer == "nogo" & !noise_correct ~ "Correct Rejection",
+#            gonogo_answer == "go" & noise_correct ~ "Miss"
+#          ),
+#          response_type = factor(response_type)) %>%
+#   summarySEwithin(., measurevar = "noise_correct", withinvars = c("Condition","response_type"), idvar = "subject", na.rm = TRUE, conf.interval = .95) %>%
+#   mutate(noise_correct = if_else(gonogo_answer == "go", noise_correct, 1-noise_correct)) %>%
+#   ggplot(aes(x=Condition, y=noise_correct, color = Condition)) +
+#   geom_errorbar(width=.1, aes(ymin=noise_correct-ci, ymax=noise_correct+ci)) +
+#   geom_point() +
+#   facet_wrap(~gonogo_answer) +
+#   scale_y_continuous(limits = c(0,1), name = "Go/No-Go Accuracy") +
+#   scale_x_discrete(name = NULL, label = element_blank()) +
+#   scale_color_manual(values=colmap, name= "Condition") +
+#   theme_classic(base_size = 18) +
+#   theme(strip.background = element_blank(),
+#         axis.ticks = element_blank()
+#     , axis.line = element_line(size=1)
+#     , plot.margin=margin(rep(0,4))
+#     , legend.position = c(.25,.25)
+#     )
+# 
+#   group_by(Condition, gonogo_answer, response_noise) %>%
+#   summarise(sum(noise_correct))
+
+d %>%
+  mutate(gonogo_answer = factor(gonogo_answer),
+         response_type = case_when(
+           gonogo_answer == "go" & noise_correct ~ "Hit",
+           gonogo_answer == "nogo" & !noise_correct ~ "False Alarm",
+           gonogo_answer == "nogo" & !noise_correct ~ "Correct Rejection",
+           gonogo_answer == "go" & noise_correct ~ "Miss"
+         )) %>%
+  filter(response_type %in% c("Hit", "False Alarm")) %>%
+  mutate(response_type = factor(response_type, levels = c("Hit", "False Alarm"))) %>%
+  ggplot(aes(x=response_type, group=Condition, fill= Condition)) +
+  geom_bar(aes( y = ..prop..), stat="count", position = position_dodge(1)) +
+  geom_text(aes( label = ..count..,
+                 y= ..prop.. ), stat="count", vjust = -.5, position = position_dodge(1)) +
+  scale_y_continuous(limits = c(0,1), name = "Proportion of Go Responses Given") +
+  scale_x_discrete(name = NULL, label = c("Hit", "False Alarm")) +
+  scale_fill_manual(values=colmap, name= "Condition") +
+  theme_classic(base_size = 18) +
+  theme(strip.background = element_blank(),
+        axis.ticks = element_blank()
+        , axis.line = element_line(size=1)
+        , plot.margin=margin(rep(0,4))
+        , legend.position = c(.75,.75)
+  )
+ggsave('figs/noise_accuracy_group.png', width = 8, height = 6)
+
+  
+  # +
+  #   facet_wrap(~response_type)
+  #   
+  
+  
+
+
+  d %>%
+    ggplot(aes(x=Condition, y=noise_correct, color = Condition)) +
+  stat_summary(fun.data="mean_se") +
+  scale_x_discrete(name = NULL, label = element_blank()) +
+  scale_color_manual(values=colmap, name= "Condition") +
+  facet_wrap(~subject, nrow = 3) +
+  geom_hline(yintercept = 0) +
+  geom_hline(yintercept = 1, linetype = "dashed") +
+  scale_y_continuous(limits = c(0,1), breaks = c(0,.5,1), name = "Naming Accuracy") 
+# +
+#   ggsave('noise_accuracy_sub.png', height = params$fig_size[2], width = params$fig_size[1]) 
+
+```
+
+### Percentiles
+
+Percentiles are first calculated within participants, then averaged across participants.
+
+Note that because these lines are conditioned on accurately naming the cue item, there are different numbers of trial in each condition. 
+
+
+```{r percentiles}
+
+p <- seq(from = 1 / 5, to = 1, length.out = 5)
+
+d %>% filter(gonogo_answer == "go" 
+                         & noise_correct==1) %>%
+  group_by(Condition, cue_correct_fct, subject) %>%
+  summarise(Percentile = list(p), 
+            RT = list(quantile(rt_noise, probs = p, na.rm = TRUE))) %>%
+  unnest() %>%
+  ggplot(aes(x=Percentile, y=RT, color=Condition, linetype = cue_correct_fct)) +
+  stat_summary(fun.data = 'mean_se') +
+  stat_summary(fun.y = 'mean', geom="line") +
+  scale_x_continuous(limits = c(0,1), breaks = p, name = "Percentile") +
+  scale_y_continuous(limits = c(0,4), name = "RT (seconds) on (Correct) go trials") +
+  scale_color_manual(values=colmap, name= "Condition") +
+  scale_linetype_discrete(name = "Correctly Named Cue") +
+  theme_classic(base_size = 18) +
+  theme(strip.background = element_blank(),
+        axis.ticks = element_blank()
+        , axis.line = element_line(size=1)
+        , plot.margin=margin(rep(0,4))
+        , legend.position = c(.25,.75)
+  )
+ggsave('figs/rt_quant_group.png', width = 6, height = 6)
+
+
+
+d %>% filter(gonogo_answer == "go" 
+                         & noise_correct==1) %>%
+  group_by(Condition, cue_correct_fct, subject) %>%
+  summarise(Percentile = list(p), 
+            RT = list(quantile(rt_noise, probs = p, na.rm = TRUE))) %>%
+  unnest() %>%
+  ungroup() %>%
+  spread(key = Condition, value = RT ) %>%
+  mutate(CFS = `Not Studied` - CFS,
+         Binocular = `Not Studied` - Binocular) %>%
+  select(-`Not Studied`) %>%
+  gather(key = Condition, value = RT, CFS:Binocular) %>%
+  ggplot(aes(x=Percentile, y=RT, color=Condition, linetype = cue_correct_fct)) +
+  stat_summary(fun.data = 'mean_se') +
+  stat_summary(fun.y = 'mean', geom="line") +
+  scale_x_continuous(limits = c(0,1), breaks = p, name = "Percentile") +
+  scale_y_continuous(limits = c(-.5,.5), name = "Speed-up (Not Studied - Condition)") +
+  scale_color_manual(values=colmap, name= "Condition") +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  scale_linetype_discrete(name = "Correctly Named Cue") +
+  theme_classic(base_size = 18) +
+  theme(strip.background = element_blank(),
+        axis.ticks = element_blank()
+        , axis.line = element_line(size=1)
+        , plot.margin=margin(rep(0,4))
+        , legend.position = "none"
+  )
+ggsave('figs/rt_quant_diff_group.png', width = 6, height = 6)
+
+```
+
+These cdf plots are shown for each participant
+
+```{r percentiles_sub}
+
+d %>% filter(gonogo_answer == "go" 
+                         & noise_correct==1) %>%
+  group_by(Condition, cue_correct_fct, subject) %>%
+  summarise(Percentile = list(p), 
+            RT = list(quantile(rt_noise, probs = p, na.rm = TRUE))) %>%
+  unnest() %>%
+  ggplot(aes(x=Percentile, y=RT, color=Condition, linetype=cue_correct_fct)) +
+  geom_line() +
+  scale_x_continuous(limits = c(0,1), breaks = p[seq.int(from=1,to=length(p), length.out = 3)], name = "CDF") +
+  scale_y_continuous(limits = c(0,4), name = "RT (seconds) on (Correct) go trials") +
+  scale_color_manual(values=colmap, name= "Condition")+
+  facet_wrap(~subject, nrow=6) 
+
+
+```
+
+These next plots contain similar information as the ones above, but now conditions are shown as different from Not-Studied.
+
+Note that in these participant-level plots, it's a little easier to see that this grouping of naming accuracy x condition -- combined with excluding trials where participants were incorrect in go-nogo trials -- leaves some participants without any data in some of the conditions. For example, participant 5 didn't name any of the objects in the Not Studied condition, so participant 5's graph doesn't have any 'cue_correct_fct' difference lines (there were no Not Studied items to use as a baseline).
+
+
+```{r percentiles-diff}
+
+  
+d %>% filter(gonogo_answer == "go" 
+                         & noise_correct==1) %>%
+  group_by(Condition, cue_correct_fct, subject) %>%
+  summarise(Percentile = list(p), 
+            RT = list(quantile(rt_noise, probs = p, na.rm = TRUE))) %>%
+  unnest() %>%
+  ungroup() %>%
+  spread(key = Condition, value = RT ) %>%
+  mutate(CFS = `Not Studied` - CFS,
+         Binocular = `Not Studied` - Binocular) %>%
+  select(-`Not Studied`) %>%
+  gather(key = Condition, value = RT, CFS:Binocular) %>%
+  ggplot(aes(x=Percentile, y=RT, color=Condition, linetype = cue_correct_fct)) +
+  scale_x_continuous(limits = c(0,1), breaks = p, name = "Percentile") +
+  scale_y_continuous(name = "RT (seconds) Speed-up (Not Studied - Condition) on (Correct) go trials") +
+  scale_color_manual(values=colmap, name= "Condition") +
+  facet_wrap(~subject, nrow=6) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  geom_line()
+
+
+```
+
+The above plots have just 4 percentiles, because that was how many were used in a paper Dave sent me. Previously, I had been grouping the data into 5 percentiles. Below are the different plots with 5 percentiles.
+
+```{r percentiles-5}
+
+p <- seq(from = 1 / params$percentiles, to = 1, length.out = 5)
+
+d %>% filter(gonogo_answer == "go" 
+                         & noise_correct==1) %>%
+  group_by(Condition, cue_correct_fct, subject) %>%
+  summarise(Percentile = list(p), 
+            RT = list(quantile(rt_noise, probs = p, na.rm = TRUE))) %>%
+  unnest() %>%
+  ungroup() %>%
+  spread(key = Condition, value = RT ) %>%
+  mutate(CFS = `Not Studied` - CFS,
+         Binocular = `Not Studied` - Binocular) %>%
+  select(-`Not Studied`) %>%
+  gather(key = Condition, value = RT, CFS:Binocular) %>%
+  ggplot(aes(x=Percentile, y=RT, color=Condition, linetype = cue_correct_fct)) +
+  stat_summary(fun.data = 'mean_se') +
+  stat_summary(fun.y = 'mean', geom="line") +
+  scale_x_continuous(limits = c(0,1), breaks = p, name = "Percentile") +
+  scale_y_continuous(limits = c(-.5,.5), name = "RT (seconds) Speed-up (Not Studied - Condition) on (Correct) go trials") +
+  scale_color_manual(values=colmap, name= "Condition")  +
+  geom_hline(yintercept = 0, linetype = "dashed")
+
+
+d %>% filter(gonogo_answer == "go" 
+                         & noise_correct==1) %>%
+  group_by(Condition, cue_correct_fct, subject) %>%
+  summarise(Percentile = list(p), 
+            RT = list(quantile(rt_noise, probs = p, na.rm = TRUE))) %>%
+  unnest() %>%
+  ungroup() %>%
+  spread(key = Condition, value = RT ) %>%
+  mutate(CFS = `Not Studied` - CFS,
+         Binocular = `Not Studied` - Binocular) %>%
+  select(-`Not Studied`) %>%
+  gather(key = Condition, value = RT, CFS:Binocular) %>%
+  ggplot(aes(x=Percentile, y=RT, color=Condition, linetype = cue_correct_fct)) +
+  scale_x_continuous(limits = c(0,1), breaks = p, name = "Percentile") +
+  scale_y_continuous(name = "RT (seconds) Speed-up (Not Studied - Condition) on (Correct) go trials") +
+  scale_color_manual(values=colmap, name= "Condition") +
+  facet_wrap(~subject, nrow=6) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  geom_line()
+
+```
+
+
+```{r lmer}
+p <- seq(from=1 / params$percentiles, to=1, length.out = params$percentiles)
+
+rt_quant0 <- d %>% filter(gonogo_answer == "go"
+                         & noise_correct==1) %>%
+  mutate(cue_correct_fct = if_else(cue_correct==1, "T", "F")) %>%
+  group_by(Condition, cue_correct_fct, subject) %>%
+  summarise(Percentile = list(p), RT = list(quantile(rt_noise, probs = p, na.rm = TRUE))) %>%
+  unnest() %>%
+  ungroup() %>%
+  mutate(Percentile = factor(Percentile),
+         Condition = factor(Condition)) %>%
+  spread(key = Condition, value = RT ) %>%
+  mutate(CFS = `Not Studied` - CFS,
+         Binocular = `Not Studied` - Binocular) %>%
+  select(-`Not Studied`) %>%
+  gather(key = Condition, value = RT, CFS:Binocular) 
+
+rt_mod0 <- afex::mixed(RT ~ Condition*Percentile*cue_correct_fct + (1 | subject), data = rt_quant0, type = 3)
+
+m0 <- emmeans::emmeans(rt_mod0, ~Condition|cue_correct_fct:Percentile, at = list(cue_correct_fct = "F"))
+m1 <- emmeans::emmeans(rt_mod0, ~Condition, by = c("cue_correct_fct", "Percentile"))
+m2 <- emmeans::emmeans(rt_mod0, ~Condition|cue_correct_fct:Percentile, at = list(Percentile = "0.2"))
+
+
+
+```
+
+For the actual stats, I ran a linear-mixed effects model to test for 1) an interaction between study condition x percentile when object isn't named, 2) a post-hoc contrast to test for an effect of CFS when object isn't named, and 3) a test for an effect of CFS when object isn't named, at the first quantile. 
+
+These ended up being as we wanted them. There was no interaction between condition x percentile, but there was an effect of study under CFS (collapsing across percentiles), and that includes an effect os study at the first percentile.
+
+```{r overall}
+print(rt_mod0)
+```
+
+
+```{r table1}
+summary(m0, infer = c(TRUE, TRUE), adjust = "scheffe")
+```
+
+```{r table2 }
+summary(m2, infer = c(TRUE, TRUE), adjust = "scheffe")
+```
+
+
+### Extra details about mixed-model
+
+Here are a couple of details about how I specified the mixed-effects model. I fit the model with the R package lme4 (I think we had a lab meeting dedicated to fitting mixed-effects model with this package a while ago). I assumed fixed effects for the Condition, Percentile, and naming accuracy. Percentiles were treated as a categorical (not continuous) variable. The model I fit included interactions for all of these terms. Additionally, I included a random intercept for participants. However, I did not include any random slopes (i.e., no interaction between participant and the other predictors). Finally, following Kevin's advice, I fit the model to differences of quantiles, rather than the quantiles directly. 
+
+
+
+## Fitting exponentially modified Gaussian distribution
+
+This next section contains some preliminary results from fitting an exponentially modified gaussian distribution to the RTs. As above, I only looked at 'go' trials in which participants correctly responded go. The three parameters of the exgaussian were fit using a Bayesian Heirarchical framework. As with the mixed-model above, I always coded participants as random effects (i.e., each participant had their own unique intercept, and these intercept were drawn from a single hyperprior distribution which was normally distributed and whose variance was itself estimated). I then considered just a few different combinations of model parameters. The model with the most parameters that I looked at allowed the location and variance of the guassian part of the exgaussian -- as well as the rate parameter of the exponential -- to vary by Condition, whether the aperature was named correctly, and an interaction between the two. I fit two reduced models, one in which the Condition did not affect the mean of the exgaussian and another in which the Condition did not affect either the rate or variance parameters.
+
+```{r, brms_init}
+exg_brms_d <- d %>% filter(gonogo_answer == "go"
+                        & noise_correct==1) %>%
+  mutate(item_test = factor(item_test))
+
+```
+
+
+```{r, brms}
+
+exg_reduced <-  brms::brm(bf(rt_noise ~ cue_correct_fct + (1 | subject) + (1 | item_test), sigma ~ cue_correct_fct, beta ~ cue_correct_fct
+                             , family = exgaussian() ),
+                          prior = c(prior(student_t(3,0,1), class = "b"),
+                                    prior(student_t(3,0,1), class = "Intercept"),
+                                    prior(gamma(2,1), class = "sd", group = "subject"),
+                                    prior(gamma(2,1), class = "sd", group = "item_test"),
+                                    prior(student_t(3,0,1), class = "b", dpar = "sigma"),
+                                    prior(student_t(3,0,1), class = "Intercept", dpar = "sigma"),
+                                    prior(student_t(3,0,1), class = "b", dpar = "beta"),
+                                    prior(student_t(3,0,1), class = "Intercept", dpar = "beta")),
+                          data = exg_brms_d,
+                          chains = params$chains,
+                          algorithm = params$alg,
+                          warmup = params$warmup,
+                          iter = params$warmup + params$iter,
+                          save_model = file.path("stan","exg_reduced.stan")
+)
+
+tmp <- brms::bf(rt_noise ~ cue_correct_fct + (1 | subject) + (1 | item_test), shape ~ cue_correct_fct
+                             , family = inverse.gaussian(link = identity))
+
+# make_stancode(rt_noise ~ cue_correct_fct + (1 | subject) + (1 | item_test), save_model = file.path("stan","invg_reduced.stan"), data=exg_brms_d, family = inverse.gaussian(link=identity))
+# 
+# invg_reduced <-  brms::brm(bf(rt_noise ~ cue_correct_fct + (1 | subject) + (1 | item_test)
+#                              , family = inverse.gaussian(link = identity) ),
+#                           prior = c(prior(student_t(3,0,1), class = "b"),
+#                                     prior(student_t(3,0,1), class = "Intercept"),
+#                                     prior(gamma(2,1), class = "sd", group = "subject"),
+#                                     prior(gamma(2,1), class = "sd", group = "item_test"),
+#                                     prior(student_t(3,0,1), class = "b", dpar = "shape"),
+#                                     prior(student_t(3,0,1), class = "Intercept", dpar = "shape")),
+#                           data = exg_brms_d,
+#                           chains = params$chains,
+#                           algorithm = params$alg,
+#                           warmup = params$warmup,
+#                           iter = params$warmup + params$iter,
+#                           save_model = file.path("stan","invg_reduced.stan")
+# )
+
+exg_muCond <-  brms::brm(bf(rt_noise ~ cue_correct_fct*Condition + (1 | subject)  + (1 | item_test), sigma ~ cue_correct_fct, beta ~ cue_correct_fct
+                             , family = exgaussian() ),
+                          prior = c(prior(student_t(3,0,1), class = "b"),
+                                    prior(student_t(3,0,1), class = "Intercept"),
+                                    prior(gamma(2,1), class = "sd", group = "subject"),
+                                    prior(gamma(2,1), class = "sd", group = "item_test"),
+                                    prior(student_t(3,0,1), class = "b", dpar = "sigma"),
+                                    prior(student_t(3,0,1), class = "Intercept", dpar = "sigma"),
+                                    prior(student_t(3,0,1), class = "b", dpar = "beta"),
+                                    prior(student_t(3,0,1), class = "Intercept", dpar = "beta")),
+                          data = exg_brms_d,
+                          chains = params$chains,
+                          algorithm = params$alg,
+                          warmup = params$warmup,
+                          iter = params$warmup + params$iter,
+                          save_model = file.path("stan","exg_muCond.stan")
+)
+
+exg_betaCond <- brms::brm(bf(rt_noise ~ cue_correct_fct*Condition + (1 | subject)  + (1 | item_test), sigma ~ cue_correct_fct, beta ~ cue_correct_fct*Condition
+                             , family = exgaussian() ),
+                          data = exg_brms_d,
+                          prior = c(prior(student_t(3,0,1), class = "b"),
+                                    prior(student_t(3,0,1), class = "Intercept"),
+                                    prior(gamma(2,1), class = "sd", group = "subject"),
+                                    prior(gamma(2,1), class = "sd", group = "item_test"),
+                                    prior(student_t(3,0,1), class = "b", dpar = "sigma"),
+                                    prior(student_t(3,0,1), class = "Intercept", dpar = "sigma"),
+                                    prior(student_t(3,0,1), class = "b", dpar = "beta"),
+                                    prior(student_t(3,0,1), class = "Intercept", dpar = "beta")),
+                          chains = params$chains,
+                          save_model = "exg_betaCond.stan")
+
+exg_sigmaCond <-  brms::brm(bf(rt_noise ~ cue_correct_fct*Condition + (1 | subject)  + (1 | item_test), sigma ~ cue_correct_fct*Condition, beta ~ cue_correct_fct
+                               , family = exgaussian() ),
+                            data = exg_brms_d,
+                            prior = c(prior(student_t(3,0,1), class = "b"),
+                                      prior(student_t(3,0,1), class = "Intercept"),
+                                      prior(gamma(2,1), class = "sd", group = "subject"),
+                                      prior(gamma(2,1), class = "sd", group = "item_test"),
+                                      prior(student_t(3,0,1), class = "b", dpar = "sigma"),
+                                      prior(student_t(3,0,1), class = "Intercept", dpar = "sigma"),
+                                      prior(student_t(3,0,1), class = "b", dpar = "beta"),
+                                      prior(student_t(3,0,1), class = "Intercept", dpar = "beta")),
+                            chains = params$chains,
+                            save_model = "exg_sigmaCond.stan")
+
+
+exg_full <-  brms::brm(bf(rt_noise  ~ cue_correct_fct*Condition + (1 | subject)+ (1 | item_test), sigma ~ cue_correct_fct*Condition, beta ~ cue_correct_fct*Condition
+                          , family = exgaussian() ),
+                       data = exg_brms_d,
+                       prior = c(prior(student_t(3,0,1), class = "b"),
+                                 prior(student_t(3,0,1), class = "Intercept"),
+                                 prior(gamma(2,1), class = "sd", group = "subject"),
+                                 prior(gamma(2,1), class = "sd", group = "item_test"),
+                                 prior(student_t(3,0,1), class = "b", dpar = "sigma"),
+                                 prior(student_t(3,0,1), class = "Intercept", dpar = "sigma"),
+                                 prior(student_t(3,0,1), class = "b", dpar = "beta"),
+                                 prior(student_t(3,0,1), class = "Intercept", dpar = "beta")),
+                       chains = params$chains,
+                       algorithm = params$alg,
+                       save_model = "exg_full.stan")
+
+```
+
+```{r, waic}
+  
+brms::WAIC(exg_reduced, exg_muCond, exg_sigmaCond, exg_betaCond, exg_full)
+
+```
+
+### WAIC for model comparison
+
+WAIC still prefers just the model where Condition affects the location of the gaussian component, but not either the rate or the standard deviation.
+
+### Posterior Predictive Check Summaries
+
+Here are three plots to assess the fit of the winning model. The first plot is a histogram of the residual error of the data as compared to 12 iterations of sampling from the posterior distribution of the model. That is, the posterior distribution of parameter fits were used to generate 12 different datasets, each with the same number of observations as the original data. Each of the 12 histograms show the results of subtracting one of these simulated datasets from the original data. If the model is capturing all major trends, the histograms should be approximately normally distributed, centered at 0. If the model wasn't capturing major trends in the data, the histograms would appear systematically non-normal or shifted  (e.g., if they were centered on a value larger than 1, it would suggest that the model consistently predicted too low of RTs).
+
+The second and third plots are much like the first, but the plots are broken into the relevant fixed effects, the interpretation is the same as the first plot, but this is just a check to make sure that all groups were being fit equally well. 
+
+Note that the third plot breaks the data into whether or not the aperture was named correctly (named == 1). When collapsed across conditions, most objects weren't named, so those bars on the right are much smaller than those on the left.
+
+```{r pp_check}
+brms::pp_check(exg_muCond, type = "error_hist", nsamples = 12, binwidth = 10/30)
+
+brms::pp_check(exg_muCond, type = "error_hist_grouped", nsamples = 3, group = "Condition", binwidth = 10/30)
+
+brms::pp_check(exg_muCond, type = "error_hist_grouped", nsamples = 3, group = "cue_correct_fct", binwidth = 10/30)
+```
+
+### Posterior Distribution
+
+Here is a quick summary of the posterior distribution of the effect of study on RT (using the model where Condition only affected the location of the exgaussian). This shows the median of the posterior, with error bars extending to from the 2.5 to 97.5 quantiles of the posterior. These distributions being below 0 indicates a significant speed-up.
+
+```{r marginals}
+
+post <- as_tibble(as.data.frame(exg_muCond)) %>%
+  select(b_ConditionCFS, b_ConditionBinocular) %>%
+  gather(key = Condition, value = Posterior, b_ConditionCFS:b_ConditionBinocular) %>%
+  mutate(Condition = plyr::mapvalues(Condition, from = c("b_ConditionCFS", "b_ConditionBinocular"), to = c("CFS", "Binocular"))) %>%
+  mutate(Condition = factor(Condition, levels = c("Not Studied","CFS","Binocular")))
+
+post %>%
+  ggplot(aes(x = Condition, y = Posterior)) +
+  stat_summary(fun.data = "median_hilow") +
+  scale_y_continuous(limits = c(-.5,.5), name = "Posterior of effect on RT") +
+  geom_hline(yintercept = 0, linetype = "dashed")
+```
+
+
+```{r weibull1}
+# 
+# get_prior(bf(rt_noise ~ cue_correct_fct*Condition + (1 | subject), shape ~ cue_correct_fct*Condition), family = weibull(), data = exg_brms_d)
+# 
+# form <- bf(rt_noise - thresh ~ eff, thresh ~ 1, nl = TRUE) +
+#   lf(eff ~ cue_correct_fct*Condition + (1 | subject))
+#   
+#   nlf(rt_noise ~ cue + cond + int + sub - thresh, cue ~ , thresh~Condition, sub ~ (1 | subject), cond ~ Condition, int ~ cue_correct_fct:Condition, shape ~ cue_correct_fct*Condition, family = weibull(), dpar = "shape")
+# 
+# weibull_full <-  brms::brm(form, 
+#                            data = exg_brms_d,
+#                            prior = c(prior(student_t(3,0,1), class = "b"),
+#                                      prior(student_t(3,0,1), class = "Intercept"),
+#                                      prior(gamma(2,1), class = "sd", group = "subject"),
+#                                      prior(student_t(3,0,1), class = "b", dpar = "shape"),
+#                                      prior(student_t(3,0,1), class = "Intercept", dpar = "shape")),
+#                            chains = 2,
+#                            save_model = "weibull_full.stan")
+# 
+# 
+# ```
+# 
+# 
+# 
+# ```{r wiener1}
+# library(brms)
+# 
+# d_process <- d %>% 
+#   mutate(response_noise_num = 
+#            plyr::mapvalues(response_noise, from = c("NO RESPONSE", "Return"), to = c("lower","upper")),
+#          gonogo_true = 
+#            plyr::mapvalues(gonogo_answer, from = c("nogo", "go"), to = c("lower","upper"))) %>%
+#   # mutate(response_noise_num = factor(response_noise_num),
+#   #        gonogo_true = factor(gonogo_true)) %>%
+#   filter(gonogo_true == "upper" & response_noise_num == "upper")
+# 
+# 
+# form <- brms::bf(rt_noise | dec(response_noise_num) ~ cue_correct_fct*Condition + (1 | subject)) +
+#   wiener() +
+#   lf(bias = .5, bs = 2, ndt ~ cue_correct_fct*Condition)
+# 
+# brms::get_prior(form, data = d_process)
+# 
+# weibull_full <-  brms::brm(form, 
+#                            family = wiener(),
+#                            data = d_process,
+#                            prior = c(prior(student_t(3,0,1), class = "b"),
+#                                      prior(student_t(3,0,1), class = "Intercept"),
+#                                      prior(gamma(2,1), class = "sd", group = "subject"),
+#                                      prior(normal(-2,2), class = "b", dpar = "ndt"),
+#                                      prior(normal(-2,2), class = "Intercept", dpar = "ndt")
+#                                      ),
+#                            chains = 2,
+#                            inits = list(rep(list(b_ndt = rep(-10, times=5), temp_ndt_Intercept =-10), times = 2)),
+#                            save_model = "wiener_full.stan")
+
+
+```

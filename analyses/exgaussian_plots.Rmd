@@ -1,7 +1,7 @@
 ---
 title: "RT Distibution Plots "
 author: "pss"
-date: "November 3, 2017"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: html_document
 params:
   data_dir: data
@@ -53,15 +53,15 @@ This is a plot of the exponentially modified gaussian. This is the distribution 
 tibble::tibble(rt = seq(from = -1, to = 5, length.out = 1000)) %>%
   tidyr::crossing(mean = c(0, 1, 2, 3), rate = c(.5, 1, 2), standard_deviation = c(.5, 1, 2)) %>%
   dplyr::mutate(density = brms::dexgaussian(x = rt, mean, standard_deviation, rate)) %>%
-  ggplot2::ggplot(aes(x = rt, y = density, color = factor(mean))) +
+  mutate(mean_of_gaussian = factor(mean)) %>%
+  ggplot2::ggplot(aes(x = rt, y = density, color = mean_of_gaussian)) +
   facet_grid(rate~standard_deviation, labeller = "label_both") + 
   geom_line() 
-
 ```
 
 # Weibull
 
-In contrast, the 3-parameter Weibull distribution does have a hard leading edge (there is a 2-parameter Weibull, but the thrid parameter governs the location of a lower bound, below which the distribution has no density). The other two parameters are shape and scale parameters, whose affects can be seen below.
+In contrast, the 3-parameter Weibull distribution does have a hard leading edge (there is a 2-parameter Weibull that seems to be more common, but the thrid parameter governs the location of a lower bound, below which the distribution has no density). The other two parameters are shape and scale parameters, whose affects can be seen below.
 
 
 ```{r, weibull}
@@ -69,7 +69,8 @@ In contrast, the 3-parameter Weibull distribution does have a hard leading edge 
 tibble::tibble(rt = seq(from = -1.5, to = 5, length.out = 1000)) %>%
   tidyr::crossing(shape = c(.75,1,2), scale = seq(from = 1, to = 3, by = 1), location = -1:3) %>%
   dplyr::mutate(density = FAdist::dweibull3(x = rt, shape = shape, scale = scale, thres = location)) %>%
-  ggplot2::ggplot(aes(x = rt, y = density, color = factor(location))) +
+  mutate(location = factor(location)) %>%
+  ggplot2::ggplot(aes(x = rt, y = density, color = location)) +
   facet_grid(shape~scale, labeller = "label_both") + 
   geom_line() 
 
@@ -82,7 +83,7 @@ I've seen a couple of papers mention that the exgaussian is generally a good dis
 
 That said, how necessary is it that studying an item strictly increases the leading edge, rather than simply shifts the distribution? That is, it seems possible that, for entirely uninteresting reasons, the fastest RT for an item that was Not Studied just happens to be faster than the fastest Binocularly studied item (e.g., the participant happened to anticipate when the item was going to start appearing). Instead, the larger goal is to demonstrate that studying an object (even without much awareness), shortens, on average, that initial time to encode and respond? Emphasizing the average time to encode and respond is slightly different than the leading edge because a shorter time to encode and respond says that the whole distribution needs to move -- rather than just the fastest RT. 
 
-All that is to say is that it seems like a lack of a hard lower bound isn't necessarily a reason to avoid the exgaussian. I suppose it stil feels a little odd to use a distribution which places density on RTs below 0, but that could partly be alleviated by at least truncating the exgaussian distribution.
+All that is to say is that it seems like a lack of a hard lower bound isn't necessarily a reason to avoid the exgaussian. I suppose it stil feels a little odd to use a distribution which places density on RTs below 0, but that could changed by at least truncating the exgaussian distribution at 0. Using a lower bound of 0 does not change the results (that studing an item shifts the mean of the gaussian component of the distribution). I haven't tried fitting a model with the Weibull distribution.
 
 
 
